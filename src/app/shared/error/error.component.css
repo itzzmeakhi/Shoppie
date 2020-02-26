@@ -1,0 +1,30 @@
+.alert-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.45);
+    z-index: 99;
+}
+
+.card-props {
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    width: 40%;
+    height: 40%;
+}
+
+.card-header-bg {
+    background-color: #ff7979;
+}
+
+.card-header-bg h4 {
+    color: #c23616;
+}
+
+.card-body p {
+    color: #273c75;
+    font-size: 115%;
+}

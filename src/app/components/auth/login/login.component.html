@@ -1,0 +1,112 @@
+<app-error *ngIf = "errorMessage" [errorMessage] = "errorMessage" (onCloseAlert) = "onCloseErrorAlert()"></app-error>
+
+<div class = "row">
+    
+    <div class = "offset-3 offset-md-4 offset-sm-4 col-6 col-md-4 col-sm-4 text-center">
+        <img 
+            src = "../../../assets/images/shoppie-logo.png" 
+            alt = "Shoppie Logo" 
+            class = "img-fluid img-align"
+        >
+    </div>
+</div>
+
+
+<div class = "row">
+    
+    <div class = "offset-md-4 offset-sm-1 col-md-4 col-sm-10">
+
+        <form [formGroup] = "loginForm" (ngSubmit) = "onFormSubmit()" autocomplete = "off">
+
+            <h4 class = "text-muted text-center"> Login here.. </h4>
+
+            <!-- Username -->
+
+            <div class = "form-group">
+                <label 
+                    for = "userEmail"> 
+                    Email 
+                </label>
+
+                <div class = "input-group">
+                    <div class = "input-group-prepend">
+                        <div class = "input-group-text">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+
+                    <input 
+                        type = "text" 
+                        class = "form-control" 
+                        name = "userEmail"
+                        formControlName = "userEmail"
+                        id = "userEmail"
+                        placeholder = "Your username"
+                        autocomplete = "none"
+                    >
+
+                </div>
+
+                <!-- Validation Errors -->
+
+                <span *ngIf = "userEmail.invalid && (userEmail.dirty || userEmail.touched)">
+                    <p *ngIf = "userEmail.errors.required" class = "text-muted"> Forgot to enter Email? </p>
+                    <p *ngIf = "userEmail.errors.email" class = "text-muted"> Provide an valid Email </p>
+                </span>
+            </div>
+
+            <!-- Password -->
+
+            <div class = "form-group">
+                <label
+                    for = "userPassword">
+                    Password
+                </label>
+
+                <div class = "input-group">
+                    <div class = "input-group-prepend">
+                        <div class = "input-group-text">
+                            <i class="fas fa-unlock"></i>
+                        </div>
+                    </div>
+                
+                    <input
+                        type = "password"
+                        class = "form-control"
+                        name = "userPassword"
+                        formControlName = "userPassword"
+                        id = "userPassword"
+                        placeholder = "Your password"
+                        autocomplete = "none"
+                    >
+
+                </div>
+
+                <!-- Validation Errors -->
+
+                <span *ngIf = "userPassword.invalid && (userPassword.dirty || userPassword.touched)">
+                    <p *ngIf = "userPassword.errors.required" class = "text-muted"> Forgot to enter password? </p>
+                </span>
+            </div>
+
+            <!-- Login Button -->
+
+            <button 
+                type = "submit" 
+                class = "btn btn-success"
+                [disabled] = "loginForm.invalid"> 
+                Login 
+            </button>
+
+            <p 
+                class = "text-muted"> 
+                Need an account? 
+                <a routerLink = "/signup" style = "cursor: pointer;"> 
+                    Click Here 
+                </a> 
+            </p>
+
+        </form>
+
+    </div>
+</div>

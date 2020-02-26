@@ -1,0 +1,269 @@
+<app-error *ngIf = "errorMessage" [errorMessage] = "errorMessage" (onCloseAlert) = "onCloseErrorAlert()"></app-error>
+
+<div class = "row">
+    
+    <div class = "offset-3 offset-md-4 offset-sm-4 col-6 col-md-4 col-sm-4 text-center">
+        <img 
+            src = "../../../assets/images/shoppie-logo.png" 
+            alt = "Shoppie Logo" 
+            class = "img-fluid img-align"
+        >
+    </div>
+</div>
+
+
+<div class = "row">
+    <div class = "offset-md-3 offset-sm-1 col-md-6 col-sm-10">
+
+        <form [formGroup] = "signupForm" (ngSubmit) = "onFormSubmit()" autocomplete = "off">
+
+            <h4 class = "text-muted text-center"> Hello! New user </h4>
+
+            <!-- UserName -->
+
+            <div class = "form-group">
+                <label 
+                    for = "userName">
+                    Tell me your name?
+                </label>
+
+                <div class = "input-group">
+                    <div class = "input-group-prepend">
+                        <div class = "input-group-text">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                
+                    <input
+                        type = "text"
+                        class = "form-control"
+                        name = "userName"
+                        formControlName = "userName"
+                        id = "userName"
+                        placeholder = "Your name"
+                        autocomplete = "none"
+                    >
+
+                </div>
+
+                <!-- Validation Errors -->
+
+                <span *ngIf = "userName.invalid && (userName.dirty || userName.touched)">
+                    <p *ngIf = "userName.errors.required" class = "text-muted"> Forgot to enter name </p>
+                </span>
+            </div>
+
+            <!-- UserEmail -->
+
+            <div class = "form-group">
+                <label 
+                    for = "userEmail">
+                    Tell me your email id?
+                </label>
+
+                <div class = "input-group">
+                    <div class = "input-group-prepend">
+                        <div class = "input-group-text">
+                            <i class="fas fa-at"></i>
+                        </div>
+                    </div>
+                
+                    <input
+                        type = "email"
+                        class = "form-control"
+                        name = "userEmail"
+                        formControlName = "userEmail"
+                        id = "userEmail"
+                        placeholder = "Your Mail'id"
+                        autocomplete = "none"
+                    >
+
+                </div>
+
+                <!-- Validation Errors -->
+
+                <span *ngIf = "userEmail.invalid && (userEmail.dirty || userEmail.touched)">
+                    <p *ngIf = "userEmail.errors.required" class = "text-muted"> Forgot to enter email </p>
+                    <p *ngIf = "userEmail.errors.email" class = "text-muted"> Provide an valid email </p>
+                </span>
+            </div>
+
+            <!-- UserPassword -->
+
+            <div class = "form-group">
+                <label 
+                    for = "userPassword">
+                    Memorize a password!
+                </label>
+
+                <div class = "input-group">
+                    <div class = "input-group-prepend">
+                        <div class = "input-group-text">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                    </div>
+                
+                    <input 
+                        type = "password"
+                        class = "form-control"
+                        name = "userPassword"
+                        formControlName = "userPassword"
+                        id = "userPassword"
+                        placeholder = "Your password"
+                        autocomplete = "none"
+                    >
+
+                </div>
+
+                <!-- Validation Errors -->
+
+                <span *ngIf = "userPassword.invalid && (userPassword.dirty || userPassword.touched)">
+                    <p *ngIf = "userPassword.errors.required" class = "text-muted"> Forgot to enter password </p>
+                    <div *ngIf = "!userPassword.errors.required">
+                        <p [ngClass] = "{'password-success' : !userPassword.errors.passwordHasNoNumber, 'password-error' : userPassword.errors.passwordHasNoNumber}"> Should contain atleast one digit. </p>
+                        <p [ngClass] = "{'password-success' : !userPassword.errors.passwordHasNoLowercase, 'password-error' : userPassword.errors.passwordHasNoLowercase}"> Should contain atleast one lowercase letter. </p>
+                        <p [ngClass] = "{'password-success' : !userPassword.errors.passwordHasNoUppercase, 'password-error' : userPassword.errors.passwordHasNoUppercase}"> Should contain atleast one uppercase letter. </p>
+                        <p [ngClass] = "{'password-success' : !userPassword.errors.passwordHasSpecialCharacters, 'password-error' : userPassword.errors.passwordHasSpecialCharacters}"> Should contain . ! @ # $ any of these symbols. </p>
+                        <p [ngClass] = "{'password-success' : !userPassword.errors.passwordHasNoMinimumLength, 'password-error' : userPassword.errors.passwordHasNoMinimumLength}"> Should be of  minimum 8 character's length. </p>
+                    </div>
+                </span>
+            </div>
+
+            <!-- UserContactNumber -->
+
+            <div class = "form-group">
+                <label
+                    for = "userContactNumber">
+                    Tell me your contact number?
+                </label>
+
+                <div class = "input-group">
+                    <div class = "input-group-prepend">
+                        <div class = "input-group-text">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                    </div>
+                
+                    <input
+                        type = "number"
+                        class = "form-control"
+                        name = "userContactNumber"
+                        formControlName = "userContactNumber"
+                        id = "userContactNumber"
+                        placeholder = "Your Mobile number"
+                        autocomplete = "none"
+                    >
+
+                </div>
+
+                <!-- Validation Errors -->
+
+                <span *ngIf = "userContactNumber.invalid && (userContactNumber.dirty || userContactNumber.touched)">
+                    <p *ngIf = "userContactNumber.errors.required" class = "text-muted"> Forgot to enter contact number </p>
+                    <p *ngIf = "userContactNumber.errors.pattern" class = "text-muted"> Invalid contact number </p>
+                </span>
+            </div>
+
+            <!-- UserGender -->
+
+            <div class = "form-group">
+                <label>
+                    You're : &nbsp;
+                </label>
+
+                <div class = "form-check form-check-inline">
+                    <input
+                        type = "radio"
+                        class = "form-check-input"
+                        name = "userGender"
+                        formControlName = "userGender"
+                        id = "userGenderMale"
+                        value = "male"
+                    >
+                    <label
+                        class = "form-check-label"
+                        for = "userGenderMale">
+                        <i class="fas fa-male"></i>&nbsp;Male
+                    </label>
+                </div>
+
+                <div class = "form-check form-check-inline">
+                    <input
+                        type = "radio"
+                        class = "form-check-input"
+                        name = "userGender"
+                        formControlName = "userGender"
+                        id = "userGenderFemale"
+                        value = "female"
+                    >
+                    <label
+                        class = "form-check-label"
+                        for = "userGenderFemale">
+                        <i class="fas fa-female"></i>&nbsp;Female
+                    </label>
+                </div>
+
+            </div>
+
+            <!-- UserDOB -->
+
+            <div class = "form-group">
+                <label
+                    for = "userDOB">
+                    Tell me your Birth date? <i class = "text-muted">(eg : DD/MM/YYYY)</i>
+                </label>
+
+                <div class = "input-group">
+                    <div class = "input-group-prepend">
+                        <div class = "input-group-text">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                    </div>
+                
+                    <input
+                        type = "text"
+                        class = "form-control"
+                        name = "userDOB"
+                        formControlName = "userDOB"
+                        id = "userDOB"
+                        placeholder = "Your Birth date"
+                        autocomplete = "none"
+                    >
+
+                </div>
+
+                <!-- Validation Errors -->
+
+                <span *ngIf = "userDOB.invalid && (userDOB.dirty || userDOB.touched)">
+                    <p *ngIf = "userDOB.errors.required" class = "text-muted"> Forgot to enter Birth date </p>
+                    <p *ngIf = "userDOB.errors.pattern" class = "text-muted"> Birth date is in Invalid format </p>
+                    <p *ngIf = "userDOB.errors.notValidBirthDate" class = "text-muted"> Not a Valid Birth date </p>
+                </span>
+            </div>
+
+            <p 
+                class = "text-muted"> 
+                Already had an account?
+                <a routerLink = "/login" style = "cursor: pointer;"> 
+                    Login here.. 
+                </a>
+            </p>
+
+            <button 
+                type = "submit"
+                [disabled] = "signupForm.invalid"
+                class = "btn btn-info">
+                Sign up
+            </button>
+            &nbsp;
+            <button
+                type = "button"
+                class = "btn btn-danger">
+                Clear
+            </button>
+
+
+        </form>
+
+    </div>
+</div>

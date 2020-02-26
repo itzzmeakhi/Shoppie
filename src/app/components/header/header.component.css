@@ -1,0 +1,11 @@
+.navbar-bg {
+    background-color: #38ada9;
+}
+
+.navbar-bg .navbar-brand {
+    font-family: 'Caveat', cursive;
+    font-size: 140%;
+    letter-spacing: 2px;
+    margin: -10px;
+}
+

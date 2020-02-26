@@ -1,0 +1,29 @@
+input.ng-touched.ng-invalid,
+input.ng-dirty.ng-invalid {
+    border-top : none;
+    border-left : none;
+    border-right: none;
+    border-bottom: 4px #eb2f06 solid;
+}
+
+h4 {
+    margin-top: -35px;
+}
+
+p {
+    padding-top: 10px;
+}
+
+.img-align {
+    margin: 0 auto;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
