@@ -16,5 +16,11 @@ Both login/signup component receives response a JWT Token from the firebase and 
 
 ### Commit -2
 
-Implemented Auto-Login/Auto-Logout feature, based on the Validity of JWT Token. Removed Valiadtion Errors in the Login component. Added a Auth Guard, so that it will protect the routes in which it is provided, can accessible those routes only when the user is authenticated. Added a Auth Interceptor the add the Auth Token to the http requests going to fetch the firebase.
+Implemented Auto-Login/Auto-Logout feature, based on the Validity of JWT Token. 
+
+Removed Valiadtion Errors in the Login component. 
+
+Added a Auth Guard, so that it will protect the routes in which it is provided, can accessible those routes only when the user is authenticated. 
+
+Added a Auth Interceptor the add the Auth Token to the http requests going to fetch the firebase.
 
