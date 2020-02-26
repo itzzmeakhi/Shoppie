@@ -5,11 +5,18 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { HomeComponent } from './components/home/home.component';
 
+import { AuthGuardService } from './components/auth/auth-guard.service';
+import { ProductsComponent } from './components/home/products/products.component';
+import { UserComponent } from './components/home/user/user.component';
+
 const appRoutes : Routes = [
-    { path : '', redirectTo : '/login', pathMatch : 'full' },
+    { path : '', redirectTo : '/home', pathMatch : 'full' },
     { path : 'login', component : LoginComponent },
     { path : 'signup', component : SignupComponent },
-    { path : 'home', component : HomeComponent }
+    { path : 'home', component : HomeComponent, canActivate : [AuthGuardService], children : [
+        { path : '', component : ProductsComponent },
+        { path : 'user/:id', component : UserComponent}
+    ] }
 ];
 
 

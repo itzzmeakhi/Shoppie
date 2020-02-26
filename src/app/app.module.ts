@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -12,6 +12,10 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ErrorComponent } from './shared/error/error.component';
+import { SideNavComponent } from './components/home/side-nav/side-nav.component';
+import { ProductsComponent } from './components/home/products/products.component';
+import { UserComponent } from './components/home/user/user.component';
+import { IsAuthenticatedInterceptorService } from './components/auth/is-authenticated-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,10 @@ import { ErrorComponent } from './shared/error/error.component';
     SignupComponent,
     HomeComponent,
     HeaderComponent,
-    ErrorComponent
+    ErrorComponent,
+    SideNavComponent,
+    ProductsComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +37,13 @@ import { ErrorComponent } from './shared/error/error.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass : IsAuthenticatedInterceptorService,
+      multi : true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

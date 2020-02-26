@@ -6,6 +6,7 @@ export class NewUser {
     public userDOB : string;
     public userPassword? : string;
     public userId? : string;
+    public rowId? : string;
 
     constructor(name : string,
                 email : string,
@@ -13,7 +14,8 @@ export class NewUser {
                 gender : string,
                 dob : string,
                 password? : string,
-                id? : string) {
+                id? : string,
+                rowid?: string) {
 
         this.userName = name;
         this.userEmail = email;
@@ -22,5 +24,6 @@ export class NewUser {
         this.userDOB = dob;
         this.userPassword = password;
         this.userId = id;
+        this.rowId = rowid;
     }
 }

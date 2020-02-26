@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
-import { catchError, tap, switchMap } from 'rxjs/operators';
+import { catchError, tap, switchMap,take } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
 
 import { environment } from './../../../environments/environment';
@@ -15,8 +16,10 @@ import { AuthResponseData } from './auth-response-data.interface';
 export class AuthService {
 
     user = new BehaviorSubject<AuthenticatedUser>(null);
+    private expirationTimer : any = null;
 
-    constructor(private httpClient : HttpClient) {}
+    constructor(private httpClient : HttpClient,
+                private router : Router) {}
 
     // Handles Signup Feature
 
@@ -42,7 +45,8 @@ export class AuthService {
                    newUserData.userGender,
                    newUserData.userDOB,
                    null,
-                   userData.localId
+                   userData.localId,
+                   null
                 );
 
                 return this.httpClient.post('https://shoppie-4c4f4.firebaseio.com/users.json', newUser);
@@ -69,6 +73,66 @@ export class AuthService {
 
     }
 
+    // To Handle Auto Login Feature
+
+    onAutoLogin() {
+        const userDataStored : {
+            email : string,
+            localId : string,
+            _idToken : string,
+            _tokenExpirationDate : string
+        } = JSON.parse(localStorage.getItem('userLoggedInShoppie'));
+
+        // console.log("USER_DATA_STORED");
+        // console.log(userDataStored);
+
+        if(!userDataStored) {
+            return;
+        }
+
+        const loggedInUser = new AuthenticatedUser(
+            userDataStored.email,
+            userDataStored.localId,
+            userDataStored._idToken,
+            new Date(userDataStored._tokenExpirationDate)
+        );
+
+        // console.log("LOGGED_IN_USER_DATA");
+        // console.log(loggedInUser);
+
+        if(loggedInUser.idToken) {
+            console.log("Auto Login");
+            // console.log(loggedInUser);
+            this.user.next(loggedInUser);
+            this.router.navigate(['/home']);
+            const expiresIn : number = new Date(userDataStored._tokenExpirationDate).getTime() - new Date().getTime();
+            this.onAutoLogout(expiresIn);
+        } else {
+            return;
+        }
+    }
+
+    // To Handle Logout Feature
+
+    onLogout() {
+        this.user.next(null);
+        localStorage.removeItem('userLoggedInShoppie');
+        if(this.expirationTimer) {
+            clearTimeout(this.expirationTimer);
+        }
+        this.expirationTimer = null;
+        this.router.navigate(['/login']);
+    }
+
+    // To Handle Auto Logout Feature
+    // Time in Milli Seconds
+
+    onAutoLogout(expiresIn : number) {
+        this.expirationTimer = setTimeout(() => {
+            this.onLogout();
+        }, expiresIn);
+    }
+
     // To Handle Authenticated User
 
     private handleAuthentication(email : string, id : string, token : string, expires : number) {
@@ -82,6 +146,7 @@ export class AuthService {
         );
 
         localStorage.setItem('userLoggedInShoppie', JSON.stringify(authUser));
+        this.onAutoLogout(expires * 1000);
         this.user.next(authUser);
     }
 
@@ -123,8 +188,4 @@ export class AuthService {
         
     }
 
-
-  
-
-    
 }
