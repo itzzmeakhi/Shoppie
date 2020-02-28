@@ -34,5 +34,11 @@ User component displays the user data to the data, and when edit mode is clicked
 
 While creating new user, for userLocation, display name and display picture are filled with dummy data. So user can edit them and change whenever he needs it!
 
+# Added SideNav and Edit user Details
+
+### Commit - 4
+
+Added user service to retrive user details and display it in the Side Nav Component
+
 
 
