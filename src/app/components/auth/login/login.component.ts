@@ -1,21 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { Subscription } from 'rxjs';
+
 import { AuthService } from '../auth.service';
+import { UserService } from '../../../shared/user.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm : FormGroup;
   errorMessage : string = null;
+  userDetailsSubs : Subscription;
+  userLoginSubs : Subscription;
 
   constructor(private authService : AuthService,
-              private router : Router) { }
+              private router : Router,
+              private userService : UserService) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -33,11 +39,17 @@ export class LoginComponent implements OnInit {
   }
 
   onFormSubmit() {
-    this.authService.onLogin(this.userEmail.value, this.userPassword.value)
+    this.userLoginSubs = this.authService.onLogin(this.userEmail.value, this.userPassword.value)
       .subscribe(responseData => {
-        console.log(responseData);
+        console.log("Login Successfull");
+        // console.log(responseData);
         this.loginForm.reset();
-        this.router.navigate(['/home']);
+        this.userDetailsSubs = this.userService.getUser(responseData.localId)
+          .subscribe(responseData => {
+            // console.log(responseData);
+            this.userService.userDetails.next(responseData);
+            this.router.navigate(['/home']);
+          })
       }, errorRes => {
         this.errorMessage = errorRes;
       })
@@ -45,6 +57,16 @@ export class LoginComponent implements OnInit {
 
   onCloseErrorAlert() {
     this.errorMessage = "";
+  }
+
+  ngOnDestroy() {
+    if(this.userLoginSubs) {
+      this.userLoginSubs.unsubscribe();
+    }
+
+    if(this.userDetailsSubs) {
+      this.userDetailsSubs.unsubscribe();
+    }
   }
 
 }

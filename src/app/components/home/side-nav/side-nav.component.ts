@@ -24,28 +24,36 @@ export class SideNavComponent implements OnInit, OnDestroy {
               private authService : AuthService,
               private userService : UserService) { }
 
-  ngOnInit() {
-    this.userSubs = this.authService.user.subscribe(userData => {
-      this.userLoggedIn = userData;
-      this.fetchUserData();
-    })
-  }
+  // ngOnInit() {
+  //   this.userSubs = this.authService.user.subscribe(userData => {
+  //     this.userLoggedIn = userData;
+  //     this.fetchUserData();
+  //   })
+  // }
 
-  private fetchUserData() {
-    if(this.userLoggedIn) {
-      this.userDetailsSubs = this.userService.getUser(this.userLoggedIn.localId)
-        .subscribe(userData => {
-          this.userLoggedInDetails = userData;
-        })
-    }
+  // private fetchUserData() {
+  //   if(this.userLoggedIn) {
+  //     this.userDetailsSubs = this.userService.getUser(this.userLoggedIn.localId)
+  //       .subscribe(userData => {
+  //         this.userLoggedInDetails = userData;
+  //       })
+  //   }
+  // }
+
+  ngOnInit() {
+    this.userService.userDetails
+      .subscribe(userLoggedInDetails => {
+        this.userLoggedInDetails = userLoggedInDetails;
+        //console.log(this.userLoggedInDetails);
+      })
   }
 
   onViewUserProfile() {
-    this.router.navigate(['/home/user', this.userLoggedIn.localId]);
+    this.router.navigate(['/home/user', this.userLoggedInDetails.userId]);
   }
 
   onViewUserAddress() {
-    this.router.navigate(['/home/user', this.userLoggedIn.localId, 'addresses']);
+    this.router.navigate(['/home/user', this.userLoggedInDetails.userId, 'addresses']);
   }
 
   ngOnDestroy() {

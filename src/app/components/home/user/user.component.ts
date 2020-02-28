@@ -15,10 +15,10 @@ import { NewUser } from 'src/app/shared/new-user.model';
 })
 export class UserComponent implements OnInit, OnDestroy {
 
-  userId : string;
   userLoggedInData : NewUser;
   userSubscription : Subscription;
   userDetailsUpdatedSubs : Subscription;
+  userUpdatedReadSubs : Subscription;
   userDetailsForm : FormGroup;
   userDetailsEditMode : boolean = false;
 
@@ -28,24 +28,25 @@ export class UserComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     
-    this.userId = this.activatedRoute.snapshot.params['id'];
+    // this.userId = this.activatedRoute.snapshot.params['id'];
     
-    this.userSubscription = this.userService.getUser(this.userId)
+    this.userSubscription = this.userService.userDetails
       .subscribe(userData => {
         this.userLoggedInData = userData;
-        //console.log(this.userLoggedInData);
 
-        this.userDetailsForm = new FormGroup({
-          'userName' : new FormControl(this.userLoggedInData.userName),
-          'userDisplayName' : new FormControl(this.userLoggedInData.userDisplayName),
-          'userEmail' : new FormControl(this.userLoggedInData.userEmail),
-          'userContactNumber' : new FormControl(this.userLoggedInData.userContactNumber),
-          'userGender' : new FormControl(this.userLoggedInData.userGender),
-          'userLocation' : new FormControl(this.userLoggedInData.userLocation),
-          'userImageUrl' : new FormControl(this.userLoggedInData.userImageUrl),
-          'userDOB' : new FormControl(this.userLoggedInData.userDOB),
-          'userProfilePicture' : new FormControl('')
-        })
+        if(this.userLoggedInData) {
+          this.userDetailsForm = new FormGroup({
+            'userName' : new FormControl(this.userLoggedInData.userName),
+            'userDisplayName' : new FormControl(this.userLoggedInData.userDisplayName),
+            'userEmail' : new FormControl(this.userLoggedInData.userEmail),
+            'userContactNumber' : new FormControl(this.userLoggedInData.userContactNumber),
+            'userGender' : new FormControl(this.userLoggedInData.userGender),
+            'userLocation' : new FormControl(this.userLoggedInData.userLocation),
+            'userImageUrl' : new FormControl(this.userLoggedInData.userImageUrl),
+            'userDOB' : new FormControl(this.userLoggedInData.userDOB),
+            'userProfilePicture' : new FormControl('')
+          })
+        }
       });
 
   }
@@ -104,9 +105,14 @@ export class UserComponent implements OnInit, OnDestroy {
     )
 
     this.userDetailsUpdatedSubs = this.userService.onUpdateUserDetails(updatedUserDetails, this.userLoggedInData.rowId)
-      .subscribe(updatedResponse => {
+      .subscribe((updatedResponse : NewUser) => {
         console.log("User Data Updated");
         //console.log(updatedResponse);
+        this.userUpdatedReadSubs = this.userService.getUser(this.userLoggedInData.rowId)
+          .subscribe(userData => {
+            // this.userService.userDetails.next(userData);
+          })
+        this.userService.userDetails.next(updatedResponse)
         this.userDetailsEditMode = false;
       })
 
@@ -119,6 +125,10 @@ export class UserComponent implements OnInit, OnDestroy {
 
     if(this.userSubscription) {
       this.userSubscription.unsubscribe();
+    }
+
+    if(this.userUpdatedReadSubs) {
+      this.userUpdatedReadSubs.unsubscribe();
     }
   }
 

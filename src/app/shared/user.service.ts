@@ -45,9 +45,9 @@ export class UserService {
         return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'.json', userData)
     }
 
-    onAddUserAddress(rowId : string, address : Address) {
-        return this.httpClient.patch('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'.json', {})
-    }
+    // onAddUserAddress(rowId : string, address : Address) {
+    //     return this.httpClient.patch('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'.json', {})
+    // }
 
     
 }

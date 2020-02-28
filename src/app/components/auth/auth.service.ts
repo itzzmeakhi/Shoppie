@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { catchError, tap, switchMap } from 'rxjs/operators';
+import { catchError, tap, switchMap, take } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
 
 import { environment } from './../../../environments/environment';
 import { NewUser } from './../../shared/new-user.model';
 import { AuthenticatedUser } from './../../shared/authenticated-user.model';
 import { AuthResponseData } from './auth-response-data.interface';
-
-
+import { UserService } from '../../shared/user.service';
 
 @Injectable({ providedIn : 'root' })
 export class AuthService {
@@ -19,7 +18,8 @@ export class AuthService {
     private expirationTimer : any = null;
 
     constructor(private httpClient : HttpClient,
-                private router : Router) {}
+                private router : Router,
+                private userService : UserService) {}
 
     // Handles Signup Feature
 
@@ -52,7 +52,7 @@ export class AuthService {
                    userData.localId,
                    null
                 );
-
+                this.userService.userDetails.next(newUser);
                 return this.httpClient.post('https://shoppie-4c4f4.firebaseio.com/users.json', newUser);
             })
         )
@@ -91,7 +91,7 @@ export class AuthService {
         // console.log(userDataStored);
 
         if(!userDataStored) {
-            return;
+            return false;
         }
 
         const loggedInUser = new AuthenticatedUser(
@@ -111,8 +111,9 @@ export class AuthService {
             this.router.navigate(['/home']);
             const expiresIn : number = new Date(userDataStored._tokenExpirationDate).getTime() - new Date().getTime();
             this.onAutoLogout(expiresIn);
+            return true;
         } else {
-            return;
+            return false;
         }
     }
 
