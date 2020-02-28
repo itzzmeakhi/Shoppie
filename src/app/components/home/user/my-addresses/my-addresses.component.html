@@ -1,0 +1,186 @@
+<div *ngIf = "userLoggedInDetails && userLoggedInDetails.userSavedAddresses.length == 0">
+    <app-no-addresses></app-no-addresses>
+</div>
+<hr>
+    <button
+        type = "button"
+        class = "btn btn-sm btn-success"
+        data-toggle = "modal" 
+        data-target = "#exampleModal">
+        Add Address
+    </button>
+<hr>
+
+<div class = "modal fade" id = "exampleModal" tabindex = "-1" role = "dialog" 
+    aria-labelledby = "exampleModalLabel" aria-hidden = "true">
+
+    <div class = "modal-dialog modal-dialog-centered" role = "document">
+
+        <div class = "modal-content">
+
+            <div class = "modal-header">
+                <h5 class = "modal-title text-muted" id = "exampleModalLabel">Add New Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>      
+
+            <!-- Add Address Form -->
+
+            <form [formGroup] = "userAddressForm" (ngSubmit) = "onFormSubmit()">
+
+                <div class = "modal-body">
+
+                    <!-- Save As -->
+
+                    <div class = "form-group row">
+
+                        <label for = "addressSaveAs" class = "col-md-4 col-form-label text-muted">
+                            Save as : 
+                        </label>
+                        <div class = "col-md-8">
+
+                            <input
+                                type = "text"
+                                class = "form-control form-control-sm"
+                                name = "addressSaveAs"
+                                formControlName = "addressSaveAs"
+                                id = "addressSaveAs"
+                            > 
+                            
+                        </div>
+
+                    </div>
+
+                    <!-- Deliver To Recipient -->
+
+                    <div class = "form-group row">
+
+                        <label for = "addressRecipientName" class = "col-md-4 col-form-label text-muted">
+                            Deliver To : 
+                        </label>
+                        <div class = "col-md-8">
+
+                            <input
+                                type = "text"
+                                class = "form-control form-control-sm"
+                                name = "addressRecipientName"
+                                formControlName = "addressRecipientName"
+                                id = "addressRecipientName"
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <!-- Contact Number -->
+
+                    <div class = "form-group row">
+
+                        <label for = "addressRecipientContactNumber" class = "col-md-4 col-form-label text-muted">
+                            Recipient Number : 
+                        </label>
+                        <div class = "col-md-8">
+
+                            <input
+                                type = "number"
+                                class = "form-control form-control-sm"
+                                name = "addressRecipientContactNumber"
+                                formControlName = "addressRecipientContactNumber"
+                                id = "addressRecipientContactNumber"
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <!-- Address -->
+
+                    <div class = "form-group row">
+
+                        <label for = "addressDescription" class = "col-md-4 col-form-label text-muted">
+                            Address : 
+                        </label>
+                        <div class = "col-md-8">
+
+                            <textarea
+                                class = "form-control"
+                                name = "addressDescription"
+                                formControlName = "addressDescription"
+                                id = "addressDescription"
+                                rows = "3"
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Pin Code -->
+
+                    <div class = "form-group row">
+
+                        <label for = "addressPinCode" class = "col-md-4 col-form-label text-muted">
+                            Pin Code : 
+                        </label>
+                        <div class = "col-md-8">
+
+                            <input
+                                type = "number"
+                                class = "form-control form-control-sm"
+                                name = "addressPinCode"
+                                formControlName = "addressPinCode"
+                                id = "addressPinCode"
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <!-- City -->
+
+                    <div class = "form-group row">
+
+                        <label for = "addressCity" class = "col-md-4 col-form-label text-muted">
+                            City : 
+                        </label>
+                        <div class = "col-md-8">
+
+                            <input
+                                type = "text"
+                                class = "form-control form-control-sm"
+                                name = "addressCity"
+                                formControlName = "addressCity"
+                                id = "addressCity"
+                            >
+
+                        </div>
+
+                    </div>
+                
+                </div>
+
+                <div class = "modal-footer">
+
+                    <button 
+                        type = "button" 
+                        class = "btn btn-sm btn-secondary" 
+                        data-dismiss = "modal">
+                        Close
+                    </button>
+    
+                    <button 
+                        type = "submit" 
+                        class = "btn btn-sm btn-primary"> 
+                        Save 
+                    </button>
+    
+                </div>
+                
+            </form>
+            
+
+        </div>
+
+    </div>
+
+</div>

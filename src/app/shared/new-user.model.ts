@@ -1,3 +1,5 @@
+import { Address } from './address.model';
+
 export class NewUser {
     public userName : string;
     public userEmail : string;
@@ -7,6 +9,7 @@ export class NewUser {
     public userDisplayName : string;
     public userLocation : string;
     public userImageUrl : string;
+    public userSavedAddresses : Address[];
     public userPassword? : string;
     public userId? : string;
     public rowId? : string;
@@ -19,6 +22,7 @@ export class NewUser {
                 displayname : string,
                 location : string,
                 url : string,
+                addresses : Address[],
                 password? : string,
                 id? : string,
                 rowid?: string) {
@@ -31,6 +35,7 @@ export class NewUser {
         this.userDisplayName = displayname;
         this.userLocation = location;
         this.userImageUrl = url;
+        this.userSavedAddresses = addresses;
         this.userPassword = password;
         this.userId = id;
         this.rowId = rowid;

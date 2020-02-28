@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 
 import { AuthService } from '../../auth/auth.service';
 import { AuthenticatedUser } from 'src/app/shared/authenticated-user.model';
+import { UserService } from '../../../shared/user.service';
+import { NewUser } from 'src/app/shared/new-user.model';
 
 @Component({
   selector: 'app-side-nav',
@@ -15,22 +17,47 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   userLoggedIn : AuthenticatedUser;
   userSubs : Subscription;
+  userDetailsSubs : Subscription;
+  userLoggedInDetails : NewUser;
 
   constructor(private router : Router,
-              private authService : AuthService) { }
+              private authService : AuthService,
+              private userService : UserService) { }
 
   ngOnInit() {
     this.userSubs = this.authService.user.subscribe(userData => {
       this.userLoggedIn = userData;
+      this.fetchUserData();
     })
+  }
+
+  private fetchUserData() {
+    if(this.userLoggedIn) {
+      this.userDetailsSubs = this.userService.getUser(this.userLoggedIn.localId)
+        .subscribe(userData => {
+          this.userLoggedInDetails = userData;
+        })
+    }
   }
 
   onViewUserProfile() {
     this.router.navigate(['/home/user', this.userLoggedIn.localId]);
   }
 
+  onViewUserAddress() {
+    this.router.navigate(['/home/user', this.userLoggedIn.localId, 'addresses']);
+  }
+
   ngOnDestroy() {
-    this.userSubs.unsubscribe();
+
+    if(this.userSubs) {
+      this.userSubs.unsubscribe();
+    }
+
+    if(this.userDetailsSubs) {
+      this.userDetailsSubs.unsubscribe();
+    }
+
   }
 
 }

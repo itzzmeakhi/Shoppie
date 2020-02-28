@@ -47,6 +47,7 @@ export class AuthService {
                    newUserData.userDisplayName,
                    newUserData.userLocation,
                    newUserData.userImageUrl,
+                   newUserData.userSavedAddresses,
                    null,
                    userData.localId,
                    null

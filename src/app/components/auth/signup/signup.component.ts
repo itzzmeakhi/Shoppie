@@ -66,6 +66,7 @@ export class SignupComponent implements OnInit {
                                 'User', 
                                 'Somewhere in the World', 
                                 'https://firebasestorage.googleapis.com/v0/b/shoppie-4c4f4.appspot.com/o/account.png?alt=media&token=8dc5bea1-855c-47e9-b258-dd06eb9a10c4',
+                                [],
                                 this.userPassword.value, 
                                 null, 
                                 null

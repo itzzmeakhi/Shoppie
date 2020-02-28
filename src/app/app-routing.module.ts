@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthGuardService } from './components/auth/auth-guard.service';
 import { ProductsComponent } from './components/home/products/products.component';
 import { UserComponent } from './components/home/user/user.component';
+import { MyAddressesComponent } from './components/home/user/my-addresses/my-addresses.component';
 
 const appRoutes : Routes = [
     { path : '', redirectTo : '/home', pathMatch : 'full' },
@@ -15,7 +16,8 @@ const appRoutes : Routes = [
     { path : 'signup', component : SignupComponent },
     { path : 'home', component : HomeComponent, canActivate : [AuthGuardService], children : [
         { path : '', component : ProductsComponent },
-        { path : 'user/:id', component : UserComponent}
+        { path : 'user/:id', component : UserComponent },
+        { path : 'user/:id/addresses', component : MyAddressesComponent }
     ] }
 ];
 

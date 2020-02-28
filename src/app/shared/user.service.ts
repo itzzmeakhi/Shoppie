@@ -4,9 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { map, take } from 'rxjs/operators';
 
 import { NewUser } from 'src/app/shared/new-user.model';
+import { Address } from './address.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn : 'root' })
 export class UserService {
+
+    userDetails = new BehaviorSubject<NewUser>(null);
 
     constructor(private httpClient : HttpClient) {}
 
@@ -26,6 +30,7 @@ export class UserService {
                             userData[key].userDisplayName,
                             userData[key].userLocation,
                             userData[key].userImageUrl,
+                            userData[key].userSavedAddresses ? userData[key].userSavedAddresses : [],
                             null,
                             userData[key].userId,
                             key
@@ -38,6 +43,10 @@ export class UserService {
 
     onUpdateUserDetails(userData : NewUser, rowId : string) {
         return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'.json', userData)
+    }
+
+    onAddUserAddress(rowId : string, address : Address) {
+        return this.httpClient.patch('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'.json', {})
     }
 
     

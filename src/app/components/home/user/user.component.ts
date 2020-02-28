@@ -4,7 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
-import { UserService } from './user.service';
+import { UserService } from '../../../shared/user.service';
 import { NewUser } from 'src/app/shared/new-user.model';
 
 
@@ -33,7 +33,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userSubscription = this.userService.getUser(this.userId)
       .subscribe(userData => {
         this.userLoggedInData = userData;
-        console.log(this.userLoggedInData);
+        //console.log(this.userLoggedInData);
 
         this.userDetailsForm = new FormGroup({
           'userName' : new FormControl(this.userLoggedInData.userName),
@@ -97,6 +97,7 @@ export class UserComponent implements OnInit, OnDestroy {
       this.userDisplayName.value,
       this.userLocation.value,
       this.userImageUrl.value,
+      this.userLoggedInData.userSavedAddresses,
       null,
       this.userLoggedInData.userId,
       null

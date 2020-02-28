@@ -16,6 +16,8 @@ import { SideNavComponent } from './components/home/side-nav/side-nav.component'
 import { ProductsComponent } from './components/home/products/products.component';
 import { UserComponent } from './components/home/user/user.component';
 import { IsAuthenticatedInterceptorService } from './components/auth/is-authenticated-interceptor.service';
+import { MyAddressesComponent } from './components/home/user/my-addresses/my-addresses.component';
+import { NoAddressesComponent } from './components/home/user/my-addresses/no-addresses/no-addresses.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { IsAuthenticatedInterceptorService } from './components/auth/is-authenti
     ErrorComponent,
     SideNavComponent,
     ProductsComponent,
-    UserComponent
+    UserComponent,
+    MyAddressesComponent,
+    NoAddressesComponent
   ],
   imports: [
     BrowserModule,
