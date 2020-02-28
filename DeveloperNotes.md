@@ -24,3 +24,15 @@ Added a Auth Guard, so that it will protect the routes in which it is provided, 
 
 Added a Auth Interceptor the add the Auth Token to the http requests going to fetch the firebase.
 
+# Added User Component
+
+### Commit - 3
+
+Added User component and Side Navbar component so that these components on created fetches the current User LoggedIn Data and displays it.
+
+User component displays the user data to the data, and when edit mode is clicked, the user can modify few fields in the data. Some fields can't be modified like userEmail, userDOB, userGender etc.
+
+While creating new user, for userLocation, display name and display picture are filled with dummy data. So user can edit them and change whenever he needs it!
+
+
+
