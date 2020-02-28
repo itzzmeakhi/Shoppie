@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from './components/auth/auth.service';
-import { DataHandlingService } from './shared/data-handling.service';
+
 
 @Component({
   selector: 'app-root',
@@ -10,12 +10,10 @@ import { DataHandlingService } from './shared/data-handling.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private authService : AuthService,
-              private dataHandlingService : DataHandlingService) {}
+  constructor(private authService : AuthService) {}
 
   ngOnInit() {
     this.authService.onAutoLogin();
-    // this.dataHandlingService.getUsers();
   }
   
 }

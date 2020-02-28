@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
 
-import { take, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 import { UserService } from './user.service';
 import { NewUser } from 'src/app/shared/new-user.model';
@@ -12,33 +13,112 @@ import { NewUser } from 'src/app/shared/new-user.model';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
 
   userId : string;
   userLoggedInData : NewUser;
+  userSubscription : Subscription;
+  userDetailsUpdatedSubs : Subscription;
+  userDetailsForm : FormGroup;
+  userDetailsEditMode : boolean = false;
 
   constructor(private activatedRoute : ActivatedRoute,
-              private userService : UserService) { }
+              private userService : UserService,
+              private router : Router) { }
 
   ngOnInit() {
+    
     this.userId = this.activatedRoute.snapshot.params['id'];
-    this.userService.getUser(this.userId)
-      .pipe(
-        take(1),
-        map(userData => {
-          for(const key in userData) {
-            if(userData.hasOwnProperty(key)) {
-              // const userData = new NewUser(userData.userName)
-            }
-          }
-        })
-      )
+    
+    this.userSubscription = this.userService.getUser(this.userId)
       .subscribe(userData => {
-        // this.userLoggedInData = userData;
-        // console.log(this.userLoggedInData);
+        this.userLoggedInData = userData;
+        console.log(this.userLoggedInData);
+
+        this.userDetailsForm = new FormGroup({
+          'userName' : new FormControl(this.userLoggedInData.userName),
+          'userDisplayName' : new FormControl(this.userLoggedInData.userDisplayName),
+          'userEmail' : new FormControl(this.userLoggedInData.userEmail),
+          'userContactNumber' : new FormControl(this.userLoggedInData.userContactNumber),
+          'userGender' : new FormControl(this.userLoggedInData.userGender),
+          'userLocation' : new FormControl(this.userLoggedInData.userLocation),
+          'userImageUrl' : new FormControl(this.userLoggedInData.userImageUrl),
+          'userDOB' : new FormControl(this.userLoggedInData.userDOB),
+          'userProfilePicture' : new FormControl('')
+        })
+      });
+
+  }
+
+  get userName() {
+    return this.userDetailsForm.get('userName');
+  }
+
+  get userDisplayName() {
+    return this.userDetailsForm.get('userDisplayName');
+  }
+
+  get userEmail() {
+    return this.userDetailsForm.get('userEmail');
+  }
+
+  get userContactNumber() {
+    return this.userDetailsForm.get('userContactNumber');
+  }
+
+  get userGender() {
+    return this.userDetailsForm.get('userGender');
+  }
+
+  get userLocation() {
+    return this.userDetailsForm.get('userLocation');
+  }
+
+  get userImageUrl() {
+    return this.userDetailsForm.get('userImageUrl');
+  }
+
+  get userDOB() {
+    return this.userDetailsForm.get('userDOB');
+  }
+
+  onEditUserDetails() {
+    this.userDetailsEditMode = true;
+  }
+
+  onFormSubmit() {
+
+    const updatedUserDetails = new NewUser(
+      this.userName.value,
+      this.userEmail.value,
+      this.userContactNumber.value,
+      this.userGender.value,
+      this.userDOB.value,
+      this.userDisplayName.value,
+      this.userLocation.value,
+      this.userImageUrl.value,
+      null,
+      this.userLoggedInData.userId,
+      null
+    )
+
+    this.userDetailsUpdatedSubs = this.userService.onUpdateUserDetails(updatedUserDetails, this.userLoggedInData.rowId)
+      .subscribe(updatedResponse => {
+        console.log("User Data Updated");
+        //console.log(updatedResponse);
+        this.userDetailsEditMode = false;
       })
 
-    
+  }
+
+  ngOnDestroy() {
+    if(this.userDetailsUpdatedSubs) {
+      this.userDetailsUpdatedSubs.unsubscribe();
+    }
+
+    if(this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 
 }

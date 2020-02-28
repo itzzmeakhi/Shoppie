@@ -4,6 +4,9 @@ export class NewUser {
     public userContactNumber : number;
     public userGender : string;
     public userDOB : string;
+    public userDisplayName : string;
+    public userLocation : string;
+    public userImageUrl : string;
     public userPassword? : string;
     public userId? : string;
     public rowId? : string;
@@ -13,6 +16,9 @@ export class NewUser {
                 contact : number,
                 gender : string,
                 dob : string,
+                displayname : string,
+                location : string,
+                url : string,
                 password? : string,
                 id? : string,
                 rowid?: string) {
@@ -22,8 +28,20 @@ export class NewUser {
         this.userContactNumber = contact;
         this.userGender = gender;
         this.userDOB = dob;
+        this.userDisplayName = displayname;
+        this.userLocation = location;
+        this.userImageUrl = url;
         this.userPassword = password;
         this.userId = id;
         this.rowId = rowid;
     }
 }
+
+// Changes to be Made in these files
+// i.e., NewUser Model is imported and used in those files.
+
+// new-user.model.ts
+// signup.component.ts
+// auth.service.ts
+// user.service.ts
+// user.component.ts

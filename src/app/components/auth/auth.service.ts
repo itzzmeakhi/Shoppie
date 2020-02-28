@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { catchError, tap, switchMap,take } from 'rxjs/operators';
+import { catchError, tap, switchMap } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
 
 import { environment } from './../../../environments/environment';
@@ -44,6 +44,9 @@ export class AuthService {
                    newUserData.userContactNumber,
                    newUserData.userGender,
                    newUserData.userDOB,
+                   newUserData.userDisplayName,
+                   newUserData.userLocation,
+                   newUserData.userImageUrl,
                    null,
                    userData.localId,
                    null

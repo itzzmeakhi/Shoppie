@@ -1,83 +1,212 @@
-
-
-    <!-- Profile Picture -->
-
-    <!--  User Full Name -->
-
-    <div class = "form-group">
-        <label for = "userName"> Your Name </label>
-        <input 
-            type = "text" 
-            class = "form-control"
-            name = "userName"
-            id = "userName"
-        >
+<div class = "user-details-container">
+    
+    <div class="d-flex justify-content-center" *ngIf = "!userLoggedInData">
+        <div class="spinner-border spinner-props" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
     </div>
 
-    <!-- User Display Name -->
+    <form [formGroup] = "userDetailsForm" *ngIf = "userLoggedInData" (ngSubmit) = "onFormSubmit()">
 
-    <div class = "form-group">
-        <label for = "userDisplayName"> Your Display Name </label>
-        <input
-            type = "text"
-            class = "form-control"
-            name = "userDisplayName"
-            id = "userDisplayName"
-        >
-    </div>
+        <!-- User Image -->
 
-    <!-- User Email -->
+        <div class = "form-group">
 
-    <div class = "form-group">
-        <label for = "userEmail"> Your Email </label>
-        <input
-            type = "email"
-            class = "form-control"
-            name = "userEmail"
-            id = "userEmail"
-        >
-    </div>
+            <div class = "text-center">
 
-    <!-- User Password Reset -->
+                <img [src] = "userImageUrl.value" [alt] = "userName.value" style = "height: 200px;" class = "img-fluid rounded-circle img-shadow">
 
-    <!-- User Contact Number -->
-
-    <div class = "form-group">
-        <label for = "userContactNumber"> Your Contact Number </label>
-        <input 
-            type = "number"
-            class = "form-control"
-            name = "userContactNumber"
-            id = "userContactNumber"
-        >
-    </div>
-
-    <!-- User Gender -->
-
-    <div class = "form-group">
-        <label>
-            You're a : 
-        </label>
-
+            </div>
         
-    </div>
+        </div>
 
-    <!-- User Location -->
+        <hr>
 
-    <div class = "form-group">
-        <label for = "userLocation"> Lives in : </label>
-        <input
-            type = "text"
-            class = "form-control"
-            name = "userLocation"
-            id = "userLocation"
-        >
-    </div>
+        <!-- Button to enable Edit Mode -->
 
-    <!-- User DOB -->
+        <div class = "form-group row">
 
-    <div class = "form-group">
-        <label for = "userDOB"> Birth Date : </label>
-    </div>
+            <div class = "offset-md-10 col-md-2">
+            
+                <button
+                    type = "button" 
+                    class = "btn btn-secondary btn-sm" 
+                    *ngIf = "!userDetailsEditMode"
+                    (click) = "onEditUserDetails()">
+                    <i class="far fa-edit"></i> Edit
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- User Image Url -->
+
+        <div class = "form-group row">
+
+            <label for = "userImageUrl" class = "col-md-3 col-form-label"> Image Url : </label>
+
+            <div class = "col-md-4">
+
+                <input
+                    type = "text"
+                    class = "form-control"
+                    name = "userImageUrl"
+                    formControlName = "userImageUrl"
+                    id = "userImageUrl"
+                    [readonly] = "!userDetailsEditMode"
+                >
+
+            </div>
+
+        </div>
+        
+        <!--  User Full Name -->
+
+        <div class = "form-group row">
+            
+            <label for = "userName" class ="col-md-3 col-form-label"> Your Name : </label>
+
+            <div class = "col-md-4">
+                <input 
+                    type = "text" 
+                    class = "form-control form-control-sm"
+                    name = "userName"
+                    formControlName = "userName"
+                    id = "userName"
+                    [readonly] = "!userDetailsEditMode"
+                >
+            </div>
+
+        </div>
+
+        <!-- User Display Name -->
+
+        <div class = "form-group row">
+
+            <label for = "userDisplayName" class = "col-md-3 col-form-label"> Your Display Name : </label>
+
+            <div class = "col-md-4">
+                <input
+                    type = "text"
+                    class = "form-control form-control-sm"
+                    name = "userDisplayName"
+                    formControlName = "userDisplayName"
+                    id = "userDisplayName"
+                    [readonly] = "!userDetailsEditMode"
+                >
+            </div>
+
+        </div>
+
+        <!-- User Email -->
+
+        <div class = "form-group row">
+
+            <label for = "userEmail" class = "col-md-3 col-form-label"> Your Email : </label>
+
+            <div class = "col-md-4">
+                <input
+                    type = "email"
+                    class = "form-control form-control-sm"
+                    name = "userEmail"
+                    formControlName = "userEmail"
+                    id = "userEmail"
+                    readonly
+                >
+            </div>
+
+        </div>
+
+        <!-- User Password Reset -->
+
+        <!-- User Contact Number -->
+
+        <div class = "form-group row">
+
+            <label for = "userContactNumber" class = "col-md-3 col-form-label"> Your Contact Number : </label>
+
+            <div class = "col-md-4">
+                <input 
+                    type = "number"
+                    class = "form-control form-control-sm"
+                    name = "userContactNumber"
+                    formControlName = "userContactNumber"
+                    id = "userContactNumber"
+                    [readonly] = "!userDetailsEditMode"
+                >
+            </div>
+
+        </div>
+
+        <!-- User Gender -->
+
+        <div class = "form-group row">
+
+            <label for = "userGender" class = "col-md-3 col-form-label"> You're a : </label>
+
+            <div class = "col-md-4">
+                <input
+                    type = "text"
+                    class = "form-control form-control-sm"
+                    name = "userGender"
+                    formControlName = "userGender"
+                    id = "userGender"
+                    readonly
+                >
+            </div>
+
+        </div>
+
+        <!-- User Location -->
+
+        <div class = "form-group row">
+
+            <label for = "userLocation" class = "col-md-3 col-form-label"> Lives in : </label>
+            
+            <div class = "col-md-4">
+                <input
+                    type = "text"
+                    class = "form-control form-control-sm"
+                    name = "userLocation"
+                    formControlName = "userLocation"
+                    id = "userLocation"
+                    [readonly] = "!userDetailsEditMode"
+                >
+            </div>
+
+        </div>
+
+        <!-- User DOB -->
+
+        <div class = "form-group row">
+
+            <label for = "userDOB" class = "col-md-3 col-form-label"> Birth Date : </label>
+
+            <div class = "col-md-4">
+                <input
+                    type = "text"
+                    class = "form-control form-control-sm"
+                    name = "userDOB"
+                    formControlName = "userDOB"
+                    id = "userDOB"
+                    readonly
+                >
+            </div>
+
+        </div>
+
+        <!-- Button for Updating Details -->
+
+        <button
+            type = "submit"
+            *ngIf = "userDetailsEditMode"
+            class = "btn btn-info btn-sm">
+            Update Details
+        </button>
+
+    </form>
+
+</div>
 
 

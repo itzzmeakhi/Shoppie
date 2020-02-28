@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { NewUser } from './../../../shared/new-user.model';
 import { AuthService } from '../auth.service';
@@ -16,7 +17,8 @@ export class SignupComponent implements OnInit {
   signupForm : FormGroup;
   errorMessage : string = null;
 
-  constructor(private authService : AuthService) { }
+  constructor(private authService : AuthService,
+              private router : Router) { }
 
   ngOnInit() {
     this.signupForm = new FormGroup({
@@ -55,11 +57,24 @@ export class SignupComponent implements OnInit {
   }
 
   onFormSubmit() {
-    const newUserData = new NewUser(this.userName.value, this.userEmail.value, this.userContactNumber.value, this.userGender.value, this.userDOB.value, this.userPassword.value, null, null);
+    const newUserData = new NewUser(
+                                this.userName.value, 
+                                this.userEmail.value, 
+                                this.userContactNumber.value, 
+                                this.userGender.value, 
+                                this.userDOB.value, 
+                                'User', 
+                                'Somewhere in the World', 
+                                'https://firebasestorage.googleapis.com/v0/b/shoppie-4c4f4.appspot.com/o/account.png?alt=media&token=8dc5bea1-855c-47e9-b258-dd06eb9a10c4',
+                                this.userPassword.value, 
+                                null, 
+                                null
+                              );
     //console.log(newUserData);
     this.authService.onSignup(newUserData)
       .subscribe(response => {
         console.log(response);
+        this.router.navigate(['/home']);
       }, errorRes => {
         this.errorMessage = errorRes;
       })
