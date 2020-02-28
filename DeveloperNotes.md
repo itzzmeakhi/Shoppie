@@ -40,5 +40,11 @@ While creating new user, for userLocation, display name and display picture are 
 
 Added user service to retrive user details and display it in the Side Nav Component
 
+# Removed Issued with UserDetails Updation
+
+### Commit - 5
+
+Removed User Details Updation details in SideNav when an user updates his/her details by adding an rxjs BehviorSubject to the user details by emitting them whenever details updated.
+
 
 
