@@ -20,7 +20,9 @@ button:focus {
 }
 
 input.ng-dirty.ng-invalid,
-input.ng-touched.ng-invalid {
+input.ng-touched.ng-invalid,
+textarea.ng-dirty.ng-invalid,
+textarea.ng-touched.ng-invalid {
     border-top : none;
     border-left : none;
     border-right: none;

@@ -250,6 +250,16 @@
             class = "btn btn-info btn-sm"
             [disabled] = "userDetailsForm.invalid">
             Update Details
+        </button> &nbsp;
+
+        <!-- Button for Cancelling Edit Mode -->
+
+        <button
+            type = "button"
+            *ngIf = "userDetailsEditMode"
+            (click) = "onCancelEditMode()"
+            class = "btn btn-sm btn-secondary">
+            Cancel
         </button>
 
     </form>

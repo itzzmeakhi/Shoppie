@@ -18,8 +18,8 @@ const appRoutes : Routes = [
     { path : 'home', component : HomeComponent, canActivate : [AuthGuardService], children : [
         { path : '', component : ProductsComponent },
         { path : 'user/:id', component : UserComponent },
-        { path : 'user/:id/addresses', component : MyAddressesComponent },
-        { path : 'user/:id/addresses/:addrId', component : AddressViewEditComponent }
+        { path : 'user/:rowid/addresses', component : MyAddressesComponent },
+        { path : 'user/:rowid/addresses/:addrId', component : AddressViewEditComponent }
     ] }
 ];
 

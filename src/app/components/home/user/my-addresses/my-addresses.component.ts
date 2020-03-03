@@ -22,6 +22,8 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
   userDetailsSubs : Subscription;
   userAddAddressSubs : Subscription;
   userEmitAfterAddressSubs : Subscription;
+  userDeleteAddressSubs : Subscription;
+  userDeleteAddressReloadSubs : Subscription;
   userLoggedInDetails : NewUser;
   userAddressForm : FormGroup;
   isAddressAddRequest : boolean = false;
@@ -33,7 +35,7 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
               private router : Router) { }
 
   ngOnInit() {
-    // this.userLoggedIn = this.activatedRoute.snapshot.params['id'];
+    // this.userLoggedIn = this.activatedRoute.snapshot.params['rowid'];
     //console.log(this.userLoggedIn);
     // this.userDetailsSubs = this.userService.getUser(this.userLoggedIn)
     //   .subscribe(userData => {
@@ -94,7 +96,7 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
       this.addressDescription.value,
       this.addressPinCode.value,
       this.addressCity.value,
-      this.userLoggedInDetails.userSavedAddresses.length
+      this.userLoggedInDetails.userId+new Date() 
     )
 
     const updatedAddressesList : Address[] = [...this.userLoggedInDetails.userSavedAddresses, newAddress];
@@ -114,9 +116,25 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
 
   }
 
-  onSelectedAddress(id : number) {
+  onSelectedAddress(index : number) {
     // console.log(id);
-    this.router.navigate([id], { relativeTo : this.activatedRoute });
+    this.router.navigate([index], { relativeTo : this.activatedRoute });
+  }
+
+  onDeleteAddress(index : number) {
+    // console.log(this.userLoggedInDetails.userSavedAddresses);
+    let addressesSaved = this.userLoggedInDetails.userSavedAddresses;
+    addressesSaved.splice(index, 1);
+    // console.log(addressesSaved);
+    this.userDeleteAddressSubs = this.userService.onDeleteAddress(this.userLoggedInDetails.rowId, addressesSaved)
+      .subscribe(userData => {
+        // console.log(userData);
+        console.log("Address Deleted");
+        this.userDeleteAddressReloadSubs = this.userService.getUser(this.userLoggedInDetails.userId)
+          .subscribe(userData => {
+            this.userService.userDetails.next(userData);
+          })
+      })
   }
 
   ngOnDestroy() {
@@ -130,6 +148,14 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
 
     if(this.userEmitAfterAddressSubs) {
       this.userEmitAfterAddressSubs.unsubscribe();
+    }
+
+    if(this.userDeleteAddressSubs) {
+      this.userDeleteAddressSubs.unsubscribe();
+    }
+
+    if(this.userDeleteAddressReloadSubs) {
+      this.userDeleteAddressReloadSubs.unsubscribe();
     }
   }
 

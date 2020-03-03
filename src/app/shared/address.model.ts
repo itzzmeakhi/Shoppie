@@ -5,7 +5,7 @@ export class Address {
     public addressDescription : string;
     public addressPinCode : number;
     public addressCity : string;
-    public addressId? : number;
+    public addressId? : string;
 
     constructor(
         saveAs : string,
@@ -14,7 +14,7 @@ export class Address {
         desc : string,
         pincode : number,
         city : string,
-        id? : number
+        id? : string
     ) {
         this.addressSaveAs = saveAs;
         this.addressRecipientName = recipient;

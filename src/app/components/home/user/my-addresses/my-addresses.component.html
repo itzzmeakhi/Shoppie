@@ -272,7 +272,12 @@
     <div class = "row">
 
         <span *ngFor = "let address of userLoggedInDetails.userSavedAddresses; let i = index" class = "col-md-4">
-            <app-address-item [address] = "address" [index] = "i" (addressId) = "onSelectedAddress($event)"></app-address-item>
+            <app-address-item 
+                [address] = "address" 
+                [index] = "i" 
+                (addressViewId) = "onSelectedAddress($event)"
+                (addressDeleteId) = "onDeleteAddress($event)">
+            </app-address-item>
         </span>
 
     </div>

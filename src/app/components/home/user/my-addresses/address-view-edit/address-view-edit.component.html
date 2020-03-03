@@ -1,1 +1,265 @@
-<p>address-view-edit works!</p>
+<div class = "address-view-container">
+
+    <!-- Spinner -->
+
+    <div class = "d-flex justify-content-center" *ngIf = "isLoadingData">
+        <div class = "spinner-border spinner-props" role = "status">
+            <span class = "sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <form [formGroup] = "userAddressForm" *ngIf = "addressDataReceived && !isLoadingData" (ngSubmit) = "onFormSubmit()" novalidate>
+
+        <!-- Save As display as Header -->
+
+        <div class = "text-center">
+            <h4 class = "text-muted"> {{ addressSaveAs.value }} </h4>
+        </div>
+
+        <hr>
+
+        <!-- Button to trigger Edit Mode -->
+
+        <div class = "form-group row" *ngIf = "!isEditMode">
+
+            <div class = "offset-md-10 col-md-2">
+            
+                <button
+                    type = "button" 
+                    class = "btn btn-secondary btn-sm" 
+                    (click) = "onEditAddress()">
+                    <i class="far fa-edit"></i> Edit
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Address Save as -->
+
+        <div class = "form-group row">
+
+            <label for = "addressSaveAs" class = "offset-md-3 col-md-2 col-form-label text-muted">
+                Save as : 
+            </label>
+            <div class = "col-md-4">
+
+                <input
+                    type = "text"
+                    class = "form-control form-control-sm"
+                    name = "addressSaveAs"
+                    formControlName = "addressSaveAs"
+                    id = "addressSaveAs"
+                    [readonly] = "!isEditMode"
+                > 
+
+                <span *ngIf = "addressSaveAs.invalid && (addressSaveAs.dirty || addressSaveAs.touched)">
+                    <p 
+                        *ngIf = "addressSaveAs.errors.required">
+                        Save as can't be empty.
+                    </p>
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- Address Recipient Name -->
+
+        <div class = "form-group row">
+
+            <label for = "addressRecipientName" class = "offset-md-3 col-md-2 col-form-label text-muted">
+                Deliver To : 
+            </label>
+            <div class = "col-md-4">
+
+                <input
+                    type = "text"
+                    class = "form-control form-control-sm"
+                    name = "addressRecipientName"
+                    formControlName = "addressRecipientName"
+                    id = "addressRecipientName"
+                    [readonly] = "!isEditMode"
+                >
+
+                <span *ngIf = "addressRecipientName.invalid && (addressRecipientName.dirty || addressRecipientName.touched)">
+                            
+                    <p 
+                        *ngIf = "addressRecipientName.errors.required">
+                        Recipient name can't be empty.
+                    </p>
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- Contact Number -->
+
+        <div class = "form-group row">
+
+            <label for = "addressRecipientContactNumber" class = "offset-md-3 col-md-2 col-form-label text-muted">
+                Recipient Number : 
+            </label>
+            <div class = "col-md-4">
+
+                <input
+                    type = "number"
+                    class = "form-control form-control-sm"
+                    name = "addressRecipientContactNumber"
+                    formControlName = "addressRecipientContactNumber"
+                    id = "addressRecipientContactNumber"
+                    [readonly] = "!isEditMode"
+                >
+
+            </div>
+
+            <span *ngIf = "addressRecipientContactNumber.invalid && (addressRecipientContactNumber.dirty || addressRecipientContactNumber.touched)">
+                            
+                <p 
+                    *ngIf = "addressRecipientContactNumber.errors.required">
+                    Contact number can't be empty.
+                </p>
+
+                <p 
+                    *ngIf = "addressRecipientContactNumber.errors.pattern">
+                    Invalid contact number.
+                </p>
+
+            </span>
+
+        </div>
+
+        <!-- Address -->
+
+        <div class = "form-group row">
+
+            <label for = "addressDescription" class = "offset-md-3 col-md-2 col-form-label text-muted">
+                Address : 
+            </label>
+            <div class = "col-md-4">
+
+                <textarea
+                    class = "form-control"
+                    name = "addressDescription"
+                    formControlName = "addressDescription"
+                    id = "addressDescription"
+                    rows = "3"
+                    [readonly] = "!isEditMode"
+                ></textarea>
+
+                <span *ngIf = "addressDescription.invalid && (addressDescription.dirty || addressDescription.touched)">
+
+                    <p
+                        *ngIf = "addressDescription.errors.required">
+                        Address can't be empty.
+                    </p>
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- Address Pincode -->
+
+        <div class = "form-group row">
+
+            <label for = "addressPinCode" class = "offset-md-3 col-md-2 col-form-label text-muted">
+                Pincode : 
+            </label>
+            <div class = "col-md-4">
+
+                <input
+                    type = "number"
+                    class = "form-control form-control-sm"
+                    name = "addressPinCode"
+                    formControlName = "addressPinCode"
+                    id = "addressPinCode"
+                    [readonly] = "!isEditMode"
+                >
+
+                <span *ngIf = "addressPinCode.invalid && (addressPinCode.dirty || addressPinCode.touched)">
+
+                    <p
+                        *ngIf = "addressPinCode.errors.required">
+                        Pincode can't be empty.
+                    </p>
+
+                    <p
+                        *ngIf = "addressPinCode.errors.pattern">
+                        Invalid Pincode.
+                    </p>
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- City -->
+
+        <div class = "form-group row">
+
+            <label for = "addressCity" class = "offset-md-3 col-md-2 col-form-label text-muted">
+                City : 
+            </label>
+            <div class = "col-md-4">
+
+                <input
+                    type = "text"
+                    class = "form-control form-control-sm"
+                    name = "addressCity"
+                    formControlName = "addressCity"
+                    id = "addressCity"
+                    [readonly] = "!isEditMode"
+                >
+
+                <span *ngIf = "addressCity.invalid && (addressCity.dirty || addressCity.touched)">
+
+                    <p 
+                        *ngIf = "addressCity.errors.required">
+                        City can't be empty.
+                    </p>
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- Submit Button -->
+
+        <div class = "form-group row">
+
+            <div class = "offset-md-3 col-md-1">
+
+                <button
+                    type = "submit"
+                    *ngIf = "isEditMode"
+                    class = "btn btn-sm btn-info"
+                    [disabled] = "userAddressForm.invalid">
+                    Update
+                </button>
+
+            </div>
+
+            <div class = "col-md-1">
+
+                <button
+                    type = "button"
+                    *ngIf = "isEditMode"
+                    class = "btn btn-sm btn-secondary"
+                    (click) = "onCancelEditMode()">
+                    Cancel
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </form>
+
+</div>

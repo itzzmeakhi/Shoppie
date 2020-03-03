@@ -53,7 +53,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
   }
 
   onViewUserAddress() {
-    this.router.navigate(['/home/user', this.userLoggedInDetails.userId, 'addresses']);
+    this.router.navigate(['/home/user', this.userLoggedInDetails.rowId, 'addresses']);
   }
 
   ngOnDestroy() {

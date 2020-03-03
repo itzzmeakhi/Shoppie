@@ -11,7 +11,8 @@ export class AddressItemComponent implements OnInit {
 
   @Input() address : Address;
   @Input() index : number;
-  @Output() addressId = new EventEmitter<number>();
+  @Output() addressViewId = new EventEmitter<number>();
+  @Output() addressDeleteId = new EventEmitter<number>();
 
   constructor() { }
 
@@ -19,7 +20,11 @@ export class AddressItemComponent implements OnInit {
   }
 
   onAddressSelected() {
-    this.addressId.emit(this.address.addressId);
+    this.addressViewId.emit(this.index);
+  }
+
+  onAddressDelete() {
+    this.addressDeleteId.emit(this.index);
   }
 
 }

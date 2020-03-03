@@ -43,8 +43,7 @@ export class UserComponent implements OnInit, OnDestroy {
             'userGender' : new FormControl(this.userLoggedInData.userGender),
             'userLocation' : new FormControl(this.userLoggedInData.userLocation, [ Validators.required ]),
             'userImageUrl' : new FormControl(this.userLoggedInData.userImageUrl, [ Validators.required ]),
-            'userDOB' : new FormControl(this.userLoggedInData.userDOB),
-            'userProfilePicture' : new FormControl('')
+            'userDOB' : new FormControl(this.userLoggedInData.userDOB)
           })
         }
       });
@@ -116,6 +115,20 @@ export class UserComponent implements OnInit, OnDestroy {
         this.userDetailsEditMode = false;
       })
 
+  }
+
+  onCancelEditMode() {
+    this.userDetailsForm.setValue({
+      'userName' : this.userLoggedInData.userName,
+      'userDisplayName' : this.userLoggedInData.userDisplayName,
+      'userEmail' : this.userLoggedInData.userEmail,
+      'userContactNumber' : this.userLoggedInData.userContactNumber,
+      'userGender' : this.userLoggedInData.userGender,
+      'userLocation' : this.userLoggedInData.userLocation,
+      'userImageUrl' : this.userLoggedInData.userImageUrl,
+      'userDOB' : this.userLoggedInData.userDOB
+    });
+    this.userDetailsEditMode = false;
   }
 
   ngOnDestroy() {

@@ -1,0 +1,35 @@
+.address-view-container {
+    padding-top: 25px;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+input.ng-dirty.ng-invalid,
+input.ng-touched.ng-invalid,
+textarea.ng-dirty.ng-invalid,
+textarea.ng-touched.ng-invalid {
+    border-top : none;
+    border-left : none;
+    border-right: none;
+    border: 1px #eb2f06 solid;
+}
+
+span p {
+    font-size: 80%;
+    color: #eb2f06;
+}
+
+.spinner-props {
+    color: #192a56;
+    width: 3rem;
+    height: 3rem;
+}

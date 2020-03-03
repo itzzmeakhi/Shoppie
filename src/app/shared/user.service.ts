@@ -49,9 +49,21 @@ export class UserService {
         return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'/userSavedAddresses.json', address)
     }
 
-    // onAddUserAddress(rowId : string, address : Address) {
-    //     return this.httpClient.patch('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'.json', {})
-    // }
+    onDeleteAddress(rowId : string, modifiedAddresses : Address[]) {
+        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'/userSavedAddresses.json', modifiedAddresses)
+    }
+
+    getAddress(rowId : string, index : string) {
+        return this.httpClient.get<Address>('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'/userSavedAddresses/'+index+'.json');
+    }
+
+    onUpdateAddress(rowId : string, index : string, updatedAddress : Address) {
+        return this.httpClient.patch('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'/userSavedAddresses/'+index+'.json', updatedAddress)
+    }
+
+    getUserId(rowId : string) {
+        return this.httpClient.get<string>('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'/userId.json')
+    }
 
     
 }
