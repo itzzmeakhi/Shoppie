@@ -1,15 +1,24 @@
-<div *ngIf = "userLoggedInDetails && userLoggedInDetails.userSavedAddresses.length == 0">
+
+<!-- No Addresses Displaying Component -->
+
+<div *ngIf = "userLoggedInDetails && userLoggedInDetails.userSavedAddresses.length == 0 && !isAddressAddRequest">
     <app-no-addresses></app-no-addresses>
 </div>
+
+<!-- Button to add a new Address -->
+
 <hr>
     <button
         type = "button"
         class = "btn btn-sm btn-success"
         data-toggle = "modal" 
-        data-target = "#exampleModal">
+        data-target = "#exampleModal"
+        #closeModal>
         Add Address
     </button>
 <hr>
+
+<!-- Modal containing form to add a new address -->
 
 <div class = "modal fade" id = "exampleModal" tabindex = "-1" role = "dialog" 
     aria-labelledby = "exampleModalLabel" aria-hidden = "true">
@@ -47,6 +56,13 @@
                                 formControlName = "addressSaveAs"
                                 id = "addressSaveAs"
                             > 
+
+                            <span *ngIf = "addressSaveAs.invalid && (addressSaveAs.dirty || addressSaveAs.touched)">
+                                <p 
+                                    *ngIf = "addressSaveAs.errors.required">
+                                    Save as can't be empty.
+                                </p>
+                            </span>
                             
                         </div>
 
@@ -69,6 +85,15 @@
                                 id = "addressRecipientName"
                             >
 
+                            <span *ngIf = "addressRecipientName.invalid && (addressRecipientName.dirty || addressRecipientName.touched)">
+                            
+                                <p 
+                                    *ngIf = "addressRecipientName.errors.required">
+                                    Recipient name can't be empty.
+                                </p>
+    
+                            </span>
+
                         </div>
 
                     </div>
@@ -89,6 +114,20 @@
                                 formControlName = "addressRecipientContactNumber"
                                 id = "addressRecipientContactNumber"
                             >
+
+                            <span *ngIf = "addressRecipientContactNumber.invalid && (addressRecipientContactNumber.dirty || addressRecipientContactNumber.touched)">
+                            
+                                <p 
+                                    *ngIf = "addressRecipientContactNumber.errors.required">
+                                    Contact number can't be empty.
+                                </p>
+    
+                                <p 
+                                    *ngIf = "addressRecipientContactNumber.errors.pattern">
+                                    Invalid contact number.
+                                </p>
+    
+                            </span>
 
                         </div>
 
@@ -111,6 +150,15 @@
                                 rows = "3"
                             ></textarea>
 
+                            <span *ngIf = "addressDescription.invalid && (addressDescription.dirty || addressDescription.touched)">
+
+                                <p
+                                    *ngIf = "addressDescription.errors.required">
+                                    Address can't be empty.
+                                </p>
+    
+                            </span>
+
                         </div>
 
                     </div>
@@ -120,7 +168,7 @@
                     <div class = "form-group row">
 
                         <label for = "addressPinCode" class = "col-md-4 col-form-label text-muted">
-                            Pin Code : 
+                            Pincode : 
                         </label>
                         <div class = "col-md-8">
 
@@ -131,6 +179,20 @@
                                 formControlName = "addressPinCode"
                                 id = "addressPinCode"
                             >
+
+                            <span *ngIf = "addressPinCode.invalid && (addressPinCode.dirty || addressPinCode.touched)">
+
+                                <p
+                                    *ngIf = "addressPinCode.errors.required">
+                                    Pincode can't be empty.
+                                </p>
+    
+                                <p
+                                    *ngIf = "addressPinCode.errors.pattern">
+                                    Invalid Pincode.
+                                </p>
+    
+                            </span>
 
                         </div>
 
@@ -153,6 +215,15 @@
                                 id = "addressCity"
                             >
 
+                            <span *ngIf = "addressCity.invalid && (addressCity.dirty || addressCity.touched)">
+
+                                <p 
+                                    *ngIf = "addressCity.errors.required">
+                                    City can't be empty.
+                                </p>
+    
+                            </span>
+
                         </div>
 
                     </div>
@@ -170,7 +241,8 @@
     
                     <button 
                         type = "submit" 
-                        class = "btn btn-sm btn-primary"> 
+                        class = "btn btn-sm btn-primary"
+                        [disabled] = "userAddressForm.invalid"> 
                         Save 
                     </button>
     
@@ -180,6 +252,28 @@
             
 
         </div>
+
+    </div>
+
+</div>
+
+<!-- Spinner -->
+
+<div class = "d-flex justify-content-center" *ngIf = "isAddressAddRequest">
+    <div class = "spinner-border spinner-props" role = "status">
+        <span class = "sr-only">Loading...</span>
+    </div>
+</div>
+
+<!-- Displaying already added address -->
+
+<div *ngIf = "userLoggedInDetails && userLoggedInDetails.userSavedAddresses.length != 0 && !isAddressAddRequest">
+
+    <div class = "row">
+
+        <span *ngFor = "let address of userLoggedInDetails.userSavedAddresses; let i = index" class = "col-md-4">
+            <app-address-item [address] = "address" [index] = "i" (addressId) = "onSelectedAddress($event)"></app-address-item>
+        </span>
 
     </div>
 

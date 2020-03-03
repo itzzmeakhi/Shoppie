@@ -1,0 +1,24 @@
+<div class = "card" style = "height: 300px; margin-bottom: 20px;">
+
+        <h5 class = "card-header"> {{address.addressSaveAs}} </h5>
+
+        <div class = "card-body">
+
+            <h5 class = "card-title"> {{ address.addressRecipientName }} </h5>
+
+            <p class = "card-text">
+                {{ address.addressDescription }}
+            </p>
+
+        </div>
+
+        <div class = "card-footer">
+
+            <a (click) = "onAddressSelected()"> View/Edit </a> &nbsp;
+            <a> Delete </a>
+
+        </div>
+
+</div>
+
+

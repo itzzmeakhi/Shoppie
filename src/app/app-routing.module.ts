@@ -9,6 +9,7 @@ import { AuthGuardService } from './components/auth/auth-guard.service';
 import { ProductsComponent } from './components/home/products/products.component';
 import { UserComponent } from './components/home/user/user.component';
 import { MyAddressesComponent } from './components/home/user/my-addresses/my-addresses.component';
+import { AddressViewEditComponent } from './components/home/user/my-addresses/address-view-edit/address-view-edit.component';
 
 const appRoutes : Routes = [
     { path : '', redirectTo : '/home', pathMatch : 'full' },
@@ -17,7 +18,8 @@ const appRoutes : Routes = [
     { path : 'home', component : HomeComponent, canActivate : [AuthGuardService], children : [
         { path : '', component : ProductsComponent },
         { path : 'user/:id', component : UserComponent },
-        { path : 'user/:id/addresses', component : MyAddressesComponent }
+        { path : 'user/:id/addresses', component : MyAddressesComponent },
+        { path : 'user/:id/addresses/:addrId', component : AddressViewEditComponent }
     ] }
 ];
 

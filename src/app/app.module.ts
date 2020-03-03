@@ -18,6 +18,8 @@ import { UserComponent } from './components/home/user/user.component';
 import { IsAuthenticatedInterceptorService } from './components/auth/is-authenticated-interceptor.service';
 import { MyAddressesComponent } from './components/home/user/my-addresses/my-addresses.component';
 import { NoAddressesComponent } from './components/home/user/my-addresses/no-addresses/no-addresses.component';
+import { AddressItemComponent } from './components/home/user/my-addresses/address-item/address-item.component';
+import { AddressViewEditComponent } from './components/home/user/my-addresses/address-view-edit/address-view-edit.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { NoAddressesComponent } from './components/home/user/my-addresses/no-add
     ProductsComponent,
     UserComponent,
     MyAddressesComponent,
-    NoAddressesComponent
+    NoAddressesComponent,
+    AddressItemComponent,
+    AddressViewEditComponent
   ],
   imports: [
     BrowserModule,

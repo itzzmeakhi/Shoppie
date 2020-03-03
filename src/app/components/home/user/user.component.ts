@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
@@ -36,13 +36,13 @@ export class UserComponent implements OnInit, OnDestroy {
 
         if(this.userLoggedInData) {
           this.userDetailsForm = new FormGroup({
-            'userName' : new FormControl(this.userLoggedInData.userName),
-            'userDisplayName' : new FormControl(this.userLoggedInData.userDisplayName),
+            'userName' : new FormControl(this.userLoggedInData.userName, [ Validators.required ]),
+            'userDisplayName' : new FormControl(this.userLoggedInData.userDisplayName, [ Validators.required ]),
             'userEmail' : new FormControl(this.userLoggedInData.userEmail),
-            'userContactNumber' : new FormControl(this.userLoggedInData.userContactNumber),
+            'userContactNumber' : new FormControl(this.userLoggedInData.userContactNumber, [ Validators.required, Validators.pattern('[6-9][0-9]{9}')]),
             'userGender' : new FormControl(this.userLoggedInData.userGender),
-            'userLocation' : new FormControl(this.userLoggedInData.userLocation),
-            'userImageUrl' : new FormControl(this.userLoggedInData.userImageUrl),
+            'userLocation' : new FormControl(this.userLoggedInData.userLocation, [ Validators.required ]),
+            'userImageUrl' : new FormControl(this.userLoggedInData.userImageUrl, [ Validators.required ]),
             'userDOB' : new FormControl(this.userLoggedInData.userDOB),
             'userProfilePicture' : new FormControl('')
           })

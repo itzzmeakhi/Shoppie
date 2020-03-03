@@ -1,8 +1,8 @@
 <div class = "user-details-container">
     
-    <div class="d-flex justify-content-center" *ngIf = "!userLoggedInData">
-        <div class="spinner-border spinner-props" role="status">
-            <span class="sr-only">Loading...</span>
+    <div class = "d-flex justify-content-center" *ngIf = "!userLoggedInData">
+        <div class = "spinner-border spinner-props" role = "status">
+            <span class = "sr-only">Loading...</span>
         </div>
     </div>
 
@@ -59,6 +59,14 @@
 
             </div>
 
+            <span *ngIf = "userImageUrl.invalid && (userImageUrl.dirty || userImageUrl.touched)">
+                <p 
+                    *ngIf = "userImageUrl.errors.required"
+                    class = "text-muted">
+                    Image Url can't be empty.
+                </p>
+            </span>
+
         </div>
         
         <!--  User Full Name -->
@@ -78,6 +86,14 @@
                 >
             </div>
 
+            <span *ngIf = "userName.invalid && (userName.dirty || userName.touched)">
+                <p
+                    *ngIf = "userName.errors.required"
+                    class = "text-muted">
+                    Username can't be empty.
+                </p>
+            </span>
+
         </div>
 
         <!-- User Display Name -->
@@ -96,6 +112,14 @@
                     [readonly] = "!userDetailsEditMode"
                 >
             </div>
+
+            <span *ngIf = "userDisplayName.invalid && (userDisplayName.dirty || userDisplayName.touched)">
+                <p
+                    *ngIf = "userDisplayName.errors.required"
+                    class = "text-muted">
+                    Display name can't be empty.
+                </p>
+            </span>
 
         </div>
 
@@ -137,6 +161,20 @@
                 >
             </div>
 
+            <span *ngIf = "userContactNumber.invalid && (userContactNumber.dirty || userContactNumber.touched)">
+                <p
+                    *ngIf = "userContactNumber.errors.required"
+                    class = "text-muted">
+                    Contact number can't be empty.
+                </p>
+
+                <p 
+                    *ngIf = "userContactNumber.errors.pattern"
+                    class = "text-muted">
+                    Invalid contact number.
+                </p>
+            </span>
+
         </div>
 
         <!-- User Gender -->
@@ -175,6 +213,14 @@
                 >
             </div>
 
+            <span *ngIf = "userLocation.invalid && (userLocation.touched || userLocation.dirty)">
+                <p 
+                    *ngIf = "userLocation.errors.required"
+                    class = "text-muted">
+                    Location can't be empty.
+                </p>
+            </span>
+
         </div>
 
         <!-- User DOB -->
@@ -201,7 +247,8 @@
         <button
             type = "submit"
             *ngIf = "userDetailsEditMode"
-            class = "btn btn-info btn-sm">
+            class = "btn btn-info btn-sm"
+            [disabled] = "userDetailsForm.invalid">
             Update Details
         </button>
 
