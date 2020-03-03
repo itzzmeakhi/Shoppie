@@ -46,5 +46,13 @@ Added user service to retrive user details and display it in the Side Nav Compon
 
 Removed User Details Updation details in SideNav when an user updates his/her details by adding an rxjs BehviorSubject to the user details by emitting them whenever details updated.
 
+# Added New Address and show saved addresses features
+
+### Commit - 6
+
+Using address form data, the new address is pushed to the array of previously added addresses list and updates the firebase data. The saved addresses are displayed in a bootstrap card style type design, where user can view/edit and also delete the particular address, which are yet to be implemented.
+
+Added validations to the user details updation form and also to the new address form.
+
 
 
