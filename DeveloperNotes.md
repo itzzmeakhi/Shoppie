@@ -54,5 +54,15 @@ Using address form data, the new address is pushed to the array of previously ad
 
 Added validations to the user details updation form and also to the new address form.
 
+# Added edit/view/delete address features
+
+### Commit - 7
+
+Added address-view/edit component so that user can view the address saved and can enter into edit mode to modify the previously stored address. 
+
+Added cancel for editing option, so that the previous values are restored in the form and ends the edit mode in address-edit/user-details-edit component.
+
+Added a feature to the already added address. And also the validation for the address-edit form.
+
 
 
