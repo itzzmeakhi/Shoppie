@@ -1,0 +1,240 @@
+<div class = "add-product-container">
+
+    <form [formGroup] = "addProductForm" (ngSubmit) = "onFormSubmit()">
+
+        <!-- Product Name -->
+
+        <div class = "form-group row">
+
+            <label for = "productName" class = "col-md-2 col-form-label"> Product Name: </label>
+
+            <div class = "col-md-4">
+
+                <input
+                    type = "text"
+                    class = "form-control form-control-sm"
+                    name = "productName"
+                    formControlName = "productName"
+                    id = "productName"
+                >
+
+            </div>
+
+        </div>
+
+        <!-- Product Description -->
+
+        <div class = "form-group row">
+
+            <label for = "productDescription" class = "col-md-2 col-form-label"> Product Description: </label>
+
+            <div class = "col-md-4">
+
+                <textarea
+                    class = "form-control"
+                    name = "productDescription"
+                    formControlName = "productDescription"
+                    id = "productDescription"
+                    rows = "5">
+                </textarea>
+
+            </div>
+
+        </div>
+
+        <!-- Product Image Url -->
+
+        <div class = "form-group row">
+
+            <label for = "productImageUrl" class = "col-md-2 col-form-label"> Image Url: </label>
+
+            <div class = "col-md-4">
+
+                <input
+                    type = "text"
+                    class = "form-control form-control-sm"
+                    name = "productImageUrl"
+                    formControlName = "productImageUrl"
+                    id = "productImageUrl"
+                >
+
+            </div>
+
+            <!-- Image Preview -->
+
+            <div class = "col-md-3">
+
+                <img
+                    src = ""
+                    alt = ""
+                >
+
+            </div>
+
+        </div>
+
+        <!-- Product Price -->
+
+        <div class = "form-group row">
+
+            <label for = "productPrice" class = "col-md-2 col-form-label"> Product Price: </label>
+
+            <div class = "col-md-4">
+
+                <input
+                    type = "number"
+                    class = "form-control form-control-sm"
+                    name = "productPrice"
+                    formControlName = "productPrice"
+                    id = "productPrice"
+                > 
+
+            </div>
+
+        </div>
+
+        <!-- Product Discount -->
+
+        <div class = "form-group row">
+
+            <label for = "productDiscount" class = "col-md-2 col-form-label"> Product Discount: </label>
+
+            <div class = "col-md-4">
+
+                <input
+                    type = "number"
+                    class = "form-control form-control-sm"
+                    name = "productDiscount"
+                    formControlName = "productDiscount"
+                    id = "productDiscount"
+                >
+
+            </div>
+
+        </div>
+
+        <!-- Product Seller -->
+
+        <div class = "form-group row">
+
+            <label for = "productSeller" class = "col-md-2 col-form-label"> Product Seller: </label>
+
+            <div class = "col-md-4">
+
+                <select
+                    class = "form-control form-control-sm"
+                    name = "productSeller"
+                    formControlName = "productSeller"
+                    id = "productSeller"
+                >
+                    <option
+                        *ngFor = "let prodSeller of productSellers"
+                        [value] = "prodSeller.name"
+                        [id] = "prodSeller.id"
+                    >
+                        {{ prodSeller.name }}
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- Product Brand -->
+
+        <div class = "form-group row">
+
+            <label for = "productBrand" class = "col-md-2 col-form-label"> Product Brand: </label>
+
+            <div class = "col-md-4">
+
+                <select
+                    class = "form-control form-control-sm"
+                    name = "productBrand"
+                    formControlName = "productBrand"
+                    id = "productBrand"
+                >
+                    <option
+                        *ngFor = "let prodBrand of productBrands"
+                        [value] = "prodBrand.name"
+                        [id] = "prodBrand.id"
+                    >
+                        {{ prodBrand.name }}
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- Product Category -->
+
+        <div class = "form-group row">
+
+            <label for = "productCategory" class = "col-md-2 col-form-label"> Product Category: </label>
+
+            <div class = "col-md-4">
+
+                <select
+                    class = "form-control form-control-sm"
+                    name = "productCategory"
+                    formControlName = "productCategory"
+                    id = "productCategory"
+                >
+                    <option
+                        *ngFor = "let prodCategory of productCategories"
+                        [value] = "prodCategory.name"
+                        [id] = "prodCategory.id"
+                    >
+                        {{ prodCategory.name }}
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- Product Available Quantity -->
+
+        <div class = "form-group row">
+
+            <label for = "productAvailableQuantity" class = "col-md-2 col-form-label"> Available Quantity: </label>
+
+            <div class = "col-md-4">
+
+                <input
+                    type = "number"
+                    class = "form-control form-control-sm"
+                    name = "productAvailableQuantity"
+                    formControlName = "productAvailableQuantity"
+                    id = "productAvailableQuantity"
+                >
+
+            </div>
+
+        </div>
+
+        <button 
+            type = "submit"
+            class = "btn btn-sm btn-info">
+            Add
+        </button>
+
+        <button 
+            type = "button"
+            class = "btn btn-sm btn-secondary"
+            (click) = "onCancel()">
+            Cancel
+        </button>
+
+
+
+    </form>
+
+
+
+
+</div>

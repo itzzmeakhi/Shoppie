@@ -10,13 +10,17 @@ import { ProductsComponent } from './components/home/products/products.component
 import { UserComponent } from './components/home/user/user.component';
 import { MyAddressesComponent } from './components/home/user/my-addresses/my-addresses.component';
 import { AddressViewEditComponent } from './components/home/user/my-addresses/address-view-edit/address-view-edit.component';
+import { AddProductComponent } from './components/home/admin/add-product/add-product.component';
+import { ProductDetailComponent } from './components/home/products/product-detail/product-detail.component';
 
 const appRoutes : Routes = [
     { path : '', redirectTo : '/home', pathMatch : 'full' },
     { path : 'login', component : LoginComponent },
     { path : 'signup', component : SignupComponent },
+    { path : 'add/product', component : AddProductComponent },
     { path : 'home', component : HomeComponent, canActivate : [AuthGuardService], children : [
         { path : '', component : ProductsComponent },
+        { path : 'products/:prodId', component : ProductDetailComponent },
         { path : 'user/:id', component : UserComponent },
         { path : 'user/:rowid/addresses', component : MyAddressesComponent },
         { path : 'user/:rowid/addresses/:addrId', component : AddressViewEditComponent }

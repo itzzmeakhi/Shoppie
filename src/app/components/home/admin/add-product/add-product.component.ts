@@ -1,0 +1,115 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { Subscription } from 'rxjs';
+
+import { Product } from 'src/app/shared/product.model';
+import { ProductService } from '../../../../shared/product.service';
+
+@Component({
+  selector: 'app-add-product',
+  templateUrl: './add-product.component.html',
+  styleUrls: ['./add-product.component.css']
+})
+export class AddProductComponent implements OnInit, OnDestroy {
+
+  addProductForm : FormGroup;
+  onAddProductSubs : Subscription;
+
+  productCategories = [
+    { name : 'Mobiles & Accessories', id : 'category01' },
+    { name : 'Computers & Laptops', id : 'category002' }
+  ];
+
+  productBrands = [
+    { name : 'Apple', id : 'brand001' },
+    { name : 'Redmi', id : 'brand002' }
+  ];
+
+  productSellers = [
+    { name : 'SuperComNet', id : 'seller001'},
+    { name : 'TrueComRetail', id : 'seller002' }
+  ];
+
+  constructor(private productService : ProductService) { }
+
+  ngOnInit() {
+    this.addProductForm = new FormGroup({
+      'productName' : new FormControl('', [ Validators.required ]),
+      'productDescription' : new FormControl('', [ Validators.required ]),
+      'productImageUrl' : new FormControl('', [ Validators.required ]),
+      'productPrice' : new FormControl('', [ Validators.required, Validators.pattern('[0]') ]),
+      'productDiscount' : new FormControl('', [ Validators.required ]),
+      'productSeller' : new FormControl('', [ Validators.required ]),
+      'productBrand' : new FormControl('', [ Validators.required ]),
+      'productCategory' : new FormControl('', [ Validators.required ]),
+      'productAvailableQuantity' : new FormControl('', [ Validators.required ])
+    })
+  }
+
+  get productName() {
+    return this.addProductForm.get('productName');
+  }
+
+  get productDescription() {
+    return this.addProductForm.get('productDescription');
+  }
+
+  get productImageUrl() {
+    return this.addProductForm.get('productImageUrl');
+  }
+
+  get productPrice() {
+    return this.addProductForm.get('productPrice');
+  }
+
+  get productDiscount() {
+    return this.addProductForm.get('productDiscount');
+  }
+
+  get productSeller() {
+    return this.addProductForm.get('productSeller');
+  }
+
+  get productBrand() {
+    return this.addProductForm.get('productBrand');
+  }
+
+  get productCategory() {
+    return this.addProductForm.get('productCategory');
+  }
+
+  get productAvailableQuantity() {
+    return this.addProductForm.get('productAvailableQuantity');
+  }
+
+  onFormSubmit() {
+    const newProduct = new Product(
+      this.productCategory.value.slice(0, 4)+this.productBrand.value.slice(0, 4)+new Date().getTime(),
+      this.productName.value,
+      this.productDescription.value,
+      this.productImageUrl.value,
+      this.productPrice.value,
+      this.productDiscount.value,
+      this.productSeller.value,
+      this.productBrand.value,
+      this.productCategory.value,
+      this.productAvailableQuantity.value,
+      null
+    );
+
+    this.onAddProductSubs = this.productService.onAddProduct(newProduct)
+      .subscribe(responseData => {
+        console.log(responseData);
+      })
+
+
+  }
+
+  ngOnDestroy() {
+    if(this.onAddProductSubs) {
+      this.onAddProductSubs.unsubscribe();
+    }
+  }
+
+}

@@ -1,0 +1,83 @@
+<div class = "col-md-3" (click) = "onClicked($event)">
+
+    <div class = "card card-props">
+
+        <!-- Product Image -->
+
+        <img 
+            [src] = "product.productImageUrl" 
+            class = "card-img-top img-fluid" 
+            alt = "Product Image"
+        >
+
+        <!-- Product Name -->
+
+        <p
+            class = "lead m-1"
+            style = "margin-top: 10px; font-size: 90%;">
+            {{ product.productName | MaxLength : 30 }}
+        </p>
+
+        <span>
+            <s class = "text-muted" style = "font-size: 75%;">{{ product.productPrice | currency : 'INR' }}</s>&nbsp;
+            <span class = "lead text-white bg-info" style = "font-size: 85%;">
+                {{ product.productPrice - ((product.productDiscount * product.productPrice)/100) | currency : 'INR' }}
+            </span>
+        </span>
+
+        <span class = "text-primary" style = "font-size: 70%;">
+            {{ product.productDiscount/100 | percent }} off
+        </span>
+        
+        <hr class = "m-2">
+
+        <!-- Product Description -->
+
+        <p class = "text-muted" style = "font-size: 80%;">
+
+            {{ product.productDescription | MaxLength : 70 }}
+
+        </p>
+
+        <!-- Button Group for Items to cart -->
+
+        <div class = "btn-group w-50 mb-2" role = "group">
+
+            <button
+                type = "button"
+                class = "btn btn-sm btn-outline-danger p-0 mr-1"
+                [disabled] = "!addedItemsToCart" 
+                value = "sub">
+                -
+            </button>
+            <button
+                button = "button"
+                class = "btn btn-sm btn-outline-success p-0 mr-1"
+                value = "add">
+                +
+            </button>
+
+            <span class = "badge badge-secondary p-2" *ngIf = "addedItemsToCart">
+                {{ addedItemsToCart }}
+            </span>
+
+        </div>
+
+        <!-- Add to Cart Button -->
+
+        <button 
+            class = "btn btn-sm btn-info mb-2">
+            <i class="fas fa-cart-plus"></i> Add
+        </button>
+
+        <!-- InStock -->
+
+        <div class = "text-center">
+            
+            <p class = "text-muted" style = "font-size: 90%;"> InStock : {{ product.productAvailableQuantity }} </p>
+
+        </div>
+
+    </div>
+
+</div>

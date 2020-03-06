@@ -1,0 +1,44 @@
+[
+    {
+        "productId" : "Mobiles1",
+        "productName" : "Apple iPhone 11 (Purple, 64 GB)",
+        "productDescription" : "Featuring a 15.49-cm (6.1) all-screen Liquid Retina LCD and a glass and aluminum design, the iPhone 11 is as beautiful as it gets. Also, the IP68 rating ensures that is water-resistant up to 2 meters for 30 minutes.",
+        "productImageUrl" : "",
+        "productPrice" : 64900,
+        "productDiscount" : 2,
+        "productSeller" : "SuperComNet",
+        "productBrand" : "Apple",
+        "productCategory" : "Mobiles & Accessories",
+        "productSubCategory" : "Mobiles",
+        "productHighlights" : ["64 GB ROM', '15.49 cm (6.1 inch) Liquid Retina HD Display", "12MP + 12MP | 12MP Front Camera", "A13 Bionic Chip Processor"],
+        "productAvailableQuantity" : 10
+    },
+    {
+        "productId" : "Mobiles2",
+        "productName" : "Redmi Note 7 Pro (Space Black, 64 GB)  (4 GB RAM)",
+        "productDescription" : "Whether it’s work or entertainment, the Redmi Note 7 Pro challenges all odds and provides a truly immersive and enriched smartphone experience. Its 2.0 GHz Qualcomm Snapdragon 675 processor makes multitasking easy and it also comes with a (48 MP + 5 MP) dual-rear camera and a 13 MP front camera which let you click truly beautiful pictures. What’s more, the Face Unlock features makes unlocking this phone a piece of cake.",
+        "productImageUrl" : "",
+        "productPrice" : 15999,
+        "productDiscount" : 37,
+        "productSeller" : "PETILANTE Online",
+        "productBrand" : "Redmi",
+        "productCategory" : "Mobiles & Accessories",
+        "productSubCategory" : "Mobiles",
+        "productHighlights" : ["4 GB RAM | 64 GB ROM | Expandable Upto 256 GB", "16.0 cm (6.3 inch) Full HD+ Display', '48MP + 5MP | 13MP Front Camera", "4000 mAh Li-polymer Battery", "Qualcomm Snapdragon 675 Processor", "Splash Proof - Protected by P2i", "Quick Charge 4.0 Support"],
+        "productAvailableQuantity" : 5
+    },
+    {
+        "productId" : "Computers001",
+        "productName" : "Apple MacBook Pro Core i5 8th Gen - (8 GB/256 GB SSD/Mac OS Mojave) MV962HN  (13.3 inch, Space Grey, 1.37 kg)",
+        "productDescription" : "",
+        "productImageUrl" : "",
+        "productPrice" : 159900,
+        "productDiscount" : 9,
+        "productSeller" : "TrueComRetail",
+        "productBrand" : "Apple",
+        "productCategory" : "Computers & Laptops",
+        "productSubCategory" : "Laptops",
+        "productHighlights" : [],
+        "productAvailableQuantity" : 7
+     }
+]

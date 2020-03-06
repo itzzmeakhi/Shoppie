@@ -1,0 +1,19 @@
+.card-props {
+    width: 12rem;
+    padding: 15px;
+    height: 540px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+

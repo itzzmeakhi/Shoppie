@@ -1,4 +1,5 @@
 export class Product {
+    public productId : string;
     public productName : string;
     public productDescription : string;
     public productImageUrl : string;
@@ -7,9 +8,11 @@ export class Product {
     public productSeller : string;
     public productBrand : string;
     public productCategory : string;
-    public productSubCategory : string;
+    public productAvailableQuantity : number;
+    public rowId? : string;
 
     constructor(
+        id : string,
         name : string,
         desc : string,
         imgUrl : string,
@@ -18,8 +21,10 @@ export class Product {
         seller : string,
         brand : string,
         category : string,
-        subcategory : string
+        available : number,
+        rowid? : string
     ) {
+        this.productId = id;
         this.productName = name;
         this.productDescription = desc;
         this.productImageUrl = imgUrl;
@@ -28,6 +33,10 @@ export class Product {
         this.productSeller = seller;
         this.productBrand = brand;
         this.productCategory = category;
-        this.productSubCategory = subcategory;
+        this.productAvailableQuantity = available;
+        this.rowId = rowid;
     }
 }
+
+// product.service.ts
+// admin/add-product.component.ts

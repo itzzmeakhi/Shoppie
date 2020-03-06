@@ -1,0 +1,102 @@
+<div class = "product-detail-container" *ngIf = "productSelected">
+
+    <div class = "row">
+
+        <div class = "col-md-12">
+
+            <p class = "text-primary">
+
+                <span>
+                    {{ productSelected.productCategory }}
+                </span>&nbsp;
+                >&nbsp;
+                <span>
+                    {{ productSelected.productBrand }}
+                </span>
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <hr class = "mt-0 p-0">
+
+    <div class = "row">
+
+        <div class = "col-md-5" style = "border-right: 1px solid #b2bec3;">
+
+            <img
+                [src] = "productSelected.productImageUrl"
+                [alt] = "productSelected.productName"
+                class = "img-fluid img-props"
+            >
+
+        </div>
+
+        <div class = "col-md-7 p-2">
+
+            <h5 class = "lead pl-2" style = "line-height: 1.2;">
+                {{ productSelected.productName }}
+            </h5>
+
+            <p class = "pt-2 pl-2 pr-2">
+
+                <span>
+                    <s class = "text-muted" style = "font-size: 90%;">{{ productSelected.productPrice | currency : 'INR' }}</s>&nbsp;
+                    <span class = "lead text-white bg-info" style = "font-size: 115%;">
+                        {{ productSelected.productPrice - ((productSelected.productDiscount * productSelected.productPrice)/100) | currency : 'INR' }}
+                    </span>
+                </span> &nbsp;
+        
+                <span class = "text-primary" style = "font-size: 90%;">
+                    {{ productSelected.productDiscount/100 | percent }} off
+                </span>
+
+            </p>
+
+            <p> Rating : 
+
+                <span class = "badge badge-success" style = "font-size: 80%;">  
+                    5 <i class="fas fa-star" style = "font-size: 70%;"></i>
+                </span>&nbsp;
+
+                <span class = "text-success" style = "font-size: 80%;">
+                    1700+ Ratings
+                </span>
+
+            </p>
+
+            <p> Seller : 
+
+                <span class = "text-primary">
+                    {{ productSelected.productSeller }}
+                </span>
+
+            </p>
+
+            <div class = "btn-group">
+
+                <button 
+                    class = "btn btn-sm btn-color mb-2">
+                    <i class="fas fa-check-circle"></i> Verified Seller
+                </button>
+
+                <button 
+                    class = "btn btn-sm btn-info mb-2 ml-2">
+                    <i class="fas fa-cart-plus"></i> Add
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class ="row">
+        {{ productSelected.productDescription }}
+    </div>
+
+</div>
