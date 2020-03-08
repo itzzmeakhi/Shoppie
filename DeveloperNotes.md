@@ -64,5 +64,15 @@ Added cancel for editing option, so that the previous values are restored in the
 
 Added a feature to the already added address. And also the validation for the address-edit form.
 
+# Added products to display
+
+### Commit - 8
+
+Added displaying products to the loggedIn user using products and products-item component.
+
+Added Detailed view of the product when user click on a particular product by implementing product-detail component.
+
+Added admin/add-product component to add a product, where role based guard should be implemented in further commits
+
 
 
