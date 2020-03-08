@@ -9,6 +9,7 @@ export class Product {
     public productBrand : string;
     public productCategory : string;
     public productAvailableQuantity : number;
+    public productHighlights : string[];
     public rowId? : string;
 
     constructor(
@@ -22,6 +23,7 @@ export class Product {
         brand : string,
         category : string,
         available : number,
+        highlights : string[],
         rowid? : string
     ) {
         this.productId = id;
@@ -34,6 +36,7 @@ export class Product {
         this.productBrand = brand;
         this.productCategory = category;
         this.productAvailableQuantity = available;
+        this.productHighlights = highlights;
         this.rowId = rowid;
     }
 }

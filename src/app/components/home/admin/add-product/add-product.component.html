@@ -217,11 +217,80 @@
 
         </div>
 
+        <!-- Buttons to Add/Remove Highlight Rows -->
+
+        <div class = "row">
+
+            <div class = "col-md-6">
+
+                <hr class = "m-1">
+
+                <label for = "productHighlight"> Product Highlights : </label>
+
+                <button
+                    type = "button"
+                    class = "btn btn-sm btn-success m-3"
+                    (click) = "onAddHighlight()">
+                    Add Row
+                </button>
+
+                <hr class = "m-2">
+
+            </div>
+
+        </div>
+
+        <!-- Product Highlights -->
+
+        <div formArrayName = "productHighlights">
+
+            <div 
+                class = "form-group row"
+                *ngFor = "let highlightCtrl of productHighlights.controls; let i = index">
+
+                <div class = "col-md-2 text-right">
+
+                    <button
+                        type = "button"
+                        class = "btn btn-sm btn-danger mr-4"
+                        (click) = "onRemoveHighlight(i)">
+                        X
+                    </button>
+
+
+                    <label 
+                        class = "col-form-label"> 
+                        {{ i }} : 
+                    </label>
+
+                </div>
+
+                <div class = "col-md-4 mb-0">
+
+                    <input
+                        type = "text"
+                        class = "form-control form-control-sm"
+                        name = "productHighlight"
+                        id = "productHighlight"
+                        [formControlName] = "i"
+                        placeholder = "Add an highlight here."
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Submit Button -->
+
         <button 
             type = "submit"
             class = "btn btn-sm btn-info">
             Add
         </button>
+
+        <!-- Cancel Button -->
 
         <button 
             type = "button"

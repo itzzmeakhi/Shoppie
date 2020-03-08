@@ -36,6 +36,7 @@ export class ProductService {
                             productsData[key].productBrand,
                             productsData[key].productCategory,
                             productsData[key].productAvailableQuantity,
+                            productsData[key].productHighlights,
                             key
                         );
                         products = [...products, product];
@@ -67,6 +68,7 @@ export class ProductService {
                                 productData[key].productBrand,
                                 productData[key].productCategory,
                                 productData[key].productAvailableQuantity,
+                                productData[key].productHighlights,
                                 key
                             )
 

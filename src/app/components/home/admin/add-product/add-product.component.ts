@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
@@ -43,6 +43,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
       'productSeller' : new FormControl('', [ Validators.required ]),
       'productBrand' : new FormControl('', [ Validators.required ]),
       'productCategory' : new FormControl('', [ Validators.required ]),
+      'productHighlights' : new FormArray([new FormControl('', Validators.required )]),
       'productAvailableQuantity' : new FormControl('', [ Validators.required ])
     })
   }
@@ -79,11 +80,16 @@ export class AddProductComponent implements OnInit, OnDestroy {
     return this.addProductForm.get('productCategory');
   }
 
+  get productHighlights() {
+    return this.addProductForm.get('productHighlights');
+  }
+
   get productAvailableQuantity() {
     return this.addProductForm.get('productAvailableQuantity');
   }
 
   onFormSubmit() {
+    console.log(this.addProductForm);
     const newProduct = new Product(
       this.productCategory.value.slice(0, 4)+this.productBrand.value.slice(0, 4)+new Date().getTime(),
       this.productName.value,
@@ -95,6 +101,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
       this.productBrand.value,
       this.productCategory.value,
       this.productAvailableQuantity.value,
+      this.productHighlights.value,
       null
     );
 
@@ -103,7 +110,14 @@ export class AddProductComponent implements OnInit, OnDestroy {
         console.log(responseData);
       })
 
+  }
 
+  onAddHighlight() {
+    (this.productHighlights as FormArray).push(new FormControl('', Validators.required ));
+  }
+
+  onRemoveHighlight(index : number) {
+    (this.productHighlights as FormArray).removeAt(index);
   }
 
   ngOnDestroy() {
