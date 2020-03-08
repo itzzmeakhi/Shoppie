@@ -1,3 +1,8 @@
+export interface Rating {
+    user : string;
+    rating : number;
+}
+
 export class Product {
     public productId : string;
     public productName : string;
@@ -10,6 +15,7 @@ export class Product {
     public productCategory : string;
     public productAvailableQuantity : number;
     public productHighlights : string[];
+    public productUserRatings? : Rating[];
     public rowId? : string;
 
     constructor(
@@ -24,6 +30,7 @@ export class Product {
         category : string,
         available : number,
         highlights : string[],
+        userRatings? : Rating[],
         rowid? : string
     ) {
         this.productId = id;
@@ -37,9 +44,12 @@ export class Product {
         this.productCategory = category;
         this.productAvailableQuantity = available;
         this.productHighlights = highlights;
+        this.productUserRatings = userRatings;
         this.rowId = rowid;
     }
 }
 
 // product.service.ts
 // admin/add-product.component.ts
+// products/product-item.ts
+// products/product-detail.ts

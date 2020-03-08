@@ -89,7 +89,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
   }
 
   onFormSubmit() {
-    console.log(this.addProductForm);
+    // console.log(this.addProductForm);
     const newProduct = new Product(
       this.productCategory.value.slice(0, 4)+this.productBrand.value.slice(0, 4)+new Date().getTime(),
       this.productName.value,
@@ -102,12 +102,13 @@ export class AddProductComponent implements OnInit, OnDestroy {
       this.productCategory.value,
       this.productAvailableQuantity.value,
       this.productHighlights.value,
+      [],
       null
     );
 
     this.onAddProductSubs = this.productService.onAddProduct(newProduct)
       .subscribe(responseData => {
-        console.log(responseData);
+        // console.log(responseData);
       })
 
   }

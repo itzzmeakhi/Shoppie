@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs/operators';
 
-import { Product } from './product.model';
+import { Product, Rating } from './product.model';
 
 @Injectable({ providedIn : 'root' })
 export class ProductService {
@@ -37,6 +37,7 @@ export class ProductService {
                             productsData[key].productCategory,
                             productsData[key].productAvailableQuantity,
                             productsData[key].productHighlights,
+                            productsData[key].productUserRatings ? productsData[key].productUserRatings : [],
                             key
                         );
                         products = [...products, product];
@@ -69,6 +70,7 @@ export class ProductService {
                                 productData[key].productCategory,
                                 productData[key].productAvailableQuantity,
                                 productData[key].productHighlights,
+                                productData[key].productUserRatings ? productData[key].productUserRatings : [],
                                 key
                             )
 
@@ -77,6 +79,10 @@ export class ProductService {
                     }
                 })
             )
+    }
+
+    saveProductRating(ratings : Rating[], rowId : string) {
+        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/products/'+rowId+'/productUserRatings.json', ratings)
     }
     
 }

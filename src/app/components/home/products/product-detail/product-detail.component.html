@@ -36,7 +36,7 @@
 
         <div class = "col-md-7 p-2">
 
-            <h5 class = "lead pl-2" style = "line-height: 1.2;">
+            <h5 class = "lead pl-2 pr-3" style = "line-height: 1.3;">
                 {{ productSelected.productName }}
             </h5>
 
@@ -95,8 +95,101 @@
 
     <hr>
 
-    <div class ="row">
+    <div class ="row p-3">
         {{ productSelected.productDescription }}
+    </div>
+
+    <hr>
+
+    <div class = "row pl-2 pr-3">
+
+        <p class = "text-color-primary">
+            Product Highlights : 
+        </p>
+
+    </div>
+
+    <div class = "row pl-2 pr-3">
+
+        <ul class = "col-md-5 text-center" style = "border-right: 2px solid #b2bec3;">
+            <span
+                *ngFor = "let productHighlight of productSelected.productHighlights; let i = index">
+
+                    <li
+                        style = "list-style-type: none;"
+                        *ngIf = "i%2 === 0">
+                            {{ productHighlight }}
+                    </li>
+                
+            </span>
+        </ul>
+
+        <ul class = "col-md-5 text-center">
+            <span
+                *ngFor = "let productHighlight of productSelected.productHighlights; let i = index">
+
+                    <li
+                        style = "list-style-type: none;"
+                        *ngIf = "i%2 != 0">
+                            {{ productHighlight }}
+                    </li>
+                
+            </span>
+        </ul>
+
+    </div>
+
+    <hr>
+
+    <div class = "row" *ngIf = "!isRated">
+
+        <p 
+            class = "text-color-primary">
+            Rate product : 
+        </p>
+
+        <div class = "pl-3">
+
+            <a
+                (click) = "!productRating1 ? onGiveRating('one') : onRemoveRating('one')"
+                [ngStyle] = "{color: productRating1 ? '#f39c12' : ''}">
+                <i class="fas fa-star"></i>
+            </a>
+
+            <a
+                (click) = "!productRating2 ? onGiveRating('two') : onRemoveRating('two')"
+                [ngStyle] = "{color: productRating2 ? '#f39c12' : ''}">
+                <i class="fas fa-star"></i>
+            </a>
+
+            <a
+                (click) = "!productRating3 ? onGiveRating('three') : onRemoveRating('three')"
+                [ngStyle] = "{color: productRating3 ? '#f39c12' : ''}">
+                <i class="fas fa-star"></i>
+            </a>
+
+            <a
+                (click) = "!productRating4 ? onGiveRating('four') : onRemoveRating('four')"
+                [ngStyle] = "{color: productRating4 ? '#f39c12' : ''}">
+                <i class="fas fa-star"></i>
+            </a>
+
+            <a
+                (click) = "!productRating5 ? onGiveRating('five') : onRemoveRating('five')"
+                [ngStyle] = "{color: productRating5 ? '#f39c12' : ''}">
+                <i class="fas fa-star"></i>
+            </a>
+
+            <button
+                type = "button"
+                class = "btn btn-sm btn-success ml-4"
+                (click) = "onSubmitRating()">
+                Submit
+            </button>
+
+
+        </div>
+
     </div>
 
 </div>
