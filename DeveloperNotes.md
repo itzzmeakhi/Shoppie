@@ -72,7 +72,13 @@ Added displaying products to the loggedIn user using products and products-item 
 
 Added Detailed view of the product when user click on a particular product by implementing product-detail component.
 
-Added admin/add-product component to add a product, where role based guard should be implemented in further commits
+Added admin/add-product component to add a product, where role based guard should be implemented in further commits.
+
+# Added product Highlights
+
+### Commit - 9
+
+Added highights to the product model and also implemented form array to push product highights from admin/add-product component while adding a product. Should implement displaying product highlights in the product-detail component in further commits.
 
 
 
