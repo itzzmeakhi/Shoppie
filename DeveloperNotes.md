@@ -80,5 +80,11 @@ Added admin/add-product component to add a product, where role based guard shoul
 
 Added highights to the product model and also implemented form array to push product highights from admin/add-product component while adding a product. Should implement displaying product highlights in the product-detail component in further commits.
 
+# Added user product ratings
+
+### Commit - 10
+
+Added a feature, so that user can rate a product out of 5 and can submit the rating. User can rate the specific product only once. It will be impllemted in UI in next commit. 
+
 
 
