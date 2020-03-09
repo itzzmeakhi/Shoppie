@@ -49,6 +49,8 @@ export class AuthService {
                    newUserData.userImageUrl,
                    newUserData.userSavedAddresses,
                    null,
+                   newUserData.userCartItems,
+                   newUserData.userOrders,
                    userData.localId,
                    null
                 );

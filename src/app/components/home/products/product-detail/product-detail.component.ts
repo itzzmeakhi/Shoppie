@@ -22,6 +22,9 @@ export class ProductDetailComponent implements OnInit {
   productRating5 : boolean = false;
   userDetails : NewUser;
   isRated : boolean;
+  userRatingForProduct : number;
+  productOverallRating : number;
+  productNumberOfRatings : number;
 
   constructor(private activatedRoute : ActivatedRoute,
               private productService : ProductService,
@@ -40,6 +43,13 @@ export class ProductDetailComponent implements OnInit {
 
             for(const key in this.productSelected.productUserRatings) {
               this.isRated = this.productSelected.productUserRatings[key].user === this.userDetails.userId;
+              if(this.isRated) {
+                this.userRatingForProduct = this.productSelected.productUserRatings[key].rating;
+              }
+            }
+            this.productNumberOfRatings = this.productSelected.productUserRatings.length;
+            if(this.productNumberOfRatings > 0) {
+              this.onCalculateOverallRating();
             }
           })
       })
@@ -103,8 +113,30 @@ export class ProductDetailComponent implements OnInit {
 
     this.productService.saveProductRating(productRatings, this.productSelected.rowId)
       .subscribe(productsData => {
-        console.log(productsData);
+        // console.log(productsData);
+        this.isRated = true;
+        this.userRatingForProduct = productRating;
+        if(this.productNumberOfRatings > 0) {
+          this.productOverallRating = (this.productOverallRating + this.userRatingForProduct) / (this.productNumberOfRatings + 1);
+        } else {
+          this.productOverallRating = this.userRatingForProduct;
+          this.productNumberOfRatings = 1;
+        }
+          console.log(this.productOverallRating);
       })
+  }
+
+  onCalculateOverallRating() {
+    let index = -1;
+    for(const key in this.productSelected.productUserRatings) {
+      index = index + 1;
+      if(index == 0) {
+        this.productOverallRating = this.productSelected.productUserRatings[key].rating;
+      } else {
+        this.productOverallRating = this.productOverallRating + this.productSelected.productUserRatings[key].rating;
+      }      
+    }
+    this.productOverallRating = this.productOverallRating / this.productNumberOfRatings;
   }
 
 }

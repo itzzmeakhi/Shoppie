@@ -99,6 +99,8 @@ export class UserComponent implements OnInit, OnDestroy {
       this.userImageUrl.value,
       this.userLoggedInData.userSavedAddresses,
       null,
+      this.userLoggedInData.userCartItems,
+      this.userLoggedInData.userOrders,
       this.userLoggedInData.userId,
       null
     )
@@ -106,11 +108,11 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userDetailsUpdatedSubs = this.userService.onUpdateUserDetails(updatedUserDetails, this.userLoggedInData.rowId)
       .subscribe((updatedResponse : NewUser) => {
         console.log("User Data Updated");
-        //console.log(updatedResponse);
-        this.userUpdatedReadSubs = this.userService.getUser(this.userLoggedInData.rowId)
-          .subscribe(userData => {
-            // this.userService.userDetails.next(userData);
-          })
+        // //console.log(updatedResponse);
+        // this.userUpdatedReadSubs = this.userService.getUser(this.userLoggedInData.userId)
+        //   .subscribe(userData => {
+        //     // this.userService.userDetails.next(userData);
+        //   })
         this.userService.userDetails.next(updatedResponse)
         this.userDetailsEditMode = false;
       })

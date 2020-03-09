@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 import { Product, Rating } from './product.model';
 
 @Injectable({ providedIn : 'root' })
 export class ProductService {
+
+    product = new BehaviorSubject<Product>(null);
 
     constructor(private httpClient : HttpClient) {}
 
@@ -80,6 +83,8 @@ export class ProductService {
                 })
             )
     }
+
+    // To save user product rating
 
     saveProductRating(ratings : Rating[], rowId : string) {
         return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/products/'+rowId+'/productUserRatings.json', ratings)

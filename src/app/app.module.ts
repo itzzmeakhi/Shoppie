@@ -27,6 +27,8 @@ import { ProductItemComponent } from './components/home/products/product-item/pr
 import { IsAuthenticatedInterceptorService } from './components/auth/is-authenticated-interceptor.service';
 
 import { MaxLengthPipe } from './shared/max-length.pipe';
+import { UserCartComponent } from './components/home/user/user-cart/user-cart.component';
+import { UserOrdersComponent } from './components/home/user/user-orders/user-orders.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { MaxLengthPipe } from './shared/max-length.pipe';
     AdminComponent,
     AddProductComponent,
     ProductItemComponent,
-    MaxLengthPipe
+    MaxLengthPipe,
+    UserCartComponent,
+    UserOrdersComponent
   ],
   imports: [
     BrowserModule,

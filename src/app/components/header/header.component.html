@@ -28,8 +28,16 @@
           </a>
 
           <div class = "dropdown-menu" aria-labelledby = "navbarDropdownMenuLink">
-            <a class = "dropdown-item"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a>
+
+            <a 
+              [routerLink] = "['/home/user', userLoggedInDetails.localId, 'cart']"
+              class = "dropdown-item">
+              <i class="fas fa-shopping-cart"></i>&nbsp;
+              Cart
+            </a>
+
             <a class = "dropdown-item float-right" (click) = "onLogout()"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+          
           </div>
 
         </li>

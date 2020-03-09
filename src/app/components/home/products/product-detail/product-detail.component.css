@@ -17,3 +17,11 @@
 .text-color-primary {
     color: #192a56;
 }
+
+button:focus {
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}

@@ -1,5 +1,15 @@
 import { Address } from './address.model';
 
+export class UserCart {
+    productId : string;
+    quantity : number;
+
+    constructor(prodId : string, items : number) {
+        this.productId = prodId;
+        this.quantity = items;
+    }
+}
+
 export class NewUser {
     public userName : string;
     public userEmail : string;
@@ -11,6 +21,8 @@ export class NewUser {
     public userImageUrl : string;
     public userSavedAddresses : Address[];
     public userPassword? : string;
+    public userCartItems? : UserCart[];
+    public userOrders? : any[];
     public userId? : string;
     public rowId? : string;
 
@@ -24,6 +36,8 @@ export class NewUser {
                 url : string,
                 addresses : Address[],
                 password? : string,
+                cartItems? : UserCart[], 
+                orders? : any[],
                 id? : string,
                 rowid?: string) {
 
@@ -37,6 +51,8 @@ export class NewUser {
         this.userImageUrl = url;
         this.userSavedAddresses = addresses;
         this.userPassword = password;
+        this.userCartItems = cartItems;
+        this.userOrders = orders;
         this.userId = id;
         this.rowId = rowid;
     }

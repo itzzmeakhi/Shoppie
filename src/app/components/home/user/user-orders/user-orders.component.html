@@ -1,0 +1,44 @@
+<div class = "orders-container mt-3">
+
+    <div *ngIf = "hasAnyOrders">
+
+        <div class = "row card-props m-2" *ngFor = "let order of userOrders">
+
+            <div class = "col-md-3 p-4">
+                <p class = "text-primary">
+                    <span class = "text-dark">Order Id:</span> {{ order.ordId }}
+                </p>
+
+                <p class = "text-dark">
+                    Delivered To :
+                    <span class = "text-muted">
+                        {{ order.delivered }}
+                    </span>
+                </p>
+            </div>
+
+            <div class = "col-md-9 text-center p-3">
+
+                <p *ngFor = "let item of order.items" class = "text-muted">
+                    {{ item.name }} * {{ item.quantity }} - {{ item.eprice | currency : 'INR' }}
+                </p>
+
+                <hr>
+
+                <p class = "text-primary">
+                    <span class = "text-dark"> Amount paid: </span>
+                    {{ order.totalPrice | currency : 'INR' }}
+                </p>
+
+                
+            </div>
+
+        </div> 
+
+    </div>
+
+    <div class = "row mt-4 ml-2" *ngIf = "!hasAnyOrders">
+        <p class = "text-muted"> No orders placed yet! </p>
+    </div>
+
+</div>

@@ -1,0 +1,93 @@
+<div class = "user-cart-container mt-3">
+
+    <span *ngIf = "haveItemsInCart">
+
+        <div class = "row card-props m-2" *ngFor = "let cartItem of cartItemsDetails">
+
+            <div class = "col-md-4">
+                <img
+                    [src] = "cartItem.imgUrl"
+                    class = "img-fluid p-3"
+                    style = "height: 150px;"
+                >
+            </div>
+
+            <div class = "col-md-8 text-center p-3">
+
+                <span class = "text-muted">
+                    {{ cartItem.name }}
+                </span> <br>
+
+                <span class = "text-muted">
+                    Normal Price : {{ cartItem.price | currency : 'INR' }}
+                </span><br>
+
+                <span class = "text-muted">
+                    Discount : {{ cartItem.discount/100 | percent }}
+                </span><br>
+
+                <span class = "text-muted">
+                    Quantity : {{ cartItem.quantity }}
+                </span><br>
+
+                <span class = "text-muted">
+                    Effective Price :
+                    <br>
+                    {{ cartItem.quantity }} * {{ cartItem.name }} = {{ cartItem.eprice | currency : 'INR' }}
+                </span>
+
+            </div>
+
+        </div> 
+
+        <p class = "m-3"> Deliver To: </p>
+
+        <form [formGroup] = "selectAddressForm" (ngSubmit) = "onSelectAddress()">
+
+            <select class = "form-control form-control-sm col-md-2" formControlName = "addressSelected">
+                <option *ngFor = "let addr of userData.userSavedAddresses; let i = index" [value] = "i">
+                    {{ addr.addressSaveAs }}
+                </option>
+            </select>
+
+            <button
+                class = "btn btn-sm btn-primary mt-2"
+                type = "submit">
+                Select
+            </button>
+
+        </form>
+
+    </span>
+
+    <div class = "row m-2" *ngIf = "!haveItemsInCart">
+        <p class = "text-muted">
+            No Items in the cart.
+        </p>
+    </div>
+
+    <hr>
+
+    <div class = "row m-2">
+
+        <button
+            class = "btn btn-sm btn-warning"
+            [disabled] = "!haveItemsInCart"
+            (click) = "onBuyItems()">
+            Buy now
+        </button>
+        &nbsp;
+        <button
+            class = "btn btn-sm btn-secondary"
+            [disabled] = "!haveItemsInCart"
+            (click) = "onClearCartItems()">
+            Clear
+        </button>
+
+        <P class = "lead offset-md-6 col-md-4">
+            Total Price : {{ totalPrice | currency : 'INR' }}
+        </P>
+
+    </div>
+
+</div>

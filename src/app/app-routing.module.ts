@@ -12,6 +12,8 @@ import { MyAddressesComponent } from './components/home/user/my-addresses/my-add
 import { AddressViewEditComponent } from './components/home/user/my-addresses/address-view-edit/address-view-edit.component';
 import { AddProductComponent } from './components/home/admin/add-product/add-product.component';
 import { ProductDetailComponent } from './components/home/products/product-detail/product-detail.component';
+import { UserCartComponent } from './components/home/user/user-cart/user-cart.component';
+import { UserOrdersComponent } from './components/home/user/user-orders/user-orders.component';
 
 const appRoutes : Routes = [
     { path : '', redirectTo : '/home', pathMatch : 'full' },
@@ -22,6 +24,8 @@ const appRoutes : Routes = [
         { path : '', component : ProductsComponent },
         { path : 'products/:prodId', component : ProductDetailComponent },
         { path : 'user/:id', component : UserComponent },
+        { path : 'user/:id/cart', component : UserCartComponent },
+        { path : 'user/:id/orders', component : UserOrdersComponent },
         { path : 'user/:rowid/addresses', component : MyAddressesComponent },
         { path : 'user/:rowid/addresses/:addrId', component : AddressViewEditComponent }
     ] }

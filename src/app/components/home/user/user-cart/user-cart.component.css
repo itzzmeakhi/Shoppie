@@ -1,0 +1,14 @@
+.card-props {
+    background-color: #fff;
+    -webkit-box-shadow: -1px 10px 14px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 10px 14px -4px rgba(0,0,0,0.75);
+    box-shadow: -1px 10px 14px -4px rgba(0,0,0,0.75);
+}
+
+button:focus {
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}

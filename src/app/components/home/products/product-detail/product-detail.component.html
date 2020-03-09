@@ -1,5 +1,7 @@
 <div class = "product-detail-container" *ngIf = "productSelected">
 
+    <!-- Breadcrumb for category and brand -->
+
     <div class = "row">
 
         <div class = "col-md-12">
@@ -24,6 +26,8 @@
 
     <div class = "row">
 
+        <!-- Product Image -->
+
         <div class = "col-md-5" style = "border-right: 1px solid #b2bec3;">
 
             <img
@@ -33,6 +37,8 @@
             >
 
         </div>
+
+        <!-- Product Details like productName, price, discount, discountedPrice, Rating etc -->
 
         <div class = "col-md-7 p-2">
 
@@ -55,19 +61,25 @@
 
             </p>
 
-            <p> Rating : 
+            <p *ngIf = "productNumberOfRatings" class = "pl-2"> Rating : 
 
                 <span class = "badge badge-success" style = "font-size: 80%;">  
-                    5 <i class="fas fa-star" style = "font-size: 70%;"></i>
+                    {{ productOverallRating }} <i class="fas fa-star" style = "font-size: 70%;"></i>
                 </span>&nbsp;
 
                 <span class = "text-success" style = "font-size: 80%;">
-                    1700+ Ratings
+                    {{ productNumberOfRatings }}+ Ratings
                 </span>
 
             </p>
 
-            <p> Seller : 
+            <p 
+                *ngIf = "!productNumberOfRatings"
+                class = "text-muted pl-2">
+                No ratings yet!
+            </p>
+
+            <p class = "pl-2"> Seller : 
 
                 <span class = "text-primary">
                     {{ productSelected.productSeller }}
@@ -75,7 +87,7 @@
 
             </p>
 
-            <div class = "btn-group">
+            <div class = "btn-group pl-2">
 
                 <button 
                     class = "btn btn-sm btn-color mb-2">
@@ -95,11 +107,15 @@
 
     <hr>
 
+    <!-- Product Description -->
+
     <div class ="row p-3">
         {{ productSelected.productDescription }}
     </div>
 
     <hr>
+
+    <!-- Product Highlights -->
 
     <div class = "row pl-2 pr-3">
 
@@ -140,6 +156,8 @@
     </div>
 
     <hr>
+
+    <!-- User Product Rating -->
 
     <div class = "row" *ngIf = "!isRated">
 
@@ -189,6 +207,16 @@
 
 
         </div>
+
+    </div>
+
+    <!-- User Already Rated -->
+
+    <div class = "row" *ngIf = "isRated">
+
+        <p class = "text-color-primary pl-3">
+            You rated : {{ userRatingForProduct }} <i class="fas fa-star" style = "color: #f39c12;"></i>
+        </p>
 
     </div>
 
