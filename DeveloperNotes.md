@@ -86,5 +86,11 @@ Added highights to the product model and also implemented form array to push pro
 
 Added a feature, so that user can rate a product out of 5 and can submit the rating. User can rate the specific product only once. It will be impllemted in UI in next commit. 
 
+# Added Cart/BuyNow features
+
+### Commit - 11
+
+Added features so that loggedIn user can add the products to the cart and view them on the cart. Can also select the address from the saved addresses. And can place an order to the the selected address
+
 
 
