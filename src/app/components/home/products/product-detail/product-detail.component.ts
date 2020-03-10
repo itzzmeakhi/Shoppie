@@ -55,6 +55,8 @@ export class ProductDetailComponent implements OnInit {
       })
   }
 
+  // Triggers when a ratingStar is clicked loggedIn user
+
   onGiveRating(ratingScale : string) {
 
     if(ratingScale === "one") {
@@ -70,6 +72,8 @@ export class ProductDetailComponent implements OnInit {
     }
 
   }
+
+  // Triggers when ratedStar is clicked again to remove the rating
 
   onRemoveRating(ratingScale : string) {
 
@@ -96,6 +100,8 @@ export class ProductDetailComponent implements OnInit {
     }
 
   }
+
+  // Triggers when loggedInUser submits the raing
 
   onSubmitRating() {
     let productRating : number = 0;
@@ -125,6 +131,8 @@ export class ProductDetailComponent implements OnInit {
           console.log(this.productOverallRating);
       })
   }
+
+  // To calculate the overall rating of products received from all users
 
   onCalculateOverallRating() {
     let index = -1;

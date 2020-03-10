@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
+
+import { Subscription } from 'rxjs';
 
 import { UserService } from '../../../../shared/user.service';
 import { UserCart, NewUser } from '../../../../shared/new-user.model';
@@ -12,7 +14,7 @@ import { ProductService } from '../../../../shared/product.service';
   templateUrl: './user-cart.component.html',
   styleUrls: ['./user-cart.component.css']
 })
-export class UserCartComponent implements OnInit {
+export class UserCartComponent implements OnInit, OnDestroy {
 
   userId : string;
   cartItems : UserCart[];
@@ -24,6 +26,13 @@ export class UserCartComponent implements OnInit {
   haveItemsInCart : boolean = false;
   selectAddressForm : FormGroup;
   deliverTo : string;
+  getUserSubs : Subscription;
+  getProductSubs : Subscription;
+  placeOrderSubs : Subscription;
+  saveProductSubs : Subscription;
+  getUserDetailsSubs : Subscription;
+  clearCartSubs : Subscription;
+  userSubs : Subscription;
 
   constructor(private activatedRoute : ActivatedRoute,
               private userService : UserService,
@@ -37,7 +46,7 @@ export class UserCartComponent implements OnInit {
       'addressSelected' : new FormControl('')
     })
 
-    this.userService.getUser(this.userId)
+    this.getUserSubs = this.userService.getUser(this.userId)
       .subscribe(userData => {
         this.rowId = userData.rowId;
         this.userData = userData;
@@ -45,9 +54,8 @@ export class UserCartComponent implements OnInit {
         this.cartItems = userData.userCartItems;
         this.haveItemsInCart = this.cartItems.length > 0; 
         
-
         this.cartItems.forEach(cartItem => {
-          this.productService.getProduct(cartItem.productId)
+          this.getProductSubs = this.productService.getProduct(cartItem.productId)
             .subscribe(productData => {
               let cartItemDetail = { 'name' : productData.productName, 'imgUrl' : productData.productImageUrl, 'quantity' : cartItem.quantity, 'price' : productData.productPrice, 'discount' : productData.productDiscount, 'eprice' : (productData.productPrice - ((productData.productDiscount * productData.productPrice)/100)) * cartItem.quantity };
               this.cartItemsDetails = [...this.cartItemsDetails, cartItemDetail];
@@ -56,6 +64,8 @@ export class UserCartComponent implements OnInit {
         })
       })
   }
+ 
+  // Triggers when loggedIn user clicks BuyNow Button
 
   onBuyItems() {
     const newOrder = {
@@ -65,26 +75,30 @@ export class UserCartComponent implements OnInit {
       'delivered' : this.deliverTo
     }
     const updatedOrders = [...this.orders, newOrder];
-    this.userService.placeAnOrder(updatedOrders, this.rowId)
+    this.placeOrderSubs = this.userService.placeAnOrder(updatedOrders, this.rowId)
       .subscribe(response => {
         // console.log(response);
         console.log("Order Placed");
-        this.userService.saveProductToCart([], this.rowId)
-          .subscribe(response => {})
-        this.haveItemsInCart = false;
-        this.userService.getUser(this.userId)
-          .subscribe(userData => {
-            this.userService.userDetails.next(userData);
-            alert("Order Placed");
-            this.router.navigate(['/home/user', userData.userId, 'orders']);
+        this.saveProductSubs = this.userService.saveProductToCart([], this.rowId)
+          .subscribe(response => {
+            this.getUserDetailsSubs = this.userService.getUser(this.userId)
+              .subscribe(userData => {
+                this.haveItemsInCart = false;
+                // console.log(userData);
+                this.userService.userDetails.next(userData);
+                alert("Order Placed"); 
+                this.router.navigate(['/home/user', userData.userId, 'orders']);
+              })
           })
       })
   }
 
+  // To Clear the items in the cart
+
   onClearCartItems() {
-    this.userService.saveProductToCart([], this.rowId)
+    this.clearCartSubs = this.userService.saveProductToCart([], this.rowId)
       .subscribe(response => {
-        this.userService.getUser(this.userId)
+        this.userSubs = this.userService.getUser(this.userId)
           .subscribe(userData => {
             this.userService.userDetails.next(userData);
             console.log("Cart Cleared!");
@@ -93,10 +107,42 @@ export class UserCartComponent implements OnInit {
       })
   }
 
+  // To select the addresses to deliver the products
+
   onSelectAddress() {
     this.deliverTo = this.userData.userSavedAddresses[this.selectAddressForm.get('addressSelected').value].addressSaveAs;
-    console.log(this.deliverTo);
+    // console.log(this.deliverTo);
   }
 
+  ngOnDestroy() {
+    if(this.getUserSubs) {
+      this.getUserSubs.unsubscribe();
+    }
+
+    if(this.getProductSubs) {
+      this.getProductSubs.unsubscribe();
+    }
+
+    if(this.placeOrderSubs) {
+      this.placeOrderSubs.unsubscribe();
+    }
+
+    if(this.saveProductSubs) {
+      this.saveProductSubs.unsubscribe();
+    }
+
+    if(this.getUserDetailsSubs) {
+      this.getUserDetailsSubs.unsubscribe();
+    }
+
+    if(this.clearCartSubs) {
+      this.clearCartSubs.unsubscribe();
+    }
+
+    if(this.userSubs) {
+      this.userSubs.unsubscribe();
+    }
+
+  }
 
 }

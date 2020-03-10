@@ -2,6 +2,10 @@
 
     <span *ngIf = "haveItemsInCart">
 
+        <p class = "lead m-2"> Items in cart : </p>
+
+        <hr>
+
         <div class = "row card-props m-2" *ngFor = "let cartItem of cartItemsDetails">
 
             <div class = "col-md-4">
@@ -17,6 +21,8 @@
                 <span class = "text-muted">
                     {{ cartItem.name }}
                 </span> <br>
+                
+                <hr class = "m-1">
 
                 <span class = "text-muted">
                     Normal Price : {{ cartItem.price | currency : 'INR' }}

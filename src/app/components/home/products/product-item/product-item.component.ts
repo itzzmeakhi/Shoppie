@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { Subscription } from 'rxjs';
 
 import { Product } from 'src/app/shared/product.model';
 import { UserService } from '../../../../shared/user.service';
@@ -10,22 +12,34 @@ import { UserCart, NewUser } from 'src/app/shared/new-user.model';
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.css']
 })
-export class ProductItemComponent implements OnInit {
+export class ProductItemComponent implements OnInit, OnDestroy {
 
   @Input() product : Product;
   @Input() index : number;
   addedItemsToCart : number;
   canAddToCart : boolean = false;
   userLoggedInDetails : NewUser;
+  productAlreadyInCart : boolean = false;
+  userDetailsSubs : Subscription;
+  addCartSubs : Subscription;
+  userDetailsEmitSubs : Subscription;
 
   constructor(private activatedRoute : ActivatedRoute,
               private router : Router,
               private userService : UserService) { }
 
   ngOnInit() {
-    this.userService.userDetails
+    this.userDetailsSubs = this.userService.userDetails
       .subscribe(userData => {
         this.userLoggedInDetails = userData;
+        if(this.userLoggedInDetails.userCartItems) {
+          this.userLoggedInDetails.userCartItems.forEach(cartItem => {
+            if(cartItem.productId === this.product.productId) {
+              this.addedItemsToCart = cartItem.quantity;
+              this.canAddToCart = true;
+            }
+          })
+        }
       })
   }
 
@@ -72,18 +86,48 @@ export class ProductItemComponent implements OnInit {
   // Triggers when addToCart button is clicked
 
   onAddToCart() {
+    let updatedCartItems : UserCart[];
     const newCartItem = new UserCart(this.product.productId, this.addedItemsToCart);
-    const updatedCartItems = [...this.userLoggedInDetails.userCartItems, newCartItem];
-    console.log(updatedCartItems);
-    this.userService.saveProductToCart(updatedCartItems, this.userLoggedInDetails.rowId)
+    if(this.userLoggedInDetails.userCartItems.length > 0) {
+      this.userLoggedInDetails.userCartItems.forEach(cartItem => {
+        // console.log(cartItem.productId);
+        if(cartItem.productId === this.product.productId) {
+          cartItem.quantity = this.addedItemsToCart;
+          this.productAlreadyInCart = true;
+        }
+      })
+    }
+
+    if(this.productAlreadyInCart) {
+      updatedCartItems = [...this.userLoggedInDetails.userCartItems];
+      this.productAlreadyInCart = false;
+    } else {
+      updatedCartItems = [...this.userLoggedInDetails.userCartItems, newCartItem];
+    }
+
+    this.addCartSubs = this.userService.saveProductToCart(updatedCartItems, this.userLoggedInDetails.rowId)
       .subscribe(addedResponse => {
         // console.log(addedResponse);
         console.log("Added to Cart");
-        this.userService.getUser(this.userLoggedInDetails.userId)
+        this.userDetailsEmitSubs = this.userService.getUser(this.userLoggedInDetails.userId)
           .subscribe(userData => {
             this.userService.userDetails.next(userData);
           })
       })
+  }
+
+  ngOnDestroy() {
+    if(this.userDetailsSubs) {
+      this.userDetailsSubs.unsubscribe();
+    }
+
+    if(this.addCartSubs) {
+      this.addCartSubs.unsubscribe();
+    }
+
+    if(this.userDetailsEmitSubs) {
+      this.userDetailsEmitSubs.unsubscribe();
+    }
   }
 
 }

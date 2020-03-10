@@ -2,6 +2,10 @@
 
     <div *ngIf = "hasAnyOrders">
 
+        <p class = "lead m-2"> My Orders: </p>
+
+        <hr class = "m-2">
+
         <div class = "row card-props m-2" *ngFor = "let order of userOrders">
 
             <div class = "col-md-3 p-4">
@@ -23,7 +27,7 @@
                     {{ item.name }} * {{ item.quantity }} - {{ item.eprice | currency : 'INR' }}
                 </p>
 
-                <hr>
+                <hr class = "ml-4">
 
                 <p class = "text-primary">
                     <span class = "text-dark"> Amount paid: </span>
