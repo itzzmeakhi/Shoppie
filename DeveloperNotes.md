@@ -92,5 +92,11 @@ Added a feature, so that user can rate a product out of 5 and can submit the rat
 
 Added features so that loggedIn user can add the products to the cart and view them on the cart. Can also select the address from the saved addresses. And can place an order to the the selected address
 
+# Removed Issues with Cart/BuyNow Features
+
+### Commit - 12
+
+Removed issues with cartAdded quantity number in the product-item updation and duplication of items in the cart etc, Clearing cart after Buying and reflecting those changes etc in Cart/BuyNow components.
+
 
 
