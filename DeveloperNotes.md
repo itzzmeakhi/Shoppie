@@ -92,5 +92,13 @@ Added a feature, so that user can rate a product out of 5 and can submit the rat
 
 Added features so that loggedIn user can add the products to the cart and view them on the cart. Can also select the address from the saved addresses. And can place an order to the the selected address
 
+# Added filter products feature
+
+### Commit - 12
+
+Added features to the loggedIn user, to filter products using brandName or categoryName. ProductFilter component is implemented and the querying and displaying filtered results are to implemented in further commit. 
+
+Also added admin/add-brand and admin/add-category components, so that admin can add them
+
 
 
