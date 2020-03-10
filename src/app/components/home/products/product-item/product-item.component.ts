@@ -31,8 +31,8 @@ export class ProductItemComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userDetailsSubs = this.userService.userDetails
       .subscribe(userData => {
-        this.userLoggedInDetails = userData;
-        if(this.userLoggedInDetails.userCartItems) {
+        if(userData) {
+          this.userLoggedInDetails = userData;
           this.userLoggedInDetails.userCartItems.forEach(cartItem => {
             if(cartItem.productId === this.product.productId) {
               this.addedItemsToCart = cartItem.quantity;

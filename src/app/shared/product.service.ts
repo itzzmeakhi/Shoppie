@@ -38,6 +38,8 @@ export class ProductService {
                             productsData[key].productSeller,
                             productsData[key].productBrand,
                             productsData[key].productCategory,
+                            productsData[key].productBrandId,
+                            productsData[key].productCategoryId,
                             productsData[key].productAvailableQuantity,
                             productsData[key].productHighlights,
                             productsData[key].productUserRatings ? productsData[key].productUserRatings : [],
@@ -71,6 +73,8 @@ export class ProductService {
                                 productData[key].productSeller,
                                 productData[key].productBrand,
                                 productData[key].productCategory,
+                                productData[key].productBrandId,
+                                productData[key].productCategoryId,
                                 productData[key].productAvailableQuantity,
                                 productData[key].productHighlights,
                                 productData[key].productUserRatings ? productData[key].productUserRatings : [],
@@ -89,5 +93,73 @@ export class ProductService {
     saveProductRating(ratings : Rating[], rowId : string) {
         return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/products/'+rowId+'/productUserRatings.json', ratings)
     }
+
+    // To get all available productBrands
+
+    getProductBrands() {
+        return this.httpClient.get('https://shoppie-4c4f4.firebaseio.com/brands.json')
+            .pipe(
+                map(responseData => {
+                    if(responseData === null) {
+                        return [];
+                    } else {
+                        let brands = [];
+                        for(const key in responseData) {
+                            if(responseData.hasOwnProperty(key)) {
+                                const brandItem = {
+                                    'brandName' : responseData[key].brandName,
+                                    'brandId' : responseData[key].brandId
+                                }
+
+                                brands.push(brandItem);
+                            }
+                        }
+                        return brands;
+                    }
+                })
+            )
+    }
+
+    // To add a productBrand
+
+    addProductBrand(brandsData) {
+        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/brands.json', brandsData)
+    }
+
+    
+    // To get all available categories
+
+    getCategories() {
+        return this.httpClient.get('https://shoppie-4c4f4.firebaseio.com/categories.json')
+            .pipe(
+                map(responseData => {
+                    if(responseData === null) {
+                        return [];
+                    } else {
+                        let categories = [];
+                        for(const key in responseData) {
+                            if(responseData.hasOwnProperty(key)) {
+                                const categoryItem = {
+                                    'categoryName' : responseData[key].categoryName,
+                                    'categoryId' : responseData[key].categoryId
+                                }
+
+                                categories.push(categoryItem);
+                            }
+                        }
+                        return categories;
+                    }
+                })
+            )
+    }
+
+    // To add a category
+
+    addCategory(categoryData) {
+        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/categories.json', categoryData)
+    }
+
+
+
     
 }

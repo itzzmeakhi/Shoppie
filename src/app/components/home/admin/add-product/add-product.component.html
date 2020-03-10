@@ -156,11 +156,11 @@
                     id = "productBrand"
                 >
                     <option
-                        *ngFor = "let prodBrand of productBrands"
-                        [value] = "prodBrand.name"
-                        [id] = "prodBrand.id"
+                        *ngFor = "let prodBrand of brands"
+                        [value] = "prodBrand.brandName"
+                        [id] = "prodBrand.brandId"
                     >
-                        {{ prodBrand.name }}
+                        {{ prodBrand.brandName }}
                     </option>
 
                 </select>
@@ -184,11 +184,11 @@
                     id = "productCategory"
                 >
                     <option
-                        *ngFor = "let prodCategory of productCategories"
-                        [value] = "prodCategory.name"
-                        [id] = "prodCategory.id"
+                        *ngFor = "let prodCategory of categories"
+                        [value] = "prodCategory.categoryName"
+                        [id] = "prodCategory.categoryId"
                     >
-                        {{ prodCategory.name }}
+                        {{ prodCategory.categoryName }}
                     </option>
 
                 </select>

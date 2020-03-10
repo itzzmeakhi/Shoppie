@@ -1,0 +1,66 @@
+<div class = "add-brand-container">
+
+    <form [formGroup] = "addBrandForm" (ngSubmit) = "onFormSubmit()">
+
+        <!-- Brand Name -->
+
+        <div class = "form-group row">
+
+            <label for = "brandName" class = "col-md-2 col-form-label">
+                Brand Name: 
+            </label>
+
+            <div class = "col-md-4">
+
+                <input
+                    type = "text"
+                    class = "form-control form-control-sm"
+                    name = "brandName"
+                    formControlName = "brandName"
+                    id = "brandName"
+                >
+
+            </div>
+
+        </div>
+
+        <!-- Button for Submit -->
+
+        <button
+            type = "submit"
+            class = "btn btn-sm btn-success">
+            Add Brand
+        </button>
+    
+    </form>
+
+    <hr>
+
+    <div class ="row available-brands" *ngIf = "isBrandsAvailable">
+
+        <div class = "text-center">
+            <p class = "text-muted">
+                List of Brands Available: 
+            </p>
+        </div>
+
+        <span *ngFor = "let brand of brandsAvailable; let i = index">
+
+            <div class = "col-md-6" *ngIf = "i%2 === 0">
+                {{ brand.brandName }}
+            </div>
+
+            <div class = "col-md-6" *ngIf = "i%2 != 0">
+                {{ brand.brandName }}
+            </div>
+
+        </span>
+
+    </div>
+
+    <div class = "row" *ngIf = "!isBrandsAvailable">
+        No Brands Added yet..!!
+    </div>
+
+
+</div>

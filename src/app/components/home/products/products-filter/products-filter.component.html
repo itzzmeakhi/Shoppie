@@ -1,0 +1,51 @@
+<div class = "products-filter-container pt-4 pl-2">
+
+    <p class = "text-color-primary"> Search by Brand! </p>
+
+    <hr>
+
+    <!-- Brands -->
+
+    <div class = "row p-2">
+
+        <div class = "col-md-2 m-2" *ngFor = "let brand of brands">
+            <div class = "text-center">
+                <button
+                    type = "button"
+                    class = "btn btn-sm btn-dark pl-2 pr-2"
+                    (click) = "onSelectBrand(brand.brandId)">
+                    {{ brand.brandName }}
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <hr class = "m-3">
+
+    <p class = "text-color-primary"> Search by Category! </p>
+
+    <hr class = "m-1">
+
+    <!-- Categories -->
+
+    <div class = "row p-2">
+
+        <div *ngFor = "let category of categories" class = "col-md-3 m-3">
+
+            <div class = "text-center">
+
+                <button
+                    type = "button"
+                    class = "btn btn-sm btn-dark pl-2 pr-2"
+                    (click) = "onSelectCategory(category.categoryId)">
+                    {{ category.categoryName }}
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,65 @@
+<div class = "add-category-container">
+
+    <form [formGroup] = "addCategoryForm" (ngSubmit) = "onFormSubmit()">
+
+        <!-- Brand Name -->
+
+        <div class = "form-group row">
+
+            <label for = "categoryName" class = "col-md-2 col-form-label">
+                Category Name: 
+            </label>
+
+            <div class = "col-md-4">
+
+                <input
+                    type = "text"
+                    class = "form-control form-control-sm"
+                    name = "categoryName"
+                    formControlName = "categoryName"
+                    id = "categoryName"
+                >
+
+            </div>
+
+        </div>
+
+        <!-- Button for Submit -->
+
+        <button
+            type = "submit"
+            class = "btn btn-sm btn-success">
+            Add Category
+        </button>
+    
+    </form>
+
+    <hr>
+
+    <div class ="row available-categories" *ngIf = "isCategoriesAvailable">
+
+        <div class = "text-center">
+            <p class = "text-muted">
+                List of Categories Available: 
+            </p>
+        </div>
+
+        <span *ngFor = "let category of categoriesAvailable; let i = index">
+
+            <div class = "col-md-6" *ngIf = "i%2 === 0">
+                {{ category.categoryName }}
+            </div>
+
+            <div class = "col-md-6" *ngIf = "i%2 != 0">
+                {{ category.categoryName }}
+            </div>
+
+        </span>
+
+    </div>
+
+    <div class = "row" *ngIf = "!isCategoriesAvailable">
+        No Categories Added yet..!!
+    </div>
+
+</div>

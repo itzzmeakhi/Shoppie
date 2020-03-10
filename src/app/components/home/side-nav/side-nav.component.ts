@@ -60,6 +60,10 @@ export class SideNavComponent implements OnInit, OnDestroy {
     this.router.navigate(['/home/user', this.userLoggedInDetails.userId, 'orders']);
   }
 
+  onFilterProducts() {
+    this.router.navigate(['/home/products/filter']);
+  }
+
   ngOnDestroy() {
 
     if(this.userSubs) {

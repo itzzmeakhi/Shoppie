@@ -29,6 +29,10 @@ import { IsAuthenticatedInterceptorService } from './components/auth/is-authenti
 import { MaxLengthPipe } from './shared/max-length.pipe';
 import { UserCartComponent } from './components/home/user/user-cart/user-cart.component';
 import { UserOrdersComponent } from './components/home/user/user-orders/user-orders.component';
+import { ProductsFilterComponent } from './components/home/products/products-filter/products-filter.component';
+import { AddCategoryComponent } from './components/home/admin/add-category/add-category.component';
+import { AddBrandComponent } from './components/home/admin/add-brand/add-brand.component';
+import { ProductsSpecificComponent } from './components/home/products/products-filter/products-specific/products-specific.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,11 @@ import { UserOrdersComponent } from './components/home/user/user-orders/user-ord
     ProductItemComponent,
     MaxLengthPipe,
     UserCartComponent,
-    UserOrdersComponent
+    UserOrdersComponent,
+    ProductsFilterComponent,
+    AddCategoryComponent,
+    AddBrandComponent,
+    ProductsSpecificComponent
   ],
   imports: [
     BrowserModule,

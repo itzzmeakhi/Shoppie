@@ -15,16 +15,20 @@ export class AddProductComponent implements OnInit, OnDestroy {
 
   addProductForm : FormGroup;
   onAddProductSubs : Subscription;
+  getBrandsSubs : Subscription;
+  getCategoriesSubs : Subscription;
+  brands = [];
+  categories = [];
 
-  productCategories = [
-    { name : 'Mobiles & Accessories', id : 'category01' },
-    { name : 'Computers & Laptops', id : 'category002' }
-  ];
+  // productCategories = [
+  //   { name : 'Mobiles & Accessories', id : 'category01' },
+  //   { name : 'Computers & Laptops', id : 'category002' }
+  // ];
 
-  productBrands = [
-    { name : 'Apple', id : 'brand001' },
-    { name : 'Redmi', id : 'brand002' }
-  ];
+  // productBrands = [
+  //   { name : 'Apple', id : 'brand001' },
+  //   { name : 'Redmi', id : 'brand002' }
+  // ];
 
   productSellers = [
     { name : 'SuperComNet', id : 'seller001'},
@@ -46,6 +50,16 @@ export class AddProductComponent implements OnInit, OnDestroy {
       'productHighlights' : new FormArray([new FormControl('', Validators.required )]),
       'productAvailableQuantity' : new FormControl('', [ Validators.required ])
     })
+
+    this.getBrandsSubs = this.productService.getProductBrands()
+      .subscribe(brandsData => {
+        this.brands = brandsData;
+      })
+
+    this.getCategoriesSubs = this.productService.getCategories()
+      .subscribe(categoriesData => {
+        this.categories = categoriesData;
+      })
   }
 
   get productName() {
@@ -90,6 +104,21 @@ export class AddProductComponent implements OnInit, OnDestroy {
 
   onFormSubmit() {
     // console.log(this.addProductForm);
+    let brandId : string;
+    let categoryId : string;
+
+    this.brands.forEach(brand => {
+      if(brand.brandName === this.productBrand.value) {
+        brandId = brand.brandId;
+      }
+    });
+
+    this.categories.forEach(category => {
+      if(category.categoryName === this.productCategory.value) {
+        categoryId = category.categoryId;
+      }
+    })
+
     const newProduct = new Product(
       this.productCategory.value.slice(0, 4)+this.productBrand.value.slice(0, 4)+new Date().getTime(),
       this.productName.value,
@@ -100,6 +129,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
       this.productSeller.value,
       this.productBrand.value,
       this.productCategory.value,
+      brandId,
+      categoryId,
       this.productAvailableQuantity.value,
       this.productHighlights.value,
       [],
@@ -124,6 +155,14 @@ export class AddProductComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if(this.onAddProductSubs) {
       this.onAddProductSubs.unsubscribe();
+    }
+
+    if(this.getBrandsSubs) {
+      this.getBrandsSubs.unsubscribe();
+    }
+
+    if(this.getCategoriesSubs) {
+      this.getCategoriesSubs.unsubscribe();
     }
   }
 

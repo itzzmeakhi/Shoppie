@@ -24,22 +24,29 @@
         <button 
             type = "button" 
             class = "list-group-item list-group-item-secondary list-group-item-action"
+            (click) = "onFilterProducts()">
+            <i class="fas fa-filter" style = "font-size: 95%;"></i> Filter 
+        </button>
+
+        <button 
+            type = "button" 
+            class = "list-group-item list-group-item-secondary list-group-item-action"
             (click) = "onViewUserProfile()">
-            <i class="fas fa-user-circle"></i> My Profile 
+            <i class="fas fa-user-circle" style = "font-size: 95%;"></i> My Profile 
         </button>
 
         <button 
             type = "button" 
             class = "list-group-item list-group-item-secondary list-group-item-action"
             (click) = "onViewUserOrders()">
-            <i class="fas fa-shopping-bag"></i> My Orders 
+            <i class="fas fa-shopping-bag" style = "font-size: 95%;"></i> My Orders 
         </button>
 
         <button 
             type = "button" 
             class = "list-group-item list-group-item-secondary list-group-item-action"
             (click) = "onViewUserAddress()">
-            <i class="fas fa-map-marker-alt"></i> My Address 
+            <i class="fas fa-map-marker-alt" style = "font-size: 95%;"></i> My Address 
         </button>
 
     </div>
