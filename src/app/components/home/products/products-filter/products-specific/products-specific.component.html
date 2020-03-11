@@ -1,1 +1,13 @@
-<p>products-specific works!</p>
+<div class = "products-specific-container">
+
+    <div class = "row">
+
+        <app-product-item 
+            *ngFor = "let product of filteredProducts; let i = index"
+            [product] = "product"
+            [index] = "i">
+        </app-product-item>
+
+    </div>
+
+</div>

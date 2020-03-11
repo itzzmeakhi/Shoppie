@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 import { Product } from 'src/app/shared/product.model';
 import { ProductService } from 'src/app/shared/product.service';
 import { UserService } from './../../../../shared/user.service';
-import { NewUser } from './../../../../shared/new-user.model';
+import { NewUser, UserCart } from './../../../../shared/new-user.model';
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, OnDestroy {
 
   productId : string;
   productSelected : Product;
@@ -20,33 +22,49 @@ export class ProductDetailComponent implements OnInit {
   productRating3 : boolean = false;
   productRating4 : boolean = false;
   productRating5 : boolean = false;
-  userDetails : NewUser;
-  isRated : boolean;
+  isAlreadyInCart : boolean = false;
   userRatingForProduct : number;
   productOverallRating : number;
   productNumberOfRatings : number;
+  userDetails : NewUser;
+  isRated : boolean;
+
+  getProductSubs : Subscription;
+  userDetailsSubs : Subscription;
+  saveProductRatingSubs : Subscription;
+  addToCartSubs : Subscription;
+  updateUserDetailsSubs : Subscription;
 
   constructor(private activatedRoute : ActivatedRoute,
               private productService : ProductService,
-              private userService : UserService) { }
+              private userService : UserService,
+              private router : Router) { }
 
   ngOnInit() {
     this.productId = this.activatedRoute.snapshot.params['prodId'];
-    this.productService.getProduct(this.productId)
+    this.getProductSubs = this.productService.getProduct(this.productId)
       .subscribe(productData => {
         this.productSelected = productData;
 
-        this.userService.userDetails
+        this.userDetailsSubs = this.userService.userDetails
           .subscribe(userData => {
             //console.log(userData);
             this.userDetails = userData;
+
+            if(this.userDetails.userCartItems.length > 0) {
+              this.userDetails.userCartItems.forEach(cartItem => {
+                if(cartItem.productId === this.productSelected.productId) {
+                  this.isAlreadyInCart = true;
+                }
+              })
+            }
 
             for(const key in this.productSelected.productUserRatings) {
               this.isRated = this.productSelected.productUserRatings[key].user === this.userDetails.userId;
               if(this.isRated) {
                 this.userRatingForProduct = this.productSelected.productUserRatings[key].rating;
               }
-            }
+            } 
             this.productNumberOfRatings = this.productSelected.productUserRatings.length;
             if(this.productNumberOfRatings > 0) {
               this.onCalculateOverallRating();
@@ -117,7 +135,7 @@ export class ProductDetailComponent implements OnInit {
 
     const productRatings = [...this.productSelected.productUserRatings, productUserRating];
 
-    this.productService.saveProductRating(productRatings, this.productSelected.rowId)
+    this.saveProductRatingSubs = this.productService.saveProductRating(productRatings, this.productSelected.rowId)
       .subscribe(productsData => {
         // console.log(productsData);
         this.isRated = true;
@@ -128,7 +146,7 @@ export class ProductDetailComponent implements OnInit {
           this.productOverallRating = this.userRatingForProduct;
           this.productNumberOfRatings = 1;
         }
-          console.log(this.productOverallRating);
+        // console.log(this.productOverallRating);
       })
   }
 
@@ -145,6 +163,59 @@ export class ProductDetailComponent implements OnInit {
       }      
     }
     this.productOverallRating = this.productOverallRating / this.productNumberOfRatings;
+  }
+
+  // On Navigate to products of specific brand
+
+  onNavigateToBrand(brandId : string) {
+    this.router.navigate(['/home/products/filter', 'brand', brandId]);
+  }
+
+  // On Navigate to products of specific category
+
+  onNavigateToCategory(categoryId : string) {
+    this.router.navigate(['/home/products/filter', 'category', categoryId]);
+  }
+
+  // Triggers when AddToCart Button is clicked
+
+  onAddToCart() {
+    let updatedCartItems : UserCart[] = [];
+    const newCartItem = new UserCart(this.productSelected.productId, 1);
+
+    updatedCartItems = [...this.userDetails.userCartItems, newCartItem];
+
+    this.addToCartSubs = this.userService.saveProductToCart(updatedCartItems, this.userDetails.rowId)
+      .subscribe(response => {
+        this.updateUserDetailsSubs = this.userService.getUser(this.userDetails.userId)
+          .subscribe(userData => {
+            this.userService.userDetails.next(userData);
+          })
+        console.log("Added to cart");
+      })
+  }
+
+  ngOnDestroy() {
+    if(this.getProductSubs) {
+      this.getProductSubs.unsubscribe();
+    }
+
+    if(this.userDetailsSubs) {
+      this.userDetailsSubs.unsubscribe();
+    }
+
+    if(this.saveProductRatingSubs) {
+      this.saveProductRatingSubs.unsubscribe();
+    }
+
+    if(this.addToCartSubs) {
+      this.addToCartSubs.unsubscribe();
+    }
+
+    if(this.updateUserDetailsSubs) {
+      this.updateUserDetailsSubs.unsubscribe();
+    }
+
   }
 
 }

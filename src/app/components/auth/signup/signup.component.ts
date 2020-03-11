@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { Subscription } from 'rxjs';
+
 import { NewUser } from './../../../shared/new-user.model';
 import { AuthService } from '../auth.service';
+import { UserService } from '../../../shared/user.service';
 import { BirthDateValidators } from '../../../validators/birthdate.validators';
 import { PasswordValidators } from '../../../validators/password.validators';
 
@@ -12,13 +15,17 @@ import { PasswordValidators } from '../../../validators/password.validators';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
 
   signupForm : FormGroup;
   errorMessage : string = null;
+  signUpSubs : Subscription;
+  getUserIdSubs : Subscription;
+  getUserDetailsSubs : Subscription;
 
   constructor(private authService : AuthService,
-              private router : Router) { }
+              private router : Router,
+              private userService : UserService) { }
 
   ngOnInit() {
     this.signupForm = new FormGroup({
@@ -56,6 +63,8 @@ export class SignupComponent implements OnInit {
     return this.signupForm.get('userDOB');
   }
 
+  // Triggers when user form is submitted
+
   onFormSubmit() {
     const newUserData = new NewUser(
                                 this.userName.value, 
@@ -74,17 +83,40 @@ export class SignupComponent implements OnInit {
                                 null
                               );
     //console.log(newUserData);
-    this.authService.onSignup(newUserData)
+    this.signUpSubs = this.authService.onSignup(newUserData)
       .subscribe(response => {
-        console.log(response);
+        // console.log(response.rowId);
+        this.getUserIdSubs = this.userService.getUserId(response.rowId)
+          .subscribe(userIdData => {
+            this.getUserDetailsSubs = this.userService.getUser(userIdData)
+              .subscribe(userData => {
+                this.userService.userDetails.next(userData);
+              })
+          })
         this.router.navigate(['/home']);
       }, errorRes => {
         this.errorMessage = errorRes;
       })
   }
 
+  // Triggers when a close alert button is clicked
+
   onCloseErrorAlert() {
     this.errorMessage = "";
+  }
+
+  ngOnDestroy() {
+    if(this.signUpSubs) {
+      this.signUpSubs.unsubscribe();
+    }
+
+    if(this.getUserIdSubs) {
+      this.getUserIdSubs.unsubscribe();
+    }
+
+    if(this.getUserDetailsSubs) {
+      this.getUserDetailsSubs.unsubscribe();
+    }
   }
 
 }

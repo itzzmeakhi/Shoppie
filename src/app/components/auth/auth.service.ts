@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { catchError, tap, switchMap, take } from 'rxjs/operators';
+import { catchError, tap, switchMap, map, take } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
 
 import { environment } from './../../../environments/environment';
@@ -54,8 +54,20 @@ export class AuthService {
                    userData.localId,
                    null
                 );
-                this.userService.userDetails.next(newUser);
-                return this.httpClient.post('https://shoppie-4c4f4.firebaseio.com/users.json', newUser);
+                // console.log(newUser);
+                // this.userService.userDetails.next(newUser);
+                return this.httpClient.post('https://shoppie-4c4f4.firebaseio.com/users.json', newUser)
+                    .pipe(
+                        map(responseData => {
+                            for(const key in responseData){
+                                if(responseData.hasOwnProperty(key)) {
+                                    return {
+                                        "rowId" : responseData[key]
+                                    }
+                                }
+                            }
+                        })
+                    )
             })
         )
     }

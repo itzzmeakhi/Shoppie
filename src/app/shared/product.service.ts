@@ -122,7 +122,7 @@ export class ProductService {
 
     // To add a productBrand
 
-    addProductBrand(brandsData) {
+    addProductBrand(brandsData : any[]) {
         return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/brands.json', brandsData)
     }
 
@@ -155,11 +155,76 @@ export class ProductService {
 
     // To add a category
 
-    addCategory(categoryData) {
+    addCategory(categoryData : any[]) {
         return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/categories.json', categoryData)
     }
+ 
+    // To get all products that are filtered using BrandName
 
+    getProductsBasedOnBrand(brandId : string) {
+        return this.httpClient.get<Product[]>('https://shoppie-4c4f4.firebaseio.com/products.json?orderBy="productBrandId"&equalTo="'+brandId+'"')
+            .pipe(
+                map(productsData => {
+                    let products : Product[] = [];
+                    for(const key in productsData) {
+                        if(productsData.hasOwnProperty(key)) {
+                            const product = new Product(
+                                productsData[key].productId,
+                                productsData[key].productName,
+                                productsData[key].productDescription,
+                                productsData[key].productImageUrl,
+                                productsData[key].productPrice,
+                                productsData[key].productDiscount,
+                                productsData[key].productSeller,
+                                productsData[key].productBrand,
+                                productsData[key].productCategory,
+                                productsData[key].productBrandId,
+                                productsData[key].productCategoryId,
+                                productsData[key].productAvailableQuantity,
+                                productsData[key].productHighlights,
+                                productsData[key].productUserRatings ? productsData[key].productUserRatings : [],
+                                key
+                            );
+                            products = [...products, product];
+                        }
+                    }
+                    return products;
+                })
+            )
+    }
 
+    // To get all products that are filtered using CategoryName
 
+    getProductsBasedOnCategory(categoryId : string) {
+        return this.httpClient.get<Product[]>('https://shoppie-4c4f4.firebaseio.com/products.json?orderBy="productCategoryId"&equalTo="'+categoryId+'"')
+            .pipe(
+                map(productsData => {
+                    let products : Product[] = [];
+                    for(const key in productsData) {
+                        if(productsData.hasOwnProperty(key)) {
+                            const product = new Product(
+                                productsData[key].productId,
+                                productsData[key].productName,
+                                productsData[key].productDescription,
+                                productsData[key].productImageUrl,
+                                productsData[key].productPrice,
+                                productsData[key].productDiscount,
+                                productsData[key].productSeller,
+                                productsData[key].productBrand,
+                                productsData[key].productCategory,
+                                productsData[key].productBrandId,
+                                productsData[key].productCategoryId,
+                                productsData[key].productAvailableQuantity,
+                                productsData[key].productHighlights,
+                                productsData[key].productUserRatings ? productsData[key].productUserRatings : [],
+                                key
+                            );
+                            products = [...products, product];
+                        }
+                    }
+                    return products;
+                })
+            )
+    }
     
 }

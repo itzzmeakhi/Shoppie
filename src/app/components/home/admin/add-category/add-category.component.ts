@@ -36,7 +36,7 @@ export class AddCategoryComponent implements OnInit {
   onFormSubmit() {
     const newCategory = {
       'categoryName' : this.categoryName.value,
-      'categoryId' : new Date().getTime()
+      'categoryId' : "category-"+new Date().getTime()
     };
 
     const updatedCategories = [...this.categoriesAvailable, newCategory];

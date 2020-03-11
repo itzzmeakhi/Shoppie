@@ -38,7 +38,7 @@ export class AddBrandComponent implements OnInit {
   onFormSubmit() {
     const newBrand = {
       'brandName' : this.brandName.value,
-      'brandId' : new Date().getTime()
+      'brandId' : "brand-"+new Date().getTime()
     };
 
     const updatedBrands = [...this.brandsAvailable, newBrand];
