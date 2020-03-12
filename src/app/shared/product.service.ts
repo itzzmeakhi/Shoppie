@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 import { Product, Rating } from './product.model';
 
@@ -40,6 +40,7 @@ export class ProductService {
                             productsData[key].productCategory,
                             productsData[key].productBrandId,
                             productsData[key].productCategoryId,
+                            productsData[key].productSellerId,
                             productsData[key].productAvailableQuantity,
                             productsData[key].productHighlights,
                             productsData[key].productUserRatings ? productsData[key].productUserRatings : [],
@@ -75,6 +76,7 @@ export class ProductService {
                                 productData[key].productCategory,
                                 productData[key].productBrandId,
                                 productData[key].productCategoryId,
+                                productData[key].productSellerId,
                                 productData[key].productAvailableQuantity,
                                 productData[key].productHighlights,
                                 productData[key].productUserRatings ? productData[key].productUserRatings : [],
@@ -126,7 +128,6 @@ export class ProductService {
         return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/brands.json', brandsData)
     }
 
-    
     // To get all available categories
 
     getCategories() {
@@ -158,6 +159,38 @@ export class ProductService {
     addCategory(categoryData : any[]) {
         return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/categories.json', categoryData)
     }
+
+    // To get all available sellers
+
+    getSellers() {
+        return this.httpClient.get('https://shoppie-4c4f4.firebaseio.com/sellers.json')
+            .pipe(
+                map(responseData => {
+                    if(responseData === null) {
+                        return [];
+                    } else {
+                        let sellers = [];
+                        for(const key in responseData) {
+                            if(responseData.hasOwnProperty(key)) {
+                                const sellerItem = {
+                                    'sellerName' : responseData[key].sellerName,
+                                    'sellerId' : responseData[key].sellerId
+                                }
+
+                                sellers.push(sellerItem);
+                            }
+                        }
+                        return sellers;
+                    }
+                })
+            )
+    }
+
+    // To add a seller
+
+    addSeller(sellersData : any[]) {
+        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/sellers.json', sellersData)
+    }
  
     // To get all products that are filtered using BrandName
 
@@ -180,6 +213,7 @@ export class ProductService {
                                 productsData[key].productCategory,
                                 productsData[key].productBrandId,
                                 productsData[key].productCategoryId,
+                                productsData[key].productSellerId,
                                 productsData[key].productAvailableQuantity,
                                 productsData[key].productHighlights,
                                 productsData[key].productUserRatings ? productsData[key].productUserRatings : [],
@@ -214,6 +248,7 @@ export class ProductService {
                                 productsData[key].productCategory,
                                 productsData[key].productBrandId,
                                 productsData[key].productCategoryId,
+                                productsData[key].productSellerId,
                                 productsData[key].productAvailableQuantity,
                                 productsData[key].productHighlights,
                                 productsData[key].productUserRatings ? productsData[key].productUserRatings : [],
@@ -223,6 +258,30 @@ export class ProductService {
                         }
                     }
                     return products;
+                })
+            )
+    }
+
+    // To get brandName using brandId 
+
+    getBrandName(brandId : string) {
+        return this.httpClient.get<{brandName : string, brandId : string}>('https://shoppie-4c4f4.firebaseio.com/brands.json?orderBy="brandId"&equalTo="'+brandId+'"')
+            .pipe(
+                take(1),
+                map(brandData => {
+                    return brandData[0].brandName;
+                })
+            )
+    }
+
+    // To get categoryName using categoryId
+
+    getCategoryName(categoryId : string) {
+        return this.httpClient.get<{categoryName : string, categoryId : string}>('https://shoppie-4c4f4.firebaseio.com/categories.json?orderBy="categoryId"&equalTo="'+categoryId+'"')
+            .pipe(
+                take(1),
+                map(categoryData => {
+                    return categoryData[0].categoryName;
                 })
             )
     }

@@ -48,6 +48,7 @@ export class AuthService {
                    newUserData.userLocation,
                    newUserData.userImageUrl,
                    newUserData.userSavedAddresses,
+                   newUserData.userType,
                    null,
                    newUserData.userCartItems,
                    newUserData.userOrders,
@@ -122,7 +123,7 @@ export class AuthService {
             console.log("Auto Login");
             // console.log(loggedInUser);
             this.user.next(loggedInUser);
-            this.router.navigate(['/home']);
+            this.router.navigate(['/home/admin']);
             const expiresIn : number = new Date(userDataStored._tokenExpirationDate).getTime() - new Date().getTime();
             this.onAutoLogout(expiresIn);
             return true;

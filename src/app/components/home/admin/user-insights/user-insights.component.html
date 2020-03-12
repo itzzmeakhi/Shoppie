@@ -1,0 +1,36 @@
+<div class = "users-insights-container">
+
+    <!-- Registered Users -->
+
+    <div class = "text-center">
+        <p class = "text-muted">
+            Registered Users
+        </p>
+    </div>
+
+    <hr>
+
+    <ul class = "list-group">
+        <li 
+            class = "list-group-item"
+            *ngFor = "let user of registeredUsers"
+            (click) = "onViewUser(user.userId)">
+
+            <img
+                [src] = "user.userImageUrl"
+                alt = "User Image"
+                class = "img-fluid"
+            >
+
+            <p class = "text-muted">
+                {{ user.userName }}
+            </p>
+
+            <p class = "text-muted">
+                {{ user.userEmail }}
+            </p>
+            
+        </li>
+    </ul>
+
+</div>

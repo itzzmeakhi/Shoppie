@@ -48,7 +48,11 @@ export class LoginComponent implements OnInit, OnDestroy {
           .subscribe(responseData => {
             // console.log(responseData);
             this.userService.userDetails.next(responseData);
-            this.router.navigate(['/home']);
+            if(responseData.userType === "admin") {
+              this.router.navigate(['/home/admin']);
+            } else {
+              this.router.navigate(['/home']);
+            }
           })
       }, errorRes => {
         this.errorMessage = errorRes;

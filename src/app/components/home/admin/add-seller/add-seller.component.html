@@ -1,0 +1,66 @@
+<div class = "add-seller-container">
+
+    <form [formGroup] = "addSellerForm" (ngSubmit) = "onFormSubmit()">
+
+        <!-- Brand Name -->
+
+        <div class = "form-group row">
+
+            <label for = "sellerName" class = "col-md-2 col-form-label">
+                Seller Name: 
+            </label>
+
+            <div class = "col-md-4">
+
+                <input
+                    type = "text"
+                    class = "form-control form-control-sm"
+                    name = "sellerName"
+                    formControlName = "sellerName"
+                    id = "sellerName"
+                >
+
+            </div>
+
+        </div>
+
+        <!-- Button for Submit -->
+
+        <button
+            type = "submit"
+            class = "btn btn-sm btn-success">
+            Add Seller
+        </button>
+    
+    </form>
+
+    <hr>
+
+    <div class ="row available-sellers" *ngIf = "isSellersAvailable">
+
+        <div class = "text-center">
+            <p class = "text-muted">
+                List of Sellers Available: 
+            </p>
+        </div>
+
+        <span *ngFor = "let seller of sellersAvailable; let i = index">
+
+            <div class = "col-md-6" *ngIf = "i%2 === 0">
+                {{ seller.sellerName }}
+            </div>
+
+            <div class = "col-md-6" *ngIf = "i%2 != 0">
+                {{ seller.sellerName }}
+            </div>
+
+        </span>
+
+    </div>
+
+    <div class = "row" *ngIf = "!isSellersAvailable">
+        No Sellers Added yet..!!
+    </div>
+
+
+</div>

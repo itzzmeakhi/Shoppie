@@ -21,6 +21,8 @@ export class UserComponent implements OnInit, OnDestroy {
   userUpdatedReadSubs : Subscription;
   userDetailsForm : FormGroup;
   userDetailsEditMode : boolean = false;
+  routeMode : string;
+  userId : string;
 
   constructor(private activatedRoute : ActivatedRoute,
               private userService : UserService,
@@ -29,6 +31,12 @@ export class UserComponent implements OnInit, OnDestroy {
   ngOnInit() {
     
     // this.userId = this.activatedRoute.snapshot.params['id'];
+
+    if(this.activatedRoute.routeConfig.path === "user/:mode/:userId") {
+      console.log("ADMIN");
+    } else if(this.activatedRoute.routeConfig.path === "user/:id") {
+      console.log("USER");
+    }
     
     this.userSubscription = this.userService.userDetails
       .subscribe(userData => {
@@ -98,6 +106,7 @@ export class UserComponent implements OnInit, OnDestroy {
       this.userLocation.value,
       this.userImageUrl.value,
       this.userLoggedInData.userSavedAddresses,
+      this.userLoggedInData.userType,
       null,
       this.userLoggedInData.userCartItems,
       this.userLoggedInData.userOrders,

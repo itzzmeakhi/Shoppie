@@ -23,6 +23,7 @@ export class ProductItemComponent implements OnInit, OnDestroy {
   userDetailsSubs : Subscription;
   addCartSubs : Subscription;
   userDetailsEmitSubs : Subscription;
+  isAdmin : boolean = false;
 
   constructor(private activatedRoute : ActivatedRoute,
               private router : Router,
@@ -33,6 +34,7 @@ export class ProductItemComponent implements OnInit, OnDestroy {
       .subscribe(userData => {
         if(userData) {
           this.userLoggedInDetails = userData;
+          this.isAdmin = userData.userType === "admin";
           this.userLoggedInDetails.userCartItems.forEach(cartItem => {
             if(cartItem.productId === this.product.productId) {
               this.addedItemsToCart = cartItem.quantity;
@@ -88,7 +90,7 @@ export class ProductItemComponent implements OnInit, OnDestroy {
   onAddToCart() {
     let updatedCartItems : UserCart[];
     const newCartItem = new UserCart(this.product.productId, this.addedItemsToCart);
-    if(this.userLoggedInDetails.userCartItems.length > 0) {
+    if(this.userLoggedInDetails.userCartItems.length > 0 && this.userLoggedInDetails.userCartItems) {
       this.userLoggedInDetails.userCartItems.forEach(cartItem => {
         // console.log(cartItem.productId);
         if(cartItem.productId === this.product.productId) {

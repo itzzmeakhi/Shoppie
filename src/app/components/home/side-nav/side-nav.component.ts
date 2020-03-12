@@ -19,6 +19,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
   userSubs : Subscription;
   userDetailsSubs : Subscription;
   userLoggedInDetails : NewUser;
+  isAdmin : boolean;
 
   constructor(private router : Router,
               private authService : AuthService,
@@ -43,29 +44,41 @@ export class SideNavComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userService.userDetails
       .subscribe(userLoggedInDetails => {
-        this.userLoggedInDetails = userLoggedInDetails;
-        //console.log(this.userLoggedInDetails);
+        if(userLoggedInDetails) {
+          this.userLoggedInDetails = userLoggedInDetails;
+          // console.log(this.userLoggedInDetails);
+          this.isAdmin = this.userLoggedInDetails.userType === "admin";
+          // console.log(this.isAdmin);
+        }
       })
   }
+
+  // Triggers when viewUserProfile button is clicked
 
   onViewUserProfile() {
     this.router.navigate(['/home/user', this.userLoggedInDetails.userId]);
   }
 
+  // Triggers when viewUserAddress button is clicked
+
   onViewUserAddress() {
+    console.log(this.userLoggedInDetails.rowId);
     this.router.navigate(['/home/user', this.userLoggedInDetails.rowId, 'addresses']);
   }
+
+  // Triggers when viewUserOrders button is clicked
 
   onViewUserOrders() {
     this.router.navigate(['/home/user', this.userLoggedInDetails.userId, 'orders']);
   }
+
+  // Triggers when filterProducts button is clicked
 
   onFilterProducts() {
     this.router.navigate(['/home/products/filter']);
   }
 
   ngOnDestroy() {
-
     if(this.userSubs) {
       this.userSubs.unsubscribe();
     }

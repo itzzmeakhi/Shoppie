@@ -76,7 +76,8 @@ export class SignupComponent implements OnInit, OnDestroy {
                                 'Somewhere in the World', 
                                 'https://firebasestorage.googleapis.com/v0/b/shoppie-4c4f4.appspot.com/o/account.png?alt=media&token=8dc5bea1-855c-47e9-b258-dd06eb9a10c4',
                                 [],
-                                this.userPassword.value, 
+                                'buyer', 
+                                this.userPassword.value,
                                 [],
                                 [],
                                 null, 
@@ -85,15 +86,19 @@ export class SignupComponent implements OnInit, OnDestroy {
     //console.log(newUserData);
     this.signUpSubs = this.authService.onSignup(newUserData)
       .subscribe(response => {
-        // console.log(response.rowId);
+        console.log(response.rowId);
         this.getUserIdSubs = this.userService.getUserId(response.rowId)
           .subscribe(userIdData => {
             this.getUserDetailsSubs = this.userService.getUser(userIdData)
               .subscribe(userData => {
                 this.userService.userDetails.next(userData);
+                if(userData.userType === "admin") {
+                  this.router.navigate(['/home/admin']);
+                } else {
+                  this.router.navigate(['/home']);
+                }
               })
           })
-        this.router.navigate(['/home']);
       }, errorRes => {
         this.errorMessage = errorRes;
       })

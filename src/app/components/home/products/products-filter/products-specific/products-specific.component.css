@@ -1,3 +1,19 @@
 .products-specific-container {
     margin-top: 25px;
 }
+
+.btn-pager {
+    background-color: #bdc3c7;
+    border: 0.4px solid #192a56;
+    color: #192a56;
+    height: 35px;
+    font-size: 70%;
+}
+
+button:focus {
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}

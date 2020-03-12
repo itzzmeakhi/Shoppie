@@ -2,12 +2,67 @@
 
     <div class = "row">
 
+        <div class = "text-muted ml-3">
+            Filtered products based on {{ filterType }} - {{ filteredName }}
+        </div>
+
+    </div>
+
+    <hr>
+ 
+    <div class = "row">
+
         <app-product-item 
-            *ngFor = "let product of filteredProducts; let i = index"
+            *ngFor = "let product of productsInAPage; let i = index"
             [product] = "product"
             [index] = "i">
         </app-product-item>
 
+    </div>
+
+    <hr>
+
+    <div class = "row pager-row">
+
+        <p class = "p-1 ml-2 mr-2"> Switch to Page: </p>
+
+        <button
+            type = "button"
+            class = "btn btn-sm btn-pager m-1"
+            [disabled] = "currentPageNumber-1 === 0"
+            (click) = "paginateProducts(currentPageNumber-1, currentPageNumber)">
+            <i class = "fas fa-less-than" style = "font-size: 60%;"></i>
+        </button>
+        <!-- <button
+            type = "button"
+            class = "btn btn-sm btn-pager m-1">
+            {{ currentPageNumber-1 }}
+        </button> -->
+        <button
+            type = "button"
+            class = "btn btn-sm btn-light m-1"
+            style = "height: 35px;"
+            disabled>
+            {{ currentPageNumber }}
+        </button>
+        <!-- <button
+            type = "button"
+            class = "btn btn-sm btn-pager m-1">
+            {{ currentPageNumber+1 }}
+        </button> -->
+        <button
+            type = "button"
+            class = "btn btn-sm btn-pager m-1"
+            (click) = "paginateProducts(currentPageNumber+1, currentPageNumber)">
+            <i class = "fas fa-greater-than" style = "font-size: 60%;"></i>
+        </button>
+
+    </div>
+
+    <div class = "row">
+        <p class = "text-muted ml-3" style = "font-size: 90%;">
+            Total Pages : {{ totalPages }}
+        </p>
     </div>
 
 </div>

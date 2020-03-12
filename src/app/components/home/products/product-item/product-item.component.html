@@ -46,18 +46,19 @@
             <button
                 type = "button"
                 class = "btn btn-sm btn-outline-danger p-0 mr-1"
-                [disabled] = "!addedItemsToCart" 
+                [disabled] = "!addedItemsToCart && isAdmin" 
                 value = "sub">
                 -
             </button>
             <button
                 button = "button"
                 class = "btn btn-sm btn-outline-success p-0 mr-1"
+                [disabled] = "isAdmin"
                 value = "add">
                 +
             </button>
 
-            <span class = "badge badge-secondary p-2" *ngIf = "addedItemsToCart">
+            <span class = "badge badge-secondary p-2" *ngIf = "addedItemsToCart && !isAdmin">
                 {{ addedItemsToCart }}
             </span>
 
@@ -68,9 +69,21 @@
         <button 
             class = "btn btn-sm btn-info mb-2"
             (click) = "onAddToCart()"
+            *ngIf = "!isAdmin"
             [disabled] = "!canAddToCart">
             <i class="fas fa-cart-plus"></i> Add
         </button>
+
+        <!-- Admin Disabled Button -->
+
+        <button 
+            class = "btn btn-sm btn-warning mb-2"
+            *ngIf = "isAdmin"
+            disabled>
+            <i class="fas fa-cart-plus"></i> Disabled
+        </button>
+
+        <hr>
 
         <!-- InStock -->
 

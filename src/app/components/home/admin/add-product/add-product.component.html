@@ -128,11 +128,11 @@
                     id = "productSeller"
                 >
                     <option
-                        *ngFor = "let prodSeller of productSellers"
-                        [value] = "prodSeller.name"
-                        [id] = "prodSeller.id"
+                        *ngFor = "let prodSeller of sellers"
+                        [value] = "prodSeller.sellerName"
+                        [id] = "prodSeller.sellerId"
                     >
-                        {{ prodSeller.name }}
+                        {{ prodSeller.sellerName }}
                     </option>
 
                 </select>

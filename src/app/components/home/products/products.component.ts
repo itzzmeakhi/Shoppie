@@ -44,6 +44,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
       })
   }
 
+  // Triggers when page button is clicked
+
   paginateProducts(nextPage : number, prevPage : number, maxProducts = 8) {
     let startIndex : number;
     let endIndex : number;

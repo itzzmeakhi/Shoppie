@@ -1,5 +1,7 @@
 <div class = "side-nav-container">
 
+    <!-- Image Section -->
+
     <div class = "row">
         <div class = "text-center">
             <img 
@@ -13,13 +15,19 @@
 
     <hr class = "m-2">
 
+    <!-- DisplayName Section -->
+
     <div class = "text-center">
         <p class = "username-color" *ngIf = "userLoggedInDetails"> {{ userLoggedInDetails.userDisplayName }} </p>
     </div>
 
     <hr class = "m-1">
 
+    <!-- Button Groups -->
+
     <div class = "list-group list-group-flush side-nav-options">
+
+        <!-- Filter Products Button -->
 
         <button 
             type = "button" 
@@ -28,6 +36,8 @@
             <i class="fas fa-filter" style = "font-size: 95%;"></i> Filter 
         </button>
 
+        <!-- Profile View Button -->
+
         <button 
             type = "button" 
             class = "list-group-item list-group-item-secondary list-group-item-action"
@@ -35,15 +45,21 @@
             <i class="fas fa-user-circle" style = "font-size: 95%;"></i> My Profile 
         </button>
 
+        <!-- Orders View Button -->
+
         <button 
             type = "button" 
+            *ngIf = "!isAdmin"
             class = "list-group-item list-group-item-secondary list-group-item-action"
             (click) = "onViewUserOrders()">
             <i class="fas fa-shopping-bag" style = "font-size: 95%;"></i> My Orders 
         </button>
 
+        <!-- Addresses View Button -->
+
         <button 
-            type = "button" 
+            type = "button"
+            *ngIf = "!isAdmin"
             class = "list-group-item list-group-item-secondary list-group-item-action"
             (click) = "onViewUserAddress()">
             <i class="fas fa-map-marker-alt" style = "font-size: 95%;"></i> My Address 

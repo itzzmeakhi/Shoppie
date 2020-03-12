@@ -28,6 +28,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   productNumberOfRatings : number;
   userDetails : NewUser;
   isRated : boolean;
+  isAdmin : boolean = false;
 
   getProductSubs : Subscription;
   userDetailsSubs : Subscription;
@@ -50,6 +51,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           .subscribe(userData => {
             //console.log(userData);
             this.userDetails = userData;
+            this.isAdmin = userData.userType === "admin";
 
             if(this.userDetails.userCartItems.length > 0) {
               this.userDetails.userCartItems.forEach(cartItem => {

@@ -15,6 +15,7 @@ export class Product {
     public productCategory : string;
     public productBrandId : string;
     public productCategoryId : string;
+    public productSellerId : string;
     public productAvailableQuantity : number;
     public productHighlights : string[];
     public productUserRatings? : Rating[];
@@ -32,6 +33,7 @@ export class Product {
         category : string,
         brandId : string,
         categoryId : string,
+        sellerId : string,
         available : number,
         highlights : string[],
         userRatings? : Rating[],
@@ -48,6 +50,7 @@ export class Product {
         this.productCategory = category;
         this.productBrandId = brandId;
         this.productCategoryId = categoryId;
+        this.productSellerId = sellerId;
         this.productAvailableQuantity = available;
         this.productHighlights = highlights;
         this.productUserRatings = userRatings;

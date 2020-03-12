@@ -20,6 +20,7 @@ export class NewUser {
     public userLocation : string;
     public userImageUrl : string;
     public userSavedAddresses : Address[];
+    public userType : string;
     public userPassword? : string;
     public userCartItems? : UserCart[];
     public userOrders? : any[];
@@ -35,6 +36,7 @@ export class NewUser {
                 location : string,
                 url : string,
                 addresses : Address[],
+                type : string,
                 password? : string,
                 cartItems? : UserCart[], 
                 orders? : any[],
@@ -50,6 +52,7 @@ export class NewUser {
         this.userLocation = location;
         this.userImageUrl = url;
         this.userSavedAddresses = addresses;
+        this.userType = type;
         this.userPassword = password;
         this.userCartItems = cartItems;
         this.userOrders = orders;

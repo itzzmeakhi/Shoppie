@@ -33,6 +33,7 @@ export class UserService {
                             userData[key].userLocation,
                             userData[key].userImageUrl,
                             userData[key].userSavedAddresses ? userData[key].userSavedAddresses : [],
+                            userData[key].userType,
                             null,
                             userData[key].userCartItems ? userData[key].userCartItems : [],
                             userData[key].userOrders ? userData[key].userOrders : [],
@@ -41,6 +42,31 @@ export class UserService {
                         )
                     }
                 }
+            })
+        )
+    }
+
+    // To get all user details 
+
+    getUsers() {
+        const userType : string = "buyer";
+        return this.httpClient.get<NewUser>('https://shoppie-4c4f4.firebaseio.com/users.json?orderBy="userType"&equalTo="'+userType+'"')
+        .pipe(
+            map(userData => {
+                const usersData = [];
+                for(const key in userData) {
+                    if(userData.hasOwnProperty(key)) {           
+                        const user = {
+                            'userName' : userData[key].userName,
+                            'userEmail' : userData[key].userEmail,
+                            'userImageUrl' : userData[key].userImageUrl,
+                            'userId' : userData[key].userId,
+                            'rowId' : key
+                        };
+                        usersData.push(user);
+                    }
+                }
+                return usersData;
             })
         )
     }

@@ -33,6 +33,8 @@ import { ProductsFilterComponent } from './components/home/products/products-fil
 import { AddCategoryComponent } from './components/home/admin/add-category/add-category.component';
 import { AddBrandComponent } from './components/home/admin/add-brand/add-brand.component';
 import { ProductsSpecificComponent } from './components/home/products/products-filter/products-specific/products-specific.component';
+import { AddSellerComponent } from './components/home/admin/add-seller/add-seller.component';
+import { UserInsightsComponent } from './components/home/admin/user-insights/user-insights.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { ProductsSpecificComponent } from './components/home/products/products-f
     ProductsFilterComponent,
     AddCategoryComponent,
     AddBrandComponent,
-    ProductsSpecificComponent
+    ProductsSpecificComponent,
+    AddSellerComponent,
+    UserInsightsComponent
   ],
   imports: [
     BrowserModule,

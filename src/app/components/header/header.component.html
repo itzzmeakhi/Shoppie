@@ -1,58 +1,108 @@
 <nav class = "navbar navbar-expand-lg navbar-dark navbar-bg">
 
-    <a class = "navbar-brand" routerLink = "/home" style = "margin-right: 70px;">Shoppie</a>
+  <!-- Navbar Brand -->
 
-    <button class = "navbar-toggler" *ngIf = "isAuthenticated" type = "button" data-toggle = "collapse" data-target = "#navbarNavDropdown" aria-controls = "navbarNavDropdown" aria-expanded = "false" aria-label = "Toggle navigation">
-      <span class = "navbar-toggler-icon"></span>
-    </button>
+  <a class = "navbar-brand" routerLink = "/home" style = "margin-right: 70px;">Shoppie</a>
 
-    <div class = "collapse navbar-collapse" id = "navbarNavDropdown" *ngIf = "isAuthenticated">
+  <!-- Toggle -->
 
-      <ul class = "navbar-nav">
+  <button class = "navbar-toggler" *ngIf = "isAuthenticated" type = "button" data-toggle = "collapse" data-target = "#navbarNavDropdown" aria-controls = "navbarNavDropdown" aria-expanded = "false" aria-label = "Toggle navigation">
+    <span class = "navbar-toggler-icon"></span>
+  </button>
 
-        <li class = "nav-item">
-          <a class = "nav-link" routerLink = "/home" routerLinkActive = "active">Home</a>
-        </li>
+  <!-- Nav Items -->
 
-        <li class = "nav-item">
-          <a class = "nav-link">Products</a>
-        </li>
+  <div class = "collapse navbar-collapse" id = "navbarNavDropdown" *ngIf = "isAuthenticated">
 
-        <li class = "nav-item">
-          <a class = "nav-link" routerLink = "/add/product">Add Product</a>
-        </li>
+    <ul class = "navbar-nav">
 
-        <li class = "nav-item">
-          <a class = "nav-link" routerLink = "/add/brand">Add Brand</a>
-        </li>
+      <!-- Home Link -->
 
-        <li class = "nav-item">
-          <a class = "nav-link" routerLink = "/add/category">Add Category</a>
-        </li>
+      <li class = "nav-item">
+        <a class = "nav-link" routerLink = "/home" routerLinkActive = "active">Home</a>
+      </li>
 
-        <li class = "nav-item dropdown">
-          <a class = "nav-link dropdown-toggle" id = "navbarDropdownMenuLink" role = "button" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
-            <i class = "fas fa-user"></i>
+      <!-- Products Link -->
+
+      <li class = "nav-item">
+        <a class = "nav-link">Products</a>
+      </li>
+
+      <!-- Add Dropdown -->
+
+      <li class = "nav-item dropdown" *ngIf = "isAdmin">
+        <a class = "nav-link dropdown-toggle" id = "navbarDropdownMenuLinkForAdd" role = "button" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
+          <i class="fas fa-folder-plus"></i> Add
+        </a>
+
+        <div class = "dropdown-menu" aria-labelledby = "navbarDropdownMenuLinkForAdd">
+
+          <!-- Navlink for Add Product -->
+
+          <a
+            routerLink = "home/admin/add/product"
+            class = "dropdown-item">
+            <i class="fas fa-bookmark"></i>&nbsp;
+            Add Product
           </a>
 
-          <div class = "dropdown-menu" aria-labelledby = "navbarDropdownMenuLink">
+          <!-- Navlink for Add Brand -->
 
-            <a 
-              [routerLink] = "['/home/user', userLoggedInDetails.localId, 'cart']"
-              class = "dropdown-item">
-              <i class="fas fa-shopping-cart"></i>&nbsp;
-              Cart
-            </a>
+          <a
+            routerLink = "home/admin/add/brand"
+            class = "dropdown-item">
+            <i class="fas fa-bookmark"></i>&nbsp;
+            Add Brand
+          </a>
 
-            <a class = "dropdown-item float-right" (click) = "onLogout()"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
-          
-          </div>
+          <!-- Navlink for Add Category -->
 
-        </li>
+          <a
+            routerLink = "home/admin/add/category"
+            class = "dropdown-item">
+            <i class="fas fa-bookmark"></i>&nbsp;
+            Add Category
+          </a>
 
-      </ul>
+          <a
+            routerLink = "home/admin/add/seller"
+            class = "dropdown-item">
+            <i class="fas fa-bookmark"></i>&nbsp;
+            Add Seller
+          </a>
+
+        </div>
+
+      </li>
+
+      <li class = "nav-item dropdown">
+        <a class = "nav-link dropdown-toggle" id = "navbarDropdownMenuLink" role = "button" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
+          <i class = "fas fa-user"></i>
+        </a>
+
+        <div class = "dropdown-menu" aria-labelledby = "navbarDropdownMenuLink">
+
+          <!-- Navlink for Cart -->
+
+          <a 
+            [routerLink] = "['/home/user', userLoggedInDetails.localId, 'cart']"
+            *ngIf = "!isAdmin"
+            class = "dropdown-item">
+            <i class="fas fa-shopping-cart"></i>&nbsp;
+            Cart
+          </a>
+
+          <!-- Navlink for logout -->
+
+          <a class = "dropdown-item float-right" (click) = "onLogout()"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+        
+        </div>
+
+      </li>
+
+    </ul>
 
 
-    </div>
+  </div>
 
 </nav>

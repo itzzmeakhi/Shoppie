@@ -17,8 +17,10 @@ export class AddProductComponent implements OnInit, OnDestroy {
   onAddProductSubs : Subscription;
   getBrandsSubs : Subscription;
   getCategoriesSubs : Subscription;
+  getSellersSubs : Subscription;
   brands = [];
   categories = [];
+  sellers = [];
 
   // productCategories = [
   //   { name : 'Mobiles & Accessories', id : 'category01' },
@@ -30,10 +32,10 @@ export class AddProductComponent implements OnInit, OnDestroy {
   //   { name : 'Redmi', id : 'brand002' }
   // ];
 
-  productSellers = [
-    { name : 'SuperComNet', id : 'seller001'},
-    { name : 'TrueComRetail', id : 'seller002' }
-  ];
+  // productSellers = [
+  //   { name : 'SuperComNet', id : 'seller001'},
+  //   { name : 'TrueComRetail', id : 'seller002' }
+  // ];
 
   constructor(private productService : ProductService) { }
 
@@ -59,6 +61,11 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.getCategoriesSubs = this.productService.getCategories()
       .subscribe(categoriesData => {
         this.categories = categoriesData;
+      })
+
+    this.getSellersSubs = this.productService.getSellers()
+      .subscribe(sellersData => {
+        this.sellers = sellersData;
       })
   }
 
@@ -106,6 +113,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     // console.log(this.addProductForm);
     let brandId : string;
     let categoryId : string;
+    let sellerId : string;
 
     this.brands.forEach(brand => {
       if(brand.brandName === this.productBrand.value) {
@@ -116,6 +124,12 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.categories.forEach(category => {
       if(category.categoryName === this.productCategory.value) {
         categoryId = category.categoryId;
+      }
+    })
+
+    this.sellers.forEach(seller => {
+      if(seller.sellerName === this.productSeller.value) {
+        sellerId = seller.sellerId;
       }
     })
 
@@ -131,6 +145,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
       this.productCategory.value,
       brandId as string,
       categoryId as string,
+      sellerId as string,
       this.productAvailableQuantity.value,
       this.productHighlights.value,
       [],
@@ -163,6 +178,10 @@ export class AddProductComponent implements OnInit, OnDestroy {
 
     if(this.getCategoriesSubs) {
       this.getCategoriesSubs.unsubscribe();
+    }
+
+    if(this.getSellersSubs) {
+      this.getSellersSubs.unsubscribe();
     }
   }
 

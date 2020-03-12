@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthGuardService } from './components/auth/auth-guard.service';
+import { AdminGuardService } from './components/home/admin/admin-guard.service';
+import { IsBuyerGuardService } from './components/home/is-buyer-guard.service';
+
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { HomeComponent } from './components/home/home.component';
-
-import { AuthGuardService } from './components/auth/auth-guard.service';
 import { ProductsComponent } from './components/home/products/products.component';
 import { UserComponent } from './components/home/user/user.component';
 import { MyAddressesComponent } from './components/home/user/my-addresses/my-addresses.component';
@@ -18,24 +20,32 @@ import { ProductsFilterComponent } from './components/home/products/products-fil
 import { AddCategoryComponent } from './components/home/admin/add-category/add-category.component';
 import { AddBrandComponent } from './components/home/admin/add-brand/add-brand.component';
 import { ProductsSpecificComponent } from './components/home/products/products-filter/products-specific/products-specific.component';
+import { AddSellerComponent } from './components/home/admin/add-seller/add-seller.component';
+import { AdminComponent } from './components/home/admin/admin.component';
+import { UserInsightsComponent } from './components/home/admin/user-insights/user-insights.component';
 
 const appRoutes : Routes = [
     { path : '', redirectTo : '/home', pathMatch : 'full' },
     { path : 'login', component : LoginComponent },
     { path : 'signup', component : SignupComponent },
-    { path : 'add/product', component : AddProductComponent },
-    { path : 'add/category', component : AddCategoryComponent },
-    { path : 'add/brand', component : AddBrandComponent },
     { path : 'home', component : HomeComponent, canActivate : [AuthGuardService], children : [
         { path : '', component : ProductsComponent },
+        { path : 'admin', component : AdminComponent ,children : [
+            { path : '', component : UserInsightsComponent },
+            { path : 'add/product', component : AddProductComponent },
+            { path : 'add/brand', component : AddBrandComponent },
+            { path : 'add/category', component : AddCategoryComponent },
+            { path : 'add/seller', component : AddSellerComponent },
+            { path : 'user/:mode/:userId', component : UserComponent }
+        ] },
         { path : 'products/filter', component : ProductsFilterComponent },
         { path : 'products/filter/:filterType/:filterId', component : ProductsSpecificComponent },
         { path : 'products/:prodId', component : ProductDetailComponent },
         { path : 'user/:id', component : UserComponent },
         { path : 'user/:id/cart', component : UserCartComponent },
-        { path : 'user/:id/orders', component : UserOrdersComponent },
-        { path : 'user/:rowid/addresses', component : MyAddressesComponent },
-        { path : 'user/:rowid/addresses/:addrId', component : AddressViewEditComponent }
+        { path : 'user/:id/orders', component : UserOrdersComponent, canActivate : [IsBuyerGuardService] },
+        { path : 'user/:rowid/addresses', component : MyAddressesComponent, canActivate : [IsBuyerGuardService] },
+        { path : 'user/:rowid/addresses/:addrId', component : AddressViewEditComponent, canActivate : [IsBuyerGuardService] }
     ] }
 ];
 
