@@ -100,5 +100,16 @@ Added features to the loggedIn user, to filter products using brandName or categ
 
 Also added admin/add-brand and admin/add-category components, so that admin can add them
 
+# Added pagination/products-specific component
+
+### Commit - 13
+
+Implemeted breacrumb links so that by clicking them, the filtered products based on brandName/categoryName are displayed to the loggedIn user. Product specific component is implemeted.
+
+Added pagination to the product-item component so that only 8 products are displayed to the user at a time. User shoould be navigated to different page to view other products.
+
+In addition to these, issues with signup component while emitting loggedIn user details are solved.
+
+
 
 
