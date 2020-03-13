@@ -1,0 +1,22 @@
+.side-nav-fix {
+    position: fixed;
+    z-index: 999;
+}
+
+.content-fix {
+    margin-left: 220px;
+    z-index: 998;
+}
+
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .content-fix {
+        margin-left: 180px;
+    }  
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  
+
+    
+}

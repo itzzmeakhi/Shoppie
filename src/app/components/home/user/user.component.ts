@@ -15,47 +15,73 @@ import { NewUser } from 'src/app/shared/new-user.model';
 })
 export class UserComponent implements OnInit, OnDestroy {
 
-  userLoggedInData : NewUser;
+  userData : NewUser;
   userSubscription : Subscription;
   userDetailsUpdatedSubs : Subscription;
   userUpdatedReadSubs : Subscription;
   userDetailsForm : FormGroup;
   userDetailsEditMode : boolean = false;
-  routeMode : string;
   userId : string;
+  isAdmin : boolean = false;
 
   constructor(private activatedRoute : ActivatedRoute,
               private userService : UserService,
               private router : Router) { }
 
   ngOnInit() {
-    
-    // this.userId = this.activatedRoute.snapshot.params['id'];
-
-    if(this.activatedRoute.routeConfig.path === "user/:mode/:userId") {
-      console.log("ADMIN");
+    if(this.activatedRoute.routeConfig.path === "user/:mode/:id") {
+      // console.log("Admin");
+      this.isAdmin = true;
+      this.userId = this.activatedRoute.snapshot.params['id'];
+      this.userService.getUser(this.userId)
+        .subscribe(userData => {
+          this.userData = userData;
+          if(this.userData) {
+            this.userDetailsForm = new FormGroup({
+              'userName' : new FormControl(this.userData.userName, [ Validators.required ]),
+              'userDisplayName' : new FormControl(this.userData.userDisplayName, [ Validators.required ]),
+              'userEmail' : new FormControl(this.userData.userEmail),
+              'userContactNumber' : new FormControl(this.userData.userContactNumber, [ Validators.required, Validators.pattern('[6-9][0-9]{9}')]),
+              'userGender' : new FormControl(this.userData.userGender),
+              'userLocation' : new FormControl(this.userData.userLocation, [ Validators.required ]),
+              'userImageUrl' : new FormControl(this.userData.userImageUrl, [ Validators.required ]),
+              'userDOB' : new FormControl(this.userData.userDOB)
+            })
+          }
+        })
     } else if(this.activatedRoute.routeConfig.path === "user/:id") {
-      console.log("USER");
+      // console.log("Buyer");
+      // this.userId = this.activatedRoute.snapshot.params['id'];
+      this.userSubscription = this.userService.userDetails
+        .subscribe(userData => {
+          this.userData = userData;
+          if(this.userData) {
+            this.userDetailsForm = new FormGroup({
+              'userName' : new FormControl(this.userData.userName, [ Validators.required ]),
+              'userDisplayName' : new FormControl(this.userData.userDisplayName, [ Validators.required ]),
+              'userEmail' : new FormControl(this.userData.userEmail),
+              'userContactNumber' : new FormControl(this.userData.userContactNumber, [ Validators.required, Validators.pattern('[6-9][0-9]{9}')]),
+              'userGender' : new FormControl(this.userData.userGender),
+              'userLocation' : new FormControl(this.userData.userLocation, [ Validators.required ]),
+              'userImageUrl' : new FormControl(this.userData.userImageUrl, [ Validators.required ]),
+              'userDOB' : new FormControl(this.userData.userDOB)
+            })
+          }
+        });
     }
-    
-    this.userSubscription = this.userService.userDetails
-      .subscribe(userData => {
-        this.userLoggedInData = userData;
 
-        if(this.userLoggedInData) {
-          this.userDetailsForm = new FormGroup({
-            'userName' : new FormControl(this.userLoggedInData.userName, [ Validators.required ]),
-            'userDisplayName' : new FormControl(this.userLoggedInData.userDisplayName, [ Validators.required ]),
-            'userEmail' : new FormControl(this.userLoggedInData.userEmail),
-            'userContactNumber' : new FormControl(this.userLoggedInData.userContactNumber, [ Validators.required, Validators.pattern('[6-9][0-9]{9}')]),
-            'userGender' : new FormControl(this.userLoggedInData.userGender),
-            'userLocation' : new FormControl(this.userLoggedInData.userLocation, [ Validators.required ]),
-            'userImageUrl' : new FormControl(this.userLoggedInData.userImageUrl, [ Validators.required ]),
-            'userDOB' : new FormControl(this.userLoggedInData.userDOB)
-          })
-        }
-      });
-
+    if(this.userData) {
+      this.userDetailsForm = new FormGroup({
+        'userName' : new FormControl(this.userData.userName, [ Validators.required ]),
+        'userDisplayName' : new FormControl(this.userData.userDisplayName, [ Validators.required ]),
+        'userEmail' : new FormControl(this.userData.userEmail),
+        'userContactNumber' : new FormControl(this.userData.userContactNumber, [ Validators.required, Validators.pattern('[6-9][0-9]{9}')]),
+        'userGender' : new FormControl(this.userData.userGender),
+        'userLocation' : new FormControl(this.userData.userLocation, [ Validators.required ]),
+        'userImageUrl' : new FormControl(this.userData.userImageUrl, [ Validators.required ]),
+        'userDOB' : new FormControl(this.userData.userDOB)
+      })
+    }
   }
 
   get userName() {
@@ -91,55 +117,59 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   onEditUserDetails() {
-    this.userDetailsEditMode = true;
+    if(!this.isAdmin) {
+      this.userDetailsEditMode = true;
+    }
   }
 
   onFormSubmit() {
+    if(!this.isAdmin) {
+      const updatedUserDetails = new NewUser(
+        this.userName.value,
+        this.userEmail.value,
+        this.userContactNumber.value,
+        this.userGender.value,
+        this.userDOB.value,
+        this.userDisplayName.value,
+        this.userLocation.value,
+        this.userImageUrl.value,
+        this.userData.userSavedAddresses,
+        this.userData.userType,
+        null,
+        this.userData.userCartItems,
+        this.userData.userOrders,
+        this.userData.userId,
+        null
+      )
 
-    const updatedUserDetails = new NewUser(
-      this.userName.value,
-      this.userEmail.value,
-      this.userContactNumber.value,
-      this.userGender.value,
-      this.userDOB.value,
-      this.userDisplayName.value,
-      this.userLocation.value,
-      this.userImageUrl.value,
-      this.userLoggedInData.userSavedAddresses,
-      this.userLoggedInData.userType,
-      null,
-      this.userLoggedInData.userCartItems,
-      this.userLoggedInData.userOrders,
-      this.userLoggedInData.userId,
-      null
-    )
-
-    this.userDetailsUpdatedSubs = this.userService.onUpdateUserDetails(updatedUserDetails, this.userLoggedInData.rowId)
-      .subscribe((updatedResponse : NewUser) => {
-        console.log("User Data Updated");
-        // //console.log(updatedResponse);
-        // this.userUpdatedReadSubs = this.userService.getUser(this.userLoggedInData.userId)
-        //   .subscribe(userData => {
-        //     // this.userService.userDetails.next(userData);
-        //   })
-        this.userService.userDetails.next(updatedResponse)
-        this.userDetailsEditMode = false;
-      })
-
+      this.userDetailsUpdatedSubs = this.userService.onUpdateUserDetails(updatedUserDetails, this.userData.rowId)
+        .subscribe((updatedResponse : NewUser) => {
+          console.log("User Data Updated");
+          // //console.log(updatedResponse);
+          // this.userUpdatedReadSubs = this.userService.getUser(this.userLoggedInData.userId)
+          //   .subscribe(userData => {
+          //     // this.userService.userDetails.next(userData);
+          //   })
+          this.userService.userDetails.next(updatedResponse)
+          this.userDetailsEditMode = false;
+        })
+    }
   }
 
   onCancelEditMode() {
-    this.userDetailsForm.setValue({
-      'userName' : this.userLoggedInData.userName,
-      'userDisplayName' : this.userLoggedInData.userDisplayName,
-      'userEmail' : this.userLoggedInData.userEmail,
-      'userContactNumber' : this.userLoggedInData.userContactNumber,
-      'userGender' : this.userLoggedInData.userGender,
-      'userLocation' : this.userLoggedInData.userLocation,
-      'userImageUrl' : this.userLoggedInData.userImageUrl,
-      'userDOB' : this.userLoggedInData.userDOB
-    });
-    this.userDetailsEditMode = false;
+    if(!this.isAdmin) {
+      this.userDetailsForm.setValue({
+        'userName' : this.userData.userName,
+        'userDisplayName' : this.userData.userDisplayName,
+        'userEmail' : this.userData.userEmail,
+        'userContactNumber' : this.userData.userContactNumber,
+        'userGender' : this.userData.userGender,
+        'userLocation' : this.userData.userLocation,
+        'userImageUrl' : this.userData.userImageUrl,
+        'userDOB' : this.userData.userDOB
+      });
+      this.userDetailsEditMode = false;
+    }
   }
 
   ngOnDestroy() {

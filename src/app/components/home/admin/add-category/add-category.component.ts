@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { Subscription } from 'rxjs';
 
 import { ProductService } from '../../../../shared/product.service';
 
@@ -8,11 +10,14 @@ import { ProductService } from '../../../../shared/product.service';
   templateUrl: './add-category.component.html',
   styleUrls: ['./add-category.component.css']
 })
-export class AddCategoryComponent implements OnInit {
+export class AddCategoryComponent implements OnInit, OnDestroy {
 
   addCategoryForm : FormGroup;
   categoriesAvailable = [];
   isCategoriesAvailable : boolean;
+  getCategoriesSubs : Subscription;
+  addCategorySubs : Subscription;
+  getCategoriesAfterAddSubs : Subscription;
 
   constructor(private productService : ProductService) { }
 
@@ -21,7 +26,7 @@ export class AddCategoryComponent implements OnInit {
       'categoryName' : new FormControl('', [ Validators.required ])
     })
 
-    this.productService.getCategories()
+    this.getCategoriesSubs = this.productService.getCategories()
       .subscribe(categoryData => {
         this.isCategoriesAvailable = categoryData.length > 0;
         this.categoriesAvailable = categoryData;
@@ -33,6 +38,8 @@ export class AddCategoryComponent implements OnInit {
     return this.addCategoryForm.get('categoryName');
   }
 
+  // Triggers when addCategoryForm is submitted
+
   onFormSubmit() {
     const newCategory = {
       'categoryName' : this.categoryName.value,
@@ -41,9 +48,29 @@ export class AddCategoryComponent implements OnInit {
 
     const updatedCategories = [...this.categoriesAvailable, newCategory];
 
-    this.productService.addCategory(updatedCategories)
+    this.addCategorySubs = this.productService.addCategory(updatedCategories)
       .subscribe(response => {
-        console.log("Category Added");
+        this.getCategoriesAfterAddSubs = this.productService.getCategories()
+          .subscribe(categoriesData => {
+            this.isCategoriesAvailable = categoriesData.length > 0;
+            this.categoriesAvailable = categoriesData;
+            this.addCategoryForm.reset();
+            console.log("Category Added");
+          })
       })
+  }
+
+  ngOnDestroy() {
+    if(this.getCategoriesSubs) {
+      this.getCategoriesSubs.unsubscribe();
+    }
+
+    if(this.addCategorySubs) {
+      this.addCategorySubs.unsubscribe();
+    }
+
+    if(this.getCategoriesAfterAddSubs) {
+      this.getCategoriesAfterAddSubs.unsubscribe();
+    }
   }
 }

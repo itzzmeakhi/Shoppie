@@ -123,7 +123,7 @@ export class AuthService {
             console.log("Auto Login");
             // console.log(loggedInUser);
             this.user.next(loggedInUser);
-            this.router.navigate(['/home/admin']);
+            this.router.navigate(['/home']);
             const expiresIn : number = new Date(userDataStored._tokenExpirationDate).getTime() - new Date().getTime();
             this.onAutoLogout(expiresIn);
             return true;

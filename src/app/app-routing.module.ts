@@ -30,13 +30,13 @@ const appRoutes : Routes = [
     { path : 'signup', component : SignupComponent },
     { path : 'home', component : HomeComponent, canActivate : [AuthGuardService], children : [
         { path : '', component : ProductsComponent },
-        { path : 'admin', component : AdminComponent ,children : [
+        { path : 'admin', component : AdminComponent, canActivate : [AdminGuardService] ,children : [
             { path : '', component : UserInsightsComponent },
             { path : 'add/product', component : AddProductComponent },
             { path : 'add/brand', component : AddBrandComponent },
             { path : 'add/category', component : AddCategoryComponent },
             { path : 'add/seller', component : AddSellerComponent },
-            { path : 'user/:mode/:userId', component : UserComponent }
+            { path : 'user/:mode/:id', component : UserComponent }
         ] },
         { path : 'products/filter', component : ProductsFilterComponent },
         { path : 'products/filter/:filterType/:filterId', component : ProductsSpecificComponent },

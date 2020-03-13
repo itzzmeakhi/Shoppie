@@ -10,27 +10,104 @@
 
     <hr>
 
-    <ul class = "list-group">
-        <li 
-            class = "list-group-item"
-            *ngFor = "let user of registeredUsers"
-            (click) = "onViewUser(user.userId)">
+    <!-- Registered Users Lists -->
 
-            <img
-                [src] = "user.userImageUrl"
-                alt = "User Image"
-                class = "img-fluid"
-            >
+    <div class = "row">
 
-            <p class = "text-muted">
-                {{ user.userName }}
-            </p>
+        <!-- Index Even -->
 
-            <p class = "text-muted">
-                {{ user.userEmail }}
-            </p>
-            
-        </li>
-    </ul>
+        <div class = "col-md-5 users-col">
+
+            <ul class = "list-group">
+
+                <span *ngFor = "let user of registeredUsers; let i = index">
+
+                    <li
+                        class = "list-group-item list-group-item-action"
+                        *ngIf = "i%2 === 0"
+                        (click) = "onViewUser(user.userId)">
+
+                        <div class = "row">
+
+                            <div class = "col-md-4">
+
+                                <img
+                                    [src] = "user.userImageUrl"
+                                    alt = "User Image"
+                                    class = "img-fluid justify-content-start"
+                                    style = "height: 100px;"
+                                >
+
+                            </div>
+
+                            <div class = "col-md-6">
+
+                                <p class = "text-muted">
+                                    {{ user.userName }}
+                                </p>
+                                <p class = "text-muted">
+                                    {{ user.userEmail }}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+                </span>
+
+            </ul>
+
+        </div>
+
+        <!-- Index Odd -->
+
+        <div class = "col-md-5 users-col">
+
+            <ul class = "list-group">
+
+                <span *ngFor = "let user of registeredUsers; let i = index">
+
+                    <li
+                        class = "list-group-item list-group-item-action"
+                        *ngIf = "i%2 != 0"
+                        (click) = "onViewUser(user.userId)">
+
+                        <div class = "row">
+
+                            <div class = "col-md-4">
+
+                                <img
+                                    [src] = "user.userImageUrl"
+                                    alt = "User Image"
+                                    class = "img-fluid justify-content-start"
+                                    style = "height: 100px;"
+                                >
+
+                            </div>
+
+                            <div class = "col-md-6">
+
+                                <p class = "text-muted">
+                                    {{ user.userName }}
+                                </p>
+                                <p class = "text-muted">
+                                    {{ user.userEmail }}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+                </span>
+
+            </ul>
+
+        </div>
+
+    </div>
 
 </div>

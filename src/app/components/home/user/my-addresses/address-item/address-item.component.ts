@@ -17,11 +17,16 @@ export class AddressItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
+
+  // Triggers when an address is selected
 
   onAddressSelected() {
     this.addressViewId.emit(this.index);
   }
+
+  // Triggers when an address is deleted
 
   onAddressDelete() {
     this.addressDeleteId.emit(this.index);

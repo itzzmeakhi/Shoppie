@@ -83,9 +83,13 @@ export class AddressViewEditComponent implements OnInit, OnDestroy {
     return this.userAddressForm.get('addressCity');
   }
 
+  // Triggers when editAddress button is clicked
+
   onEditAddress() {
     this.isEditMode = true;
   }
+
+  // Triggers when editAddress form is submitted
 
   onFormSubmit() {
 
@@ -112,6 +116,8 @@ export class AddressViewEditComponent implements OnInit, OnDestroy {
       })
 
   }
+
+  // Triggers when editAddress is cancelled by user
 
   onCancelEditMode() {
     this.userAddressForm.setValue({

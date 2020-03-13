@@ -1,7 +1,11 @@
 * {
-    background-color: #f1f2f6;
-    height: 100%;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+    background-color: #f1f2f6;
     overflow: hidden;
+}
+
+.body-offset {
+    margin-top: 73px;
 }

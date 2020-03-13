@@ -18,6 +18,7 @@
                     name = "sellerName"
                     formControlName = "sellerName"
                     id = "sellerName"
+                    autocomplete = "off"
                 >
 
             </div>
@@ -39,26 +40,56 @@
     <div class ="row available-sellers" *ngIf = "isSellersAvailable">
 
         <div class = "text-center">
-            <p class = "text-muted">
+            <p class = "text-muted ml-3">
                 List of Sellers Available: 
             </p>
         </div>
 
-        <span *ngFor = "let seller of sellersAvailable; let i = index">
+    </div>
 
-            <div class = "col-md-6" *ngIf = "i%2 === 0">
-                {{ seller.sellerName }}
-            </div>
+    <hr>
 
-            <div class = "col-md-6" *ngIf = "i%2 != 0">
-                {{ seller.sellerName }}
-            </div>
+    <!-- Available Sellers -->
 
-        </span>
+    <div class = "row">
+
+        <div class = "col-md-6">
+
+            <ul>
+
+                <span *ngFor = "let seller of sellersAvailable; let i = index">
+
+                    <li
+                        *ngIf = "i%2 === 0">
+                        {{ seller.sellerName }}
+                    </li>
+
+                </span>
+
+            </ul>
+
+        </div>
+
+        <div class = "col-md-6">
+
+            <ul>
+
+                <span *ngFor = "let seller of sellersAvailable; let i = index">
+
+                    <li
+                        *ngIf = "i%2 != 0">
+                        {{ seller.sellerName }}
+                    </li>
+
+                </span>
+
+            </ul>
+
+        </div>
 
     </div>
 
-    <div class = "row" *ngIf = "!isSellersAvailable">
+    <div class = "row ml-3" *ngIf = "!isSellersAvailable">
         No Sellers Added yet..!!
     </div>
 

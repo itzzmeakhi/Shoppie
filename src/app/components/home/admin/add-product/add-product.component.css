@@ -1,3 +1,42 @@
 .add-product-container {
     padding-top: 25px;
+    margin-left: 20px;
+}
+
+input.ng-dirty.ng-invalid,
+input.ng-touched.ng-invalid,
+textarea.ng-dirty.ng-invalid,
+textarea.ng-touched.ng-invalid,
+select.ng-dirty.ng-invalid,
+select.ng-touched.ng-invalid {
+    border-top : none;
+    border-left : none;
+    border-right: none;
+    border: 1px #eb2f06 solid;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .add-product-container {
+        margin-left: -10px;
+    } 
+    .add-product-form {
+        width: 270px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  
+
+    
 }

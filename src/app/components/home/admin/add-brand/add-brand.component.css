@@ -1,0 +1,15 @@
+.add-brand-container {
+    margin-top: 25px;
+    margin-left: 20px;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .add-brand-container {
+        margin-left: -30px;
+    }
+    
+}
+  
+@media (min-width: 320px) and (max-width: 480px) {
+
+}

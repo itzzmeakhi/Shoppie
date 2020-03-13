@@ -18,6 +18,7 @@
                     name = "categoryName"
                     formControlName = "categoryName"
                     id = "categoryName"
+                    autocomplete = "off"
                 >
 
             </div>
@@ -39,26 +40,56 @@
     <div class ="row available-categories" *ngIf = "isCategoriesAvailable">
 
         <div class = "text-center">
-            <p class = "text-muted">
+            <p class = "text-muted ml-3">
                 List of Categories Available: 
             </p>
         </div>
+    
+    </div>
 
-        <span *ngFor = "let category of categoriesAvailable; let i = index">
+    <hr>
 
-            <div class = "col-md-6" *ngIf = "i%2 === 0">
-                {{ category.categoryName }}
-            </div>
+    <!-- Available Categories -->
 
-            <div class = "col-md-6" *ngIf = "i%2 != 0">
-                {{ category.categoryName }}
-            </div>
+    <div class = "row">
 
-        </span>
+        <div class = "col-md-6">
+
+            <ul>
+
+                <span *ngFor = "let category of categoriesAvailable; let i = index">
+
+                    <li
+                        *ngIf = "i%2 === 0">
+                        {{ category.categoryName }}
+                    </li>
+
+                </span>
+
+            </ul>
+
+        </div>
+
+        <div class = "col-md-6">
+
+            <ul>
+
+                <span *ngFor = "let category of categoriesAvailable; let i = index">
+
+                    <li
+                        *ngIf = "i%2 != 0">
+                        {{ category.categoryName }}
+                    </li>
+
+                </span>
+
+            </ul>
+
+        </div>
 
     </div>
 
-    <div class = "row" *ngIf = "!isCategoriesAvailable">
+    <div class = "row ml-3" *ngIf = "!isCategoriesAvailable">
         No Categories Added yet..!!
     </div>
 

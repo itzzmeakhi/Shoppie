@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -27,8 +27,7 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
   userLoggedInDetails : NewUser;
   userAddressForm : FormGroup;
   isAddressAddRequest : boolean = false;
-
-  @ViewChild('closeModal', { static : false }) closeModal : ElementRef;
+  showAddAddressForm : boolean = false;
 
   constructor(private userService : UserService,
               private activatedRoute : ActivatedRoute,
@@ -83,10 +82,23 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
     return this.userAddressForm.get('addressCity');
   }
 
+  // Triggers when add address button is clicked
+
+  onAddAddress() {
+    this.showAddAddressForm = true;
+  }
+
+  // Triggers when close address button is clicked
+
+  onCloseAddress() {
+    this.showAddAddressForm = false;
+  }
+
+  // Triggers when addressForm is submitted
 
   onFormSubmit() {
     // console.log(this.userAddressForm);
-    this.closeModal.nativeElement.click();
+    this.showAddAddressForm = false;
     this.isAddressAddRequest = true;
 
     const newAddress = new Address(
@@ -116,13 +128,19 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
 
   }
 
+  // Triggers when a particular address is selected for view/edit
+
   onSelectedAddress(index : number) {
     // console.log(id);
+    this.showAddAddressForm = false;
     this.router.navigate([index], { relativeTo : this.activatedRoute });
   }
 
+  // Triggers when a particular address is deleted
+
   onDeleteAddress(index : number) {
     // console.log(this.userLoggedInDetails.userSavedAddresses);
+    this.showAddAddressForm = false;
     let addressesSaved = this.userLoggedInDetails.userSavedAddresses;
     addressesSaved.splice(index, 1);
     // console.log(addressesSaved);

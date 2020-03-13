@@ -18,6 +18,7 @@
                     name = "brandName"
                     formControlName = "brandName"
                     id = "brandName"
+                    autocomplete = "off"
                 >
 
             </div>
@@ -34,31 +35,59 @@
     
     </form>
 
+    <!-- Available Brands -->
+
     <hr>
 
     <div class ="row available-brands" *ngIf = "isBrandsAvailable">
 
         <div class = "text-center">
-            <p class = "text-muted">
+            <p class = "text-muted ml-3">
                 List of Brands Available: 
             </p>
         </div>
 
-        <span *ngFor = "let brand of brandsAvailable; let i = index">
+    </div>
 
-            <div class = "col-md-6" *ngIf = "i%2 === 0">
-                {{ brand.brandName }}
-            </div>
+    <hr>
 
-            <div class = "col-md-6" *ngIf = "i%2 != 0">
-                {{ brand.brandName }}
-            </div>
+    <div class = "row">
 
-        </span>
+        <div class = "col-md-6">
+
+            <ul>
+
+                <span *ngFor = "let brand of brandsAvailable; let i = index">
+
+                    <li *ngIf = "i%2 === 0">
+                        {{ brand.brandName }}
+                    </li>
+
+                </span>
+
+            </ul>
+
+        </div>
+
+        <div class = "col-md-6">
+
+            <ul>
+
+                <span *ngFor = "let brand of brandsAvailable; let i = index">
+
+                    <li *ngIf = "i%2 != 0">
+                        {{ brand.brandName }}
+                    </li>
+
+                </span>
+
+            </ul>
+
+        </div>
 
     </div>
 
-    <div class = "row" *ngIf = "!isBrandsAvailable">
+    <div class = "row ml-3" *ngIf = "!isBrandsAvailable">
         No Brands Added yet..!!
     </div>
 

@@ -35,6 +35,7 @@ import { AddBrandComponent } from './components/home/admin/add-brand/add-brand.c
 import { ProductsSpecificComponent } from './components/home/products/products-filter/products-specific/products-specific.component';
 import { AddSellerComponent } from './components/home/admin/add-seller/add-seller.component';
 import { UserInsightsComponent } from './components/home/admin/user-insights/user-insights.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { UserInsightsComponent } from './components/home/admin/user-insights/use
     AddBrandComponent,
     ProductsSpecificComponent,
     AddSellerComponent,
-    UserInsightsComponent
+    UserInsightsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

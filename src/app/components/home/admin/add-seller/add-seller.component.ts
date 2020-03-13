@@ -1,18 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { Subscription } from 'rxjs';
+
 import { ProductService } from '../../../../shared/product.service';
+
 
 @Component({
   selector: 'app-add-seller',
   templateUrl: './add-seller.component.html',
   styleUrls: ['./add-seller.component.css']
 })
-export class AddSellerComponent implements OnInit {
+export class AddSellerComponent implements OnInit, OnDestroy {
 
   addSellerForm : FormGroup;
   sellersAvailable = [];
   isSellersAvailable : boolean;
+  getSellersSubs : Subscription;
+  addSellerSubs : Subscription;
+  getSellersAfterAddSubs : Subscription;
 
 
   constructor(private productService : ProductService) { }
@@ -22,7 +28,7 @@ export class AddSellerComponent implements OnInit {
       'sellerName' : new FormControl('', [ Validators.required ])
     })
 
-    this.productService.getSellers()
+    this.getSellersSubs = this.productService.getSellers()
       .subscribe(productSellersData => {
         this.isSellersAvailable = productSellersData.length > 0;
         this.sellersAvailable = productSellersData;
@@ -43,10 +49,30 @@ export class AddSellerComponent implements OnInit {
 
     const updatedSellers = [...this.sellersAvailable, newBrand];
 
-    this.productService.addSeller(updatedSellers)
+    this.addSellerSubs = this.productService.addSeller(updatedSellers)
       .subscribe(response => {
-        console.log("Seller Added");
+        this.getSellersAfterAddSubs = this.productService.getSellers()
+          .subscribe(productSellersData => {
+            this.isSellersAvailable = productSellersData.length > 0;
+            this.sellersAvailable = productSellersData;
+            this.addSellerForm.reset();
+            console.log("Seller Added");
+          })
       })
+  }
+
+  ngOnDestroy() {
+    if(this.getSellersSubs) {
+      this.getSellersSubs.unsubscribe();
+    }
+
+    if(this.addSellerSubs) {
+      this.addSellerSubs.unsubscribe();
+    }
+
+    if(this.getSellersAfterAddSubs) {
+      this.getSellersAfterAddSubs.unsubscribe();
+    }
   }
 
 } 

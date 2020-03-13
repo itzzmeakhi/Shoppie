@@ -1,6 +1,10 @@
-.modal-content {
+/* .modal-content {
     background-color: #f5f6fa !important;
 }
+
+.modal {
+    z-index: 9999999999 !important;
+} */
 
 input:focus,
 select:focus,
@@ -32,4 +36,16 @@ textarea.ng-touched.ng-invalid {
 span p {
     font-size: 80%;
     color: #eb2f06;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .my-addresses-container {
+        margin-left: -40px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  
+
+    
 }

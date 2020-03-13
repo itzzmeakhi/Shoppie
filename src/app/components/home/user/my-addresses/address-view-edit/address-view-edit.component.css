@@ -33,3 +33,15 @@ span p {
     width: 3rem;
     height: 3rem;
 }
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .address-view-container {
+        margin-left: -40px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  
+
+    
+}

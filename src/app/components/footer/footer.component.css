@@ -1,0 +1,16 @@
+footer {
+    background-color: #192a56;
+    color: #fff;
+    padding: 15px 0;
+    opacity: 0.7;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    footer {
+        margin-left: -30px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
@@ -18,6 +19,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
   getBrandsSubs : Subscription;
   getCategoriesSubs : Subscription;
   getSellersSubs : Subscription;
+  productAdded : boolean = false;
   brands = [];
   categories = [];
   sellers = [];
@@ -37,14 +39,15 @@ export class AddProductComponent implements OnInit, OnDestroy {
   //   { name : 'TrueComRetail', id : 'seller002' }
   // ];
 
-  constructor(private productService : ProductService) { }
+  constructor(private productService : ProductService,
+              private router : Router) { }
 
   ngOnInit() {
     this.addProductForm = new FormGroup({
       'productName' : new FormControl('', [ Validators.required ]),
       'productDescription' : new FormControl('', [ Validators.required ]),
       'productImageUrl' : new FormControl('', [ Validators.required ]),
-      'productPrice' : new FormControl('', [ Validators.required, Validators.pattern('[0]') ]),
+      'productPrice' : new FormControl('', [ Validators.required ]),
       'productDiscount' : new FormControl('', [ Validators.required ]),
       'productSeller' : new FormControl('', [ Validators.required ]),
       'productBrand' : new FormControl('', [ Validators.required ]),
@@ -109,6 +112,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
     return this.addProductForm.get('productAvailableQuantity');
   }
 
+  // Triggers when addProductForm is submitted.
+
   onFormSubmit() {
     // console.log(this.addProductForm);
     let brandId : string;
@@ -155,16 +160,42 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.onAddProductSubs = this.productService.onAddProduct(newProduct)
       .subscribe(responseData => {
         // console.log(responseData);
+        this.productAdded = true;
+        this.addProductForm.reset();
+        console.log("Product Added!");
       })
 
   }
+
+  // Triggers when add another product is clicked
+
+  onAddAnotherProduct() {
+    this.addProductForm.reset();
+    this.productAdded = false;
+  }
+
+  // Triggers when goToProducts is clicked
+
+  goToProducts() {
+    this.router.navigate(['/home']);
+  }
+
+  // Triggers when add row to productHighlights array is clicked
 
   onAddHighlight() {
     (this.productHighlights as FormArray).push(new FormControl('', Validators.required ));
   }
 
+  // Triggers when remove row from productHighlights array is clicked
+
   onRemoveHighlight(index : number) {
     (this.productHighlights as FormArray).removeAt(index);
+  }
+
+  // Triggers when cancel button is clicked
+
+  onCancel() {
+    this.router.navigate(['/home']);
   }
 
   ngOnDestroy() {

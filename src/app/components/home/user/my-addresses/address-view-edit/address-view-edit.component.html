@@ -51,6 +51,7 @@
                     formControlName = "addressSaveAs"
                     id = "addressSaveAs"
                     [readonly] = "!isEditMode"
+                    autocomplete = "off"
                 > 
 
                 <span *ngIf = "addressSaveAs.invalid && (addressSaveAs.dirty || addressSaveAs.touched)">
@@ -80,6 +81,7 @@
                     formControlName = "addressRecipientName"
                     id = "addressRecipientName"
                     [readonly] = "!isEditMode"
+                    autocomplete = "off"
                 >
 
                 <span *ngIf = "addressRecipientName.invalid && (addressRecipientName.dirty || addressRecipientName.touched)">
@@ -111,6 +113,7 @@
                     formControlName = "addressRecipientContactNumber"
                     id = "addressRecipientContactNumber"
                     [readonly] = "!isEditMode"
+                    autocomplete = "off"
                 >
 
             </div>
@@ -147,6 +150,7 @@
                     id = "addressDescription"
                     rows = "3"
                     [readonly] = "!isEditMode"
+                    autocomplete = "off"
                 ></textarea>
 
                 <span *ngIf = "addressDescription.invalid && (addressDescription.dirty || addressDescription.touched)">
@@ -178,6 +182,7 @@
                     formControlName = "addressPinCode"
                     id = "addressPinCode"
                     [readonly] = "!isEditMode"
+                    autocomplete = "off"
                 >
 
                 <span *ngIf = "addressPinCode.invalid && (addressPinCode.dirty || addressPinCode.touched)">
@@ -214,6 +219,7 @@
                     formControlName = "addressCity"
                     id = "addressCity"
                     [readonly] = "!isEditMode"
+                    autocomplete = "off"
                 >
 
                 <span *ngIf = "addressCity.invalid && (addressCity.dirty || addressCity.touched)">

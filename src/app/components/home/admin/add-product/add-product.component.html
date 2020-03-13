@@ -1,6 +1,14 @@
 <div class = "add-product-container">
 
-    <form [formGroup] = "addProductForm" (ngSubmit) = "onFormSubmit()">
+    <!-- Add Product Form -->
+
+    <form [formGroup] = "addProductForm" (ngSubmit) = "onFormSubmit()" class = "add-product-form" *ngIf = "!productAdded">
+
+        <p class = "text-muted">
+            Add Product here!
+        </p>
+        
+        <hr>
 
         <!-- Product Name -->
 
@@ -16,6 +24,7 @@
                     name = "productName"
                     formControlName = "productName"
                     id = "productName"
+                    autocomplete = "off"
                 >
 
             </div>
@@ -35,7 +44,8 @@
                     name = "productDescription"
                     formControlName = "productDescription"
                     id = "productDescription"
-                    rows = "5">
+                    rows = "5"
+                    autocomplete = "off">
                 </textarea>
 
             </div>
@@ -56,20 +66,21 @@
                     name = "productImageUrl"
                     formControlName = "productImageUrl"
                     id = "productImageUrl"
+                    autocomplete = "off"
                 >
 
             </div>
 
             <!-- Image Preview -->
 
-            <div class = "col-md-3">
+            <!-- <div class = "col-md-3">
 
                 <img
                     src = ""
                     alt = ""
                 >
 
-            </div>
+            </div> -->
 
         </div>
 
@@ -87,6 +98,7 @@
                     name = "productPrice"
                     formControlName = "productPrice"
                     id = "productPrice"
+                    autocomplete = "off"
                 > 
 
             </div>
@@ -107,6 +119,7 @@
                     name = "productDiscount"
                     formControlName = "productDiscount"
                     id = "productDiscount"
+                    autocomplete = "off"
                 >
 
             </div>
@@ -211,6 +224,7 @@
                     name = "productAvailableQuantity"
                     formControlName = "productAvailableQuantity"
                     id = "productAvailableQuantity"
+                    autocomplete = "off"
                 >
 
             </div>
@@ -253,6 +267,7 @@
                     <button
                         type = "button"
                         class = "btn btn-sm btn-danger mr-4"
+                        [disabled] = "i === 0"
                         (click) = "onRemoveHighlight(i)">
                         X
                     </button>
@@ -273,7 +288,8 @@
                         name = "productHighlight"
                         id = "productHighlight"
                         [formControlName] = "i"
-                        placeholder = "Add an highlight here."
+                        placeholder = "Add an highlight here"
+                        autocomplete = "off"
                     >
 
                 </div>
@@ -286,9 +302,10 @@
 
         <button 
             type = "submit"
-            class = "btn btn-sm btn-info">
+            class = "btn btn-sm btn-info"
+            [disabled] = "addProductForm.invalid">
             Add
-        </button>
+        </button> &nbsp;
 
         <!-- Cancel Button -->
 
@@ -302,8 +319,31 @@
 
 
     </form>
+    
+    <!-- Buttons after form submitted -->
 
+    <div *ngIf = "productAdded">
 
+        <p class = "text-muted">
+            Product added successfully!
+        </p>
 
+        <hr>
+
+        <button
+            type = "button"
+            class = "btn btn-sm btn-success"
+            (click) = "onAddAnotherProduct()">
+            Add another product
+        </button> &nbsp;
+
+        <button
+            type = "button"
+            class = "btn btn-sm btn-info"
+            (click) = "goToProducts()">
+            Go to products
+        </button>
+
+    </div>
 
 </div>

@@ -78,6 +78,10 @@ export class SideNavComponent implements OnInit, OnDestroy {
     this.router.navigate(['/home/products/filter']);
   }
 
+  onViewUsersInsights() {
+    this.router.navigate(['/home/admin']);
+  }
+
   ngOnDestroy() {
     if(this.userSubs) {
       this.userSubs.unsubscribe();
