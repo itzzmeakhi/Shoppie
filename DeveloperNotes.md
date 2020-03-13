@@ -118,6 +118,12 @@ Added guards to protect certain routes like Add Product/Add Brands etc, so that 
 
 Implemeted admin component and also made to hide some parts of UI like admin specific/buyer specific based on userType that was loggedIn.
 
+# Cleared Issues with CSS
+
+### Commit - 15
+
+Cleared few issues with CSS like navbar, sidebar etc
+
 
 
 
