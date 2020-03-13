@@ -104,11 +104,19 @@ Also added admin/add-brand and admin/add-category components, so that admin can 
 
 ### Commit - 13
 
-Implemeted breacrumb links so that by clicking them, the filtered products based on brandName/categoryName are displayed to the loggedIn user. Product specific component is implemeted.
+Implemeted breadcrumb links so that by clicking them, the filtered products based on brandName/categoryName are displayed to the loggedIn user. Product specific component is implemeted.
 
 Added pagination to the product-item component so that only 8 products are displayed to the user at a time. User shoould be navigated to different page to view other products.
 
 In addition to these, issues with signup component while emitting loggedIn user details are solved.
+
+# Added User/Buyer role based Auth
+
+### Commit - 14
+
+Added guards to protect certain routes like Add Product/Add Brands etc, so that they can be accessed only by Admin. Whereas Cart/Orders/Address routes are only accessed by Buyer. Implemented Role based Authentication. 
+
+Implemeted admin component and also made to hide some parts of UI like admin specific/buyer specific based on userType that was loggedIn.
 
 
 
