@@ -18,6 +18,10 @@ button:focus {
     -webkit-box-shadow: none;
 }
 
+.margin-style {
+    margin-left: 30px;
+}
+
 .spinner-props {
     color: #192a56;
     width: 3rem;

@@ -262,28 +262,32 @@ export class ProductService {
             )
     }
 
-    // To get brandName using brandId 
+    // // To get brandName using brandId 
 
-    getBrandName(brandId : string) {
-        return this.httpClient.get<{brandName : string, brandId : string}>('https://shoppie-4c4f4.firebaseio.com/brands.json?orderBy="brandId"&equalTo="'+brandId+'"')
-            .pipe(
-                take(1),
-                map(brandData => {
-                    return brandData[0].brandName;
-                })
-            )
-    }
+    // getBrandName(brandId : string) {
+    //     // console.log(brandId);
+    //     return this.httpClient.get<{brandName : string, brandId : string}>('https://shoppie-4c4f4.firebaseio.com/brands.json?orderBy="brandId"&equalTo="'+brandId+'"')
+    //         .pipe(
+    //             take(1),
+    //             map(brandData => {
+    //                 console.log(brandData[0].brandName);
+    //                 return brandData[0].brandName;
+    //             })
+    //         )
+    // }
 
-    // To get categoryName using categoryId
+    // // To get categoryName using categoryId
 
-    getCategoryName(categoryId : string) {
-        return this.httpClient.get<{categoryName : string, categoryId : string}>('https://shoppie-4c4f4.firebaseio.com/categories.json?orderBy="categoryId"&equalTo="'+categoryId+'"')
-            .pipe(
-                take(1),
-                map(categoryData => {
-                    return categoryData[0].categoryName;
-                })
-            )
-    }
+    // getCategoryName(categoryId : string) {
+
+    //     return this.httpClient.get<{categoryName : string, categoryId : string}>('https://shoppie-4c4f4.firebaseio.com/categories.json?orderBy="categoryId"&equalTo="'+categoryId+'"')
+    //         .pipe(
+    //             take(1),
+    //             map(categoryData => {
+    //                 console.log(categoryData[0].categoryName);
+    //                 return categoryData[0].categoryName;
+    //             })
+    //         )
+    // }
     
 }

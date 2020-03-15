@@ -40,10 +40,10 @@ export class ProductsSpecificComponent implements OnInit, OnDestroy {
         console.log("Filtered By Brand");
         // console.log(this.filterId);
 
-        this.getBrandsSubs = this.productService.getBrandName(this.filterId)
-          .subscribe(response => {
-            this.filteredName = response;
-          })
+        // this.getBrandsSubs = this.productService.getBrandName(this.filterId)
+        //   .subscribe(response => {
+        //     this.filteredName = response;
+        //   })
 
         this.getProductsByBrandSubs = this.productService.getProductsBasedOnBrand(this.filterId)
           .subscribe(productsData => {
@@ -55,10 +55,10 @@ export class ProductsSpecificComponent implements OnInit, OnDestroy {
       } else if(this.filterType === 'category') {
         console.log("Filtered By Category");
 
-        this.getProductsSubs = this.productService.getCategoryName(this.filterId)
-          .subscribe(response => {
-            this.filteredName = response;
-          })
+        // this.getProductsSubs = this.productService.getCategoryName(this.filterId)
+        //   .subscribe(response => {
+        //     this.filteredName = response;
+        //   })
 
         this.getProductsByCategorySubs = this.productService.getProductsBasedOnCategory(this.filterId)
           .subscribe(productsData => {

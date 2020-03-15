@@ -28,6 +28,10 @@ button:focus {
     margin-left: 40px;
 }
 
+.margin-left-props {
+    margin-left: 30px;
+}
+
 @media (min-width: 481px) and (max-width: 767px) {
     .specific-header {
         margin-left: 10px;

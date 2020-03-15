@@ -176,7 +176,7 @@
 
     <!-- User Product Rating -->
 
-    <div class = "row" *ngIf = "!isRated">
+    <div class = "row" *ngIf = "!isRated && !isAdmin">
 
         <p 
             class = "text-color-primary pl-2 ml-2">
@@ -229,7 +229,7 @@
 
     <!-- User Already Rated -->
 
-    <div class = "row" *ngIf = "isRated">
+    <div class = "row" *ngIf = "isRated && !isAdmin">
 
         <p class = "text-color-primary pl-3 ml-1">
             You rated : {{ userRatingForProduct }} <i class="fas fa-star" style = "color: #f39c12;"></i>

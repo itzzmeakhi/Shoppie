@@ -162,6 +162,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
         // console.log(responseData);
         this.productAdded = true;
         this.addProductForm.reset();
+        window.scrollTo(0, 0);
         console.log("Product Added!");
       })
 
