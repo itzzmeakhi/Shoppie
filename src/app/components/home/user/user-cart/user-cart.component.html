@@ -46,9 +46,9 @@
 
         </div> 
 
-        <p class = "m-3"> Deliver To: </p>
+        <p class = "ml-3"> Deliver To: </p>
 
-        <form [formGroup] = "selectAddressForm" (ngSubmit) = "onSelectAddress()">
+        <form [formGroup] = "selectAddressForm" (ngSubmit) = "onSelectAddress()" class = "ml-3">
 
             <select class = "form-control form-control-sm col-md-2" formControlName = "addressSelected">
                 <option *ngFor = "let addr of userData.userSavedAddresses; let i = index" [value] = "i">
@@ -90,9 +90,9 @@
             Clear
         </button>
 
-        <P class = "lead offset-md-6 col-md-4">
+        <p class = "lead offset-md-6 col-md-4 total-price">
             Total Price : {{ totalPrice | currency : 'INR' }}
-        </P>
+        </p>
 
     </div>
 

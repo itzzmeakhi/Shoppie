@@ -5,10 +5,32 @@
     box-shadow: -1px 10px 14px -4px rgba(0,0,0,0.75);
 }
 
+.display-hr {
+    display: none;
+}
+
 button:focus {
     outline:none !important;
     outline-width: 0 !important;
     box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
+}
+
+.user-cart-container {
+    margin-left: 10px;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .user-cart-container {
+        margin-left: -35px;
+        width: 350px;
+    }
+    .total-price {
+        margin-top: 15px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    
 }

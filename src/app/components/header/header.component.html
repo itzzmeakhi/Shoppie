@@ -6,7 +6,7 @@
 
   <!-- Toggle -->
 
-  <button class = "navbar-toggler" *ngIf = "isAuthenticated" type = "button" data-toggle = "collapse" data-target = "#navbarNavDropdown" aria-controls = "navbarNavDropdown" aria-expanded = "false" aria-label = "Toggle navigation">
+  <button class = "navbar-toggler" *ngIf = "isAuthenticated" type = "button" data-toggle = "collapse" data-target = "#navbarNavDropdown" aria-controls = "navbarNavDropdown" aria-expanded = "false" aria-label = "Toggle navigation" #closeNavbarToggle>
     <span class = "navbar-toggler-icon"></span>
   </button>
 
@@ -19,18 +19,25 @@
       <!-- Home Link -->
 
       <li class = "nav-item">
-        <a class = "nav-link" routerLink = "/home" routerLinkActive = "active">Home</a>
-      </li>
+        <a 
+          class = "nav-link"
+          data-toggle = "collapse" 
+          data-target = ".navbar-collapse.show"
+          (click) = "onNavigateToHome()">
+          Home
+        </a>
+      </li> 
 
       <!-- Products Link -->
 
-      <li class = "nav-item">
+      <!-- <li class = "nav-item">
         <a class = "nav-link">Products</a>
-      </li>
+      </li> -->
 
       <!-- Add Dropdown -->
 
       <li class = "nav-item dropdown" *ngIf = "isAdmin">
+
         <a class = "nav-link dropdown-toggle" id = "navbarDropdownMenuLinkForAdd" role = "button" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
           <i class="fas fa-folder-plus"></i> Add
         </a>
@@ -40,8 +47,10 @@
           <!-- Navlink for Add Product -->
 
           <a
-            routerLink = "home/admin/add/product"
-            class = "dropdown-item">
+            class = "dropdown-item"
+            (click) = "onNavigateToAddProduct()"
+            data-toggle = "collapse" 
+            data-target = ".navbar-collapse.show">
             <i class="fas fa-bookmark"></i>&nbsp;
             Add Product
           </a>
@@ -49,8 +58,10 @@
           <!-- Navlink for Add Brand -->
 
           <a
-            routerLink = "home/admin/add/brand"
-            class = "dropdown-item">
+            class = "dropdown-item"
+            (click) = "onNavigateToAddBrand()"
+            data-toggle = "collapse" 
+            data-target = ".navbar-collapse.show">
             <i class="fas fa-bookmark"></i>&nbsp;
             Add Brand
           </a>
@@ -58,15 +69,21 @@
           <!-- Navlink for Add Category -->
 
           <a
-            routerLink = "home/admin/add/category"
-            class = "dropdown-item">
+            class = "dropdown-item"
+            (click) = "onNavigateToAddCategory()"
+            data-toggle = "collapse" 
+            data-target = ".navbar-collapse.show">
             <i class="fas fa-bookmark"></i>&nbsp;
             Add Category
           </a>
 
+          <!-- Navlink for Add Seller -->
+
           <a
-            routerLink = "home/admin/add/seller"
-            class = "dropdown-item">
+            class = "dropdown-item"
+            (click) = "onNavigateToAddSeller()"
+            data-toggle = "collapse" 
+            data-target = ".navbar-collapse.show">
             <i class="fas fa-bookmark"></i>&nbsp;
             Add Seller
           </a>
@@ -85,17 +102,26 @@
           <!-- Navlink for Cart -->
 
           <a 
-            [routerLink] = "['/home/user', userLoggedInDetails.localId, 'cart']"
             *ngIf = "!isAdmin"
-            class = "dropdown-item">
+            class = "dropdown-item"
+            (click) = "onNavigateToCart()"
+            data-toggle = "collapse" 
+            data-target = ".navbar-collapse.show">
             <i class="fas fa-shopping-cart"></i>&nbsp;
             Cart
           </a>
 
           <!-- Navlink for logout -->
 
-          <a class = "dropdown-item float-right" (click) = "onLogout()"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
-        
+          <a
+            class = "dropdown-item"
+            (click) = "onLogout()"
+            data-toggle = "collapse" 
+            data-target = ".navbar-collapse.show">
+            <i class="fas fa-sign-out-alt"></i>&nbsp;
+            Logout
+          </a>
+
         </div>
 
       </li>

@@ -38,6 +38,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     return this.loginForm.get('userPassword');
   }
 
+  // Triggers when loginForm is submitted
+
   onFormSubmit() {
     this.userLoginSubs = this.authService.onLogin(this.userEmail.value, this.userPassword.value)
       .subscribe(responseData => {
@@ -58,6 +60,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.errorMessage = errorRes;
       })
   }
+
+  // Triggers when closeAlert button is clicked
 
   onCloseErrorAlert() {
     this.errorMessage = "";

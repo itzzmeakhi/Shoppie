@@ -1,12 +1,12 @@
 <div class = "user-details-container">
     
-    <div class = "d-flex justify-content-center" *ngIf = "!userData">
+    <div class = "d-flex justify-content-center" *ngIf = "isUserDataLoading">
         <div class = "spinner-border spinner-props" role = "status">
             <span class = "sr-only">Loading...</span>
         </div>
     </div>
 
-    <form [formGroup] = "userDetailsForm" *ngIf = "userData" (ngSubmit) = "onFormSubmit()">
+    <form [formGroup] = "userDetailsForm" *ngIf = "userData && !isUserDataLoading" (ngSubmit) = "onFormSubmit()">
 
         <!-- User Image -->
 
@@ -265,5 +265,6 @@
     </form>
 
 </div>
+
 
 

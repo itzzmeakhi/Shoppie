@@ -28,3 +28,17 @@ button:focus {
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
 }
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .signup-container {
+        width: 400px;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .signup-container {
+        width: 300px;
+        margin: 0 auto;
+    }
+}

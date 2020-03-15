@@ -34,9 +34,21 @@ span p {
     height: 3rem;
 }
 
+.back-btn {
+    margin-left: 20px;
+}
+
 @media (min-width: 481px) and (max-width: 767px) {
     .address-view-container {
-        margin-left: -40px;
+        width: 300px;
+        margin: 0 auto;
+        margin-left: -20px;
+    }
+    button {
+        margin-bottom: 15px;
+    }
+    .back-btn {
+        margin-left: 0;
     }
 }
 

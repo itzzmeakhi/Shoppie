@@ -1,17 +1,64 @@
 .side-nav-container {
-    position: sticky;
-    top: inherit;
-    left: 0;
     background-color: #dcdde1;
     padding: 20px 20px;
-    height: 100vh;
+    min-height: 100vh;
     box-shadow: 6px 6px 18px -2px rgba(25,42,86,0.81);
 }
 
-.side-nav-options {
+.side-nav-xs-options {
     font-size: 80%;
 }
 
 .username-color {
     color: #192a56;
+}
+
+.fas {
+    font-size: 95%;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .side-nav-scroll-content {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        overflow-y: auto;
+        height: 400px; 
+        max-height: 100%;
+    }
+    .username-color {
+        font-size: 80%;
+    }
+    
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .side-nav-scroll-content {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        overflow-y: auto;
+        height: 250px; 
+        max-height: 100%;
+    }
+    .side-nav-xs-options {
+        font-size: 80%;
+    }
+    .fas {
+        display: none;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .side-nav-scroll-content {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        overflow-y: auto;
+        height: 200px; 
+        max-height: 100%;
+    }
+    .side-nav-xs-options {
+        font-size: 80%;
+    }
+    .fas {
+        display: none;
+    }
 }

@@ -1,4 +1,4 @@
-<div class = "products-container">
+<div class = "products-container" *ngIf = "!isProductsLoading">
 
     <div class = "row">
 
@@ -56,4 +56,13 @@
     </div>
 
     <app-footer></app-footer>
+
+</div>
+
+<!-- Spinner -->
+
+<div class = "d-flex justify-content-center" *ngIf = "isProductsLoading" style = "margin-top: 35px;">
+    <div class = "spinner-border spinner-props" role = "status">
+        <span class = "sr-only">Loading...</span>
+    </div>
 </div>

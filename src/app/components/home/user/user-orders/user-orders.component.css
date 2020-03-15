@@ -12,3 +12,14 @@ button:focus {
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
 }
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .orders-container {
+        margin-left: -20px;
+        width: 300px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    
+}

@@ -29,6 +29,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   userDetails : NewUser;
   isRated : boolean;
   isAdmin : boolean = false;
+  isProductLoading : boolean = false;
 
   getProductSubs : Subscription;
   userDetailsSubs : Subscription;
@@ -42,6 +43,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
               private router : Router) { }
 
   ngOnInit() {
+    this.isProductLoading = true;
     this.productId = this.activatedRoute.snapshot.params['prodId'];
     this.getProductSubs = this.productService.getProduct(this.productId)
       .subscribe(productData => {
@@ -72,6 +74,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
               this.onCalculateOverallRating();
             }
           })
+          this.isProductLoading = false;
       })
   }
 
@@ -195,6 +198,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           })
         console.log("Added to cart");
       })
+  }
+
+  // Triggers when goBackToProducts button is clicked
+
+  onGoToPrevious() {
+    this.router.navigate(['/home']);
   }
 
   ngOnDestroy() {

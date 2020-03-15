@@ -17,3 +17,9 @@ button:focus {
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
 }
+
+.spinner-props {
+    color: #192a56;
+    width: 3rem;
+    height: 3rem;
+}

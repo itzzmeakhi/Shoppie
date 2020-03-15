@@ -21,16 +21,19 @@ export class UserInsightsComponent implements OnInit, OnDestroy {
                   }[] = [];
 
   getUsersSubs : Subscription;
+  isUsersDataLoading : boolean = false;
 
   constructor(private userService : UserService,
               private router : Router,
               private activatedRoute : ActivatedRoute) { }
 
   ngOnInit() {
+    this.isUsersDataLoading = true;
     this.getUsersSubs = this.userService.getUsers()
       .subscribe(usersData => {
         // console.log(usersData);
         this.registeredUsers = usersData;
+        this.isUsersDataLoading = false;
       })
   }
 

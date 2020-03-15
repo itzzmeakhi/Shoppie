@@ -1,8 +1,8 @@
-<div class = "products-specific-container">
+<div class = "products-specific-container" *ngIf = "!isProductsLoading">
 
     <div class = "row">
 
-        <div class = "text-muted ml-3">
+        <div class = "text-muted specific-header">
             Filtered products based on {{ filterType }} - {{ filteredName }}
         </div>
 
@@ -65,4 +65,12 @@
         </p>
     </div>
 
+</div>
+
+<!-- Spinner -->
+
+<div class = "d-flex justify-content-center" *ngIf = "isProductsLoading" style = "margin-top: 35px;">
+    <div class = "spinner-border spinner-props" role = "status">
+        <span class = "sr-only">Loading...</span>
+    </div>
 </div>

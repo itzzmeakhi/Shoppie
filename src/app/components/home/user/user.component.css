@@ -1,5 +1,6 @@
 .user-details-container {
     padding-top: 25px;
+    margin-left: 30px;
 }
 
 .spinner-props {
@@ -31,4 +32,21 @@ button:focus {
     box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
+}
+
+.spinner-props {
+    color: #192a56;
+    width: 3rem;
+    height: 3rem;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .user-details-container {
+        margin-left: -25px;
+        width: 300px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    
 }

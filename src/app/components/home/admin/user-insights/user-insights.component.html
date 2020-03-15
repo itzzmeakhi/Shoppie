@@ -1,4 +1,4 @@
-<div class = "users-insights-container">
+<div class = "users-insights-container" *ngIf = "!isUsersDataLoading">
 
     <!-- Registered Users -->
 
@@ -110,4 +110,12 @@
 
     </div>
 
+</div>
+
+<!-- Spinner -->
+
+<div class = "d-flex justify-content-center" *ngIf = "isUsersDataLoading" style = "margin-top: 35px;">
+    <div class = "spinner-border spinner-props" role = "status">
+        <span class = "sr-only">Loading...</span>
+    </div>
 </div>

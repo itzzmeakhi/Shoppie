@@ -1,0 +1,16 @@
+.card-props {
+    height: 300px; 
+    margin-bottom: 20px;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .card-props {
+        height: 350px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  
+
+    
+}

@@ -2,7 +2,7 @@ footer {
     background-color: #192a56;
     color: #fff;
     padding: 15px 0;
-    opacity: 0.7;
+    opacity: 0.95;
 }
 
 @media (min-width: 481px) and (max-width: 767px) {

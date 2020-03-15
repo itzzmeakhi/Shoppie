@@ -23,12 +23,14 @@ export class UserComponent implements OnInit, OnDestroy {
   userDetailsEditMode : boolean = false;
   userId : string;
   isAdmin : boolean = false;
+  isUserDataLoading : boolean = false;
 
   constructor(private activatedRoute : ActivatedRoute,
               private userService : UserService,
               private router : Router) { }
 
   ngOnInit() {
+    this.isUserDataLoading = true;
     if(this.activatedRoute.routeConfig.path === "user/:mode/:id") {
       // console.log("Admin");
       this.isAdmin = true;
@@ -48,6 +50,7 @@ export class UserComponent implements OnInit, OnDestroy {
               'userDOB' : new FormControl(this.userData.userDOB)
             })
           }
+          this.isUserDataLoading = false;
         })
     } else if(this.activatedRoute.routeConfig.path === "user/:id") {
       // console.log("Buyer");
@@ -67,21 +70,22 @@ export class UserComponent implements OnInit, OnDestroy {
               'userDOB' : new FormControl(this.userData.userDOB)
             })
           }
+          this.isUserDataLoading = false;
         });
     }
 
-    if(this.userData) {
-      this.userDetailsForm = new FormGroup({
-        'userName' : new FormControl(this.userData.userName, [ Validators.required ]),
-        'userDisplayName' : new FormControl(this.userData.userDisplayName, [ Validators.required ]),
-        'userEmail' : new FormControl(this.userData.userEmail),
-        'userContactNumber' : new FormControl(this.userData.userContactNumber, [ Validators.required, Validators.pattern('[6-9][0-9]{9}')]),
-        'userGender' : new FormControl(this.userData.userGender),
-        'userLocation' : new FormControl(this.userData.userLocation, [ Validators.required ]),
-        'userImageUrl' : new FormControl(this.userData.userImageUrl, [ Validators.required ]),
-        'userDOB' : new FormControl(this.userData.userDOB)
-      })
-    }
+    // if(this.userData) {
+    //   this.userDetailsForm = new FormGroup({
+    //     'userName' : new FormControl(this.userData.userName, [ Validators.required ]),
+    //     'userDisplayName' : new FormControl(this.userData.userDisplayName, [ Validators.required ]),
+    //     'userEmail' : new FormControl(this.userData.userEmail),
+    //     'userContactNumber' : new FormControl(this.userData.userContactNumber, [ Validators.required, Validators.pattern('[6-9][0-9]{9}')]),
+    //     'userGender' : new FormControl(this.userData.userGender),
+    //     'userLocation' : new FormControl(this.userData.userLocation, [ Validators.required ]),
+    //     'userImageUrl' : new FormControl(this.userData.userImageUrl, [ Validators.required ]),
+    //     'userDOB' : new FormControl(this.userData.userDOB)
+    //   })
+    // }
   }
 
   get userName() {
@@ -116,11 +120,15 @@ export class UserComponent implements OnInit, OnDestroy {
     return this.userDetailsForm.get('userDOB');
   }
 
+  // Triggers when editMode button is clicked
+
   onEditUserDetails() {
     if(!this.isAdmin) {
       this.userDetailsEditMode = true;
     }
   }
+
+  // Triggers when userDetailsForm is submitted
 
   onFormSubmit() {
     if(!this.isAdmin) {
@@ -155,6 +163,8 @@ export class UserComponent implements OnInit, OnDestroy {
         })
     }
   }
+
+  // Triggers when cancelEdit mode button is clicked
 
   onCancelEditMode() {
     if(!this.isAdmin) {

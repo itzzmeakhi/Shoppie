@@ -25,13 +25,13 @@ export class ProductsSpecificComponent implements OnInit, OnDestroy {
   getProductsByCategorySubs : Subscription;
   getProductsSubs : Subscription;
   getBrandsSubs : Subscription;
-
-  
+  isProductsLoading : boolean = false;
 
   constructor(private activatedRoute : ActivatedRoute,
               private productService : ProductService) { }
 
   ngOnInit() {
+    this.isProductsLoading = true;
     this.filterId = this.activatedRoute.snapshot.params['filterId'];
     this.filterType = this.activatedRoute.snapshot.params['filterType'];
 
@@ -50,6 +50,7 @@ export class ProductsSpecificComponent implements OnInit, OnDestroy {
             this.filteredProducts = productsData;
             // console.log(productsData);
             this.paginateInitialSetup();
+            this.isProductsLoading = false;
           })
       } else if(this.filterType === 'category') {
         console.log("Filtered By Category");
@@ -64,6 +65,7 @@ export class ProductsSpecificComponent implements OnInit, OnDestroy {
             this.filteredProducts = productsData;
             // console.log(productsData);
             this.paginateInitialSetup();
+            this.isProductsLoading = false;
           })
       }
     }

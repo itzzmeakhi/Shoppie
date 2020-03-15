@@ -20,10 +20,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
   productsInAPage : Product[];
   currentPageNumber : number;
   totalPages : number;
+  isProductsLoading : boolean = false;
 
   constructor(private productService : ProductService) { }
 
   ngOnInit() {
+    this.isProductsLoading = true;
     this.getProductsSubs = this.productService.getProducts()
       .subscribe(productsData => {
         this.products = productsData;
@@ -41,6 +43,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
         }
 
         this.paginateProducts(this.startNumber, 0);
+        this.isProductsLoading = false
       })
   }
 
@@ -63,6 +66,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
     
     this.productsInAPage = this.products.slice(startIndex, endIndex)
+    window.scrollTo(0, 0);
   }
 
   ngOnDestroy() {

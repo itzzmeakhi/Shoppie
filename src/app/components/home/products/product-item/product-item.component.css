@@ -6,6 +6,10 @@
     margin-bottom: 15px;
 }
 
+.product-item-container {
+    margin-left: 10px;
+}
+
 input:focus,
 select:focus,
 textarea:focus,
@@ -15,5 +19,17 @@ button:focus {
     box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .product-item-container {
+        margin-left: -10px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  
+
+    
 }
 

@@ -16,8 +16,9 @@ import { NewUser } from 'src/app/shared/new-user.model';
 export class SideNavComponent implements OnInit, OnDestroy {
 
   userLoggedIn : AuthenticatedUser;
-  userSubs : Subscription;
-  userDetailsSubs : Subscription;
+  // userSubs : Subscription;
+  // userDetailsSubs : Subscription;
+  userLoggedInDetailsSubs : Subscription;
   userLoggedInDetails : NewUser;
   isAdmin : boolean;
 
@@ -42,7 +43,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
   // }
 
   ngOnInit() {
-    this.userService.userDetails
+    this.userLoggedInDetailsSubs = this.userService.userDetails
       .subscribe(userLoggedInDetails => {
         if(userLoggedInDetails) {
           this.userLoggedInDetails = userLoggedInDetails;
@@ -83,12 +84,16 @@ export class SideNavComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.userSubs) {
-      this.userSubs.unsubscribe();
-    }
+    // if(this.userSubs) {
+    //   this.userSubs.unsubscribe();
+    // }
 
-    if(this.userDetailsSubs) {
-      this.userDetailsSubs.unsubscribe();
+    // if(this.userDetailsSubs) {
+    //   this.userDetailsSubs.unsubscribe();
+    // }
+
+    if(this.userLoggedInDetailsSubs) {
+      this.userLoggedInDetailsSubs.unsubscribe();
     }
 
   }

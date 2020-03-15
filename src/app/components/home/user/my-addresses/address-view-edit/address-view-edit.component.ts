@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 
 import { Subscription } from 'rxjs';
 
@@ -28,7 +29,8 @@ export class AddressViewEditComponent implements OnInit, OnDestroy {
   getAddressSubs : Subscription;
 
   constructor(private activatedRoute : ActivatedRoute,
-              private userService : UserService) { }
+              private userService : UserService,
+              private router : Router) { }
 
   ngOnInit() {
     this.isLoadingData = true;
@@ -130,6 +132,12 @@ export class AddressViewEditComponent implements OnInit, OnDestroy {
     });
 
     this.isEditMode = false;
+  }
+
+  // Triggers when goToBack / Previous button is clicked
+
+  onGoToPrevious() {
+    this.router.navigate(['home', 'user', this.userRowId ,'addresses']);
   }
 
   ngOnDestroy() {

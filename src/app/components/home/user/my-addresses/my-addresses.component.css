@@ -6,6 +6,10 @@
     z-index: 9999999999 !important;
 } */
 
+.my-addresses-container {
+    margin-left: 25px;
+}
+
 input:focus,
 select:focus,
 textarea:focus,
@@ -40,7 +44,9 @@ span p {
 
 @media (min-width: 481px) and (max-width: 767px) {
     .my-addresses-container {
-        margin-left: -40px;
+        width: 300px;
+        margin: 0 auto;
+        margin-left: -20px;
     }
 }
 
