@@ -124,6 +124,12 @@ Implemeted admin component and also made to hide some parts of UI like admin spe
 
 Cleared few issues with CSS like navbar, sidebar etc
 
+# Final Version Shoppie
+
+### Commit - 16
+
+Improved styling and cleared some issues with mobile screens. Also added minor improvements
+
 
 
 
