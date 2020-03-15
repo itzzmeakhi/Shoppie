@@ -123,6 +123,7 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
             this.userAddressForm.reset();
             this.isAddressAddRequest = false;
             this.userService.userDetails.next(userDataResponse);
+            window.scrollTo(0, 0);
           })
       })
 
@@ -151,6 +152,7 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
         this.userDeleteAddressReloadSubs = this.userService.getUser(this.userLoggedInDetails.userId)
           .subscribe(userData => {
             this.userService.userDetails.next(userData);
+            window.scrollTo(0, 0);
           })
       })
   }

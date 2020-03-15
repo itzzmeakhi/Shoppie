@@ -147,7 +147,7 @@ export class UserComponent implements OnInit, OnDestroy {
         this.userData.userCartItems,
         this.userData.userOrders,
         this.userData.userId,
-        null
+        this.userData.rowId
       )
 
       this.userDetailsUpdatedSubs = this.userService.onUpdateUserDetails(updatedUserDetails, this.userData.rowId)
@@ -160,6 +160,7 @@ export class UserComponent implements OnInit, OnDestroy {
           //   })
           this.userService.userDetails.next(updatedResponse)
           this.userDetailsEditMode = false;
+          window.scrollTo(0, 0);
         })
     }
   }
@@ -179,6 +180,7 @@ export class UserComponent implements OnInit, OnDestroy {
         'userDOB' : this.userData.userDOB
       });
       this.userDetailsEditMode = false;
+      window.scrollTo(0, 0);
     }
   }
 
