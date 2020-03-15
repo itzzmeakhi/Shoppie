@@ -130,6 +130,12 @@ Cleared few issues with CSS like navbar, sidebar etc
 
 Improved styling and cleared some issues with mobile screens. Also added minor improvements
 
+# Few Improvements
+
+### Commit - 17
+
+Removed position caching while changing editMode in addresses/user component. Also solved route bug with user component to address component
+
 
 
 
