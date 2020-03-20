@@ -32,5 +32,11 @@ button:focus {
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
-    
+    .user-cart-container {
+        width: 200px;
+        margin-left: -80px;
+    }
+    .total-price {
+        margin-top: 15px;
+    }
 }

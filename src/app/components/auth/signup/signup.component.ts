@@ -74,7 +74,7 @@ export class SignupComponent implements OnInit, OnDestroy {
                                 this.userDOB.value, 
                                 'User', 
                                 'Somewhere in the World', 
-                                'https://firebasestorage.googleapis.com/v0/b/shoppie-4c4f4.appspot.com/o/account.png?alt=media&token=8dc5bea1-855c-47e9-b258-dd06eb9a10c4',
+                                'https://firebasestorage.googleapis.com/v0/b/shoppie-2ab0c.appspot.com/o/account.png?alt=media&token=ac0220b4-f76b-4840-a35d-60538d359c5d',
                                 [],
                                 'buyer', 
                                 this.userPassword.value,

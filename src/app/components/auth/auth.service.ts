@@ -57,7 +57,7 @@ export class AuthService {
                 );
                 // console.log(newUser);
                 // this.userService.userDetails.next(newUser);
-                return this.httpClient.post('https://shoppie-4c4f4.firebaseio.com/users.json', newUser)
+                return this.httpClient.post('https://shoppie-2ab0c.firebaseio.com/users.json', newUser)
                     .pipe(
                         map(responseData => {
                             for(const key in responseData){

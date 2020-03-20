@@ -108,6 +108,10 @@ export class AddProductComponent implements OnInit, OnDestroy {
     return this.addProductForm.get('productHighlights');
   }
 
+  get productHighlightsControls() {
+    return (this.addProductForm.get('productHighlights') as FormArray).controls;
+  }
+
   get productAvailableQuantity() {
     return this.addProductForm.get('productAvailableQuantity');
   }

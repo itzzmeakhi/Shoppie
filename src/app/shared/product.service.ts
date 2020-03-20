@@ -16,13 +16,13 @@ export class ProductService {
     // To Add Product - Access only to Admin
 
     onAddProduct(newProduct : Product) {
-        return this.httpClient.post('https://shoppie-4c4f4.firebaseio.com/products.json', newProduct)
+        return this.httpClient.post('https://shoppie-2ab0c.firebaseio.com/products.json', newProduct)
     }
 
     // To Retrieve all products
 
     getProducts() {
-        return this.httpClient.get<Product[]>('https://shoppie-4c4f4.firebaseio.com/products.json')
+        return this.httpClient.get<Product[]>('https://shoppie-2ab0c.firebaseio.com/products.json')
         .pipe(
             map(productsData => {
                 let products : Product[] = [];
@@ -59,7 +59,7 @@ export class ProductService {
     // To Retrieve a particular product
 
     getProduct(productId : string) {
-        return this.httpClient.get<Product>('https://shoppie-4c4f4.firebaseio.com/products.json?orderBy="productId"&equalTo="'+productId+'"')
+        return this.httpClient.get<Product>('https://shoppie-2ab0c.firebaseio.com/products.json?orderBy="productId"&equalTo="'+productId+'"')
             .pipe(
                 map(productData => {
                     for(const key in productData) {
@@ -93,13 +93,13 @@ export class ProductService {
     // To save user product rating
 
     saveProductRating(ratings : Rating[], rowId : string) {
-        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/products/'+rowId+'/productUserRatings.json', ratings)
+        return this.httpClient.put('https://shoppie-2ab0c.firebaseio.com/products/'+rowId+'/productUserRatings.json', ratings)
     }
 
     // To get all available productBrands
 
     getProductBrands() {
-        return this.httpClient.get('https://shoppie-4c4f4.firebaseio.com/brands.json')
+        return this.httpClient.get('https://shoppie-2ab0c.firebaseio.com/brands.json')
             .pipe(
                 map(responseData => {
                     if(responseData === null) {
@@ -125,13 +125,13 @@ export class ProductService {
     // To add a productBrand
 
     addProductBrand(brandsData : any[]) {
-        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/brands.json', brandsData)
+        return this.httpClient.put('https://shoppie-2ab0c.firebaseio.com/brands.json', brandsData)
     }
 
     // To get all available categories
 
     getCategories() {
-        return this.httpClient.get('https://shoppie-4c4f4.firebaseio.com/categories.json')
+        return this.httpClient.get('https://shoppie-2ab0c.firebaseio.com/categories.json')
             .pipe(
                 map(responseData => {
                     if(responseData === null) {
@@ -157,13 +157,13 @@ export class ProductService {
     // To add a category
 
     addCategory(categoryData : any[]) {
-        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/categories.json', categoryData)
+        return this.httpClient.put('https://shoppie-2ab0c.firebaseio.com/categories.json', categoryData)
     }
 
     // To get all available sellers
 
     getSellers() {
-        return this.httpClient.get('https://shoppie-4c4f4.firebaseio.com/sellers.json')
+        return this.httpClient.get('https://shoppie-2ab0c.firebaseio.com/sellers.json')
             .pipe(
                 map(responseData => {
                     if(responseData === null) {
@@ -189,13 +189,13 @@ export class ProductService {
     // To add a seller
 
     addSeller(sellersData : any[]) {
-        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/sellers.json', sellersData)
+        return this.httpClient.put('https://shoppie-2ab0c.firebaseio.com/sellers.json', sellersData)
     }
  
     // To get all products that are filtered using BrandName
 
     getProductsBasedOnBrand(brandId : string) {
-        return this.httpClient.get<Product[]>('https://shoppie-4c4f4.firebaseio.com/products.json?orderBy="productBrandId"&equalTo="'+brandId+'"')
+        return this.httpClient.get<Product[]>('https://shoppie-2ab0c.firebaseio.com/products.json?orderBy="productBrandId"&equalTo="'+brandId+'"')
             .pipe(
                 map(productsData => {
                     let products : Product[] = [];
@@ -230,7 +230,7 @@ export class ProductService {
     // To get all products that are filtered using CategoryName
 
     getProductsBasedOnCategory(categoryId : string) {
-        return this.httpClient.get<Product[]>('https://shoppie-4c4f4.firebaseio.com/products.json?orderBy="productCategoryId"&equalTo="'+categoryId+'"')
+        return this.httpClient.get<Product[]>('https://shoppie-2ab0c.firebaseio.com/products.json?orderBy="productCategoryId"&equalTo="'+categoryId+'"')
             .pipe(
                 map(productsData => {
                     let products : Product[] = [];
@@ -266,7 +266,7 @@ export class ProductService {
 
     // getBrandName(brandId : string) {
     //     // console.log(brandId);
-    //     return this.httpClient.get<{brandName : string, brandId : string}>('https://shoppie-4c4f4.firebaseio.com/brands.json?orderBy="brandId"&equalTo="'+brandId+'"')
+    //     return this.httpClient.get<{brandName : string, brandId : string}>('https://shoppie-2ab0c.firebaseio.com/brands.json?orderBy="brandId"&equalTo="'+brandId+'"')
     //         .pipe(
     //             take(1),
     //             map(brandData => {
@@ -280,7 +280,7 @@ export class ProductService {
 
     // getCategoryName(categoryId : string) {
 
-    //     return this.httpClient.get<{categoryName : string, categoryId : string}>('https://shoppie-4c4f4.firebaseio.com/categories.json?orderBy="categoryId"&equalTo="'+categoryId+'"')
+    //     return this.httpClient.get<{categoryName : string, categoryId : string}>('https://shoppie-2ab0c.firebaseio.com/categories.json?orderBy="categoryId"&equalTo="'+categoryId+'"')
     //         .pipe(
     //             take(1),
     //             map(categoryData => {

@@ -17,7 +17,7 @@ export class UserService {
     // To get user using userId
 
     getUser(userId : string) {
-        return this.httpClient.get<NewUser>('https://shoppie-4c4f4.firebaseio.com/users.json?orderBy="userId"&equalTo="'+userId+'"')
+        return this.httpClient.get<NewUser>('https://shoppie-2ab0c.firebaseio.com/users.json?orderBy="userId"&equalTo="'+userId+'"')
         .pipe(
             take(1),
             map(userData => {
@@ -50,7 +50,7 @@ export class UserService {
 
     getUsers() {
         const userType : string = "buyer";
-        return this.httpClient.get<NewUser>('https://shoppie-4c4f4.firebaseio.com/users.json?orderBy="userType"&equalTo="'+userType+'"')
+        return this.httpClient.get<NewUser>('https://shoppie-2ab0c.firebaseio.com/users.json?orderBy="userType"&equalTo="'+userType+'"')
         .pipe(
             map(userData => {
                 const usersData = [];
@@ -74,49 +74,49 @@ export class UserService {
     // To Update User Details using rowId
 
     onUpdateUserDetails(userData : NewUser, rowId : string) {
-        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'.json', userData)
+        return this.httpClient.put('https://shoppie-2ab0c.firebaseio.com/users/'+rowId+'.json', userData)
     }
 
     // To Add Address using rowId
 
     onAddAddress(rowId : string, address : Address[]) {
-        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'/userSavedAddresses.json', address)
+        return this.httpClient.put('https://shoppie-2ab0c.firebaseio.com/users/'+rowId+'/userSavedAddresses.json', address)
     }
 
     // To Delete Address using rowId
 
     onDeleteAddress(rowId : string, modifiedAddresses : Address[]) {
-        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'/userSavedAddresses.json', modifiedAddresses)
+        return this.httpClient.put('https://shoppie-2ab0c.firebaseio.com/users/'+rowId+'/userSavedAddresses.json', modifiedAddresses)
     }
 
     // To get Address using rowId
 
     getAddress(rowId : string, index : string) {
-        return this.httpClient.get<Address>('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'/userSavedAddresses/'+index+'.json');
+        return this.httpClient.get<Address>('https://shoppie-2ab0c.firebaseio.com/users/'+rowId+'/userSavedAddresses/'+index+'.json');
     }
 
     // To Update Address using rowId
 
     onUpdateAddress(rowId : string, index : string, updatedAddress : Address) {
-        return this.httpClient.patch('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'/userSavedAddresses/'+index+'.json', updatedAddress)
+        return this.httpClient.patch('https://shoppie-2ab0c.firebaseio.com/users/'+rowId+'/userSavedAddresses/'+index+'.json', updatedAddress)
     }
 
     // To get userId using rowId
 
     getUserId(rowId : string) {
-        return this.httpClient.get<string>('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'/userId.json')
+        return this.httpClient.get<string>('https://shoppie-2ab0c.firebaseio.com/users/'+rowId+'/userId.json')
     }
 
     // To Add an item to the cart using rowId
 
     saveProductToCart(cartItems : UserCart[], rowId : string) {
-        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'/userCartItems.json', cartItems)
+        return this.httpClient.put('https://shoppie-2ab0c.firebaseio.com/users/'+rowId+'/userCartItems.json', cartItems)
     }
 
     // To add an order using rowId
 
     placeAnOrder(updatedOrders : any[], rowId : string) {
-        return this.httpClient.put('https://shoppie-4c4f4.firebaseio.com/users/'+rowId+'/userOrders.json', updatedOrders)
+        return this.httpClient.put('https://shoppie-2ab0c.firebaseio.com/users/'+rowId+'/userOrders.json', updatedOrders)
     }
     
 }

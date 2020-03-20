@@ -13,5 +13,9 @@
 }
   
 @media (min-width: 320px) and (max-width: 480px) {
-
+    .add-brand-container {
+        width: 200px;
+        margin: 0 auto;
+        margin-left: -80px;
+    }
 }

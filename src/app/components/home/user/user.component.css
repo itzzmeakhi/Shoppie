@@ -48,5 +48,8 @@ button:focus {
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
-    
+    .user-details-container {
+        width: 200px;
+        margin-left: -70px;
+    }   
 }

@@ -10,7 +10,7 @@
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
-  
-
-    
+    .card-props {
+        height: 500px;
+    }
 }

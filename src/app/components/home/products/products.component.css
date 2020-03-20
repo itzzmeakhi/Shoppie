@@ -27,3 +27,28 @@ button:focus {
     width: 3rem;
     height: 3rem;
 }
+
+@media (min-width: 481px) and (max-width: 767px) {
+    
+
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .products-container {
+        width: 200px;
+        margin-left: -70px;
+    }
+    .footer-props {
+        margin-left: -80px;
+    }
+    .margin-style {
+        margin-left: 20px;
+    }
+    .pager-row {
+        width : 200px;
+        font-size: 60%;
+    }
+    .spinner-props {
+        margin-left: -90px;
+    }
+}

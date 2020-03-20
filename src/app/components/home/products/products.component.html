@@ -14,11 +14,11 @@
 
     <div class = "row pager-row">
 
-        <p class = "mr-2 margin-style"> Switch to Page: </p>
+        <p class = "mr-2 margin-style"> Page: </p>
 
         <button
             type = "button"
-            class = "btn btn-sm btn-pager m-1"
+            class = "btn btn-sm btn-pager ml-1"
             [disabled] = "currentPageNumber-1 === 0"
             (click) = "paginateProducts(currentPageNumber-1, currentPageNumber)">
             <i class = "fas fa-less-than" style = "font-size: 60%;"></i>
@@ -30,7 +30,7 @@
         </button> -->
         <button
             type = "button"
-            class = "btn btn-sm btn-light m-1"
+            class = "btn btn-sm btn-light ml-1"
             style = "height: 35px;"
             disabled>
             {{ currentPageNumber }}
@@ -42,7 +42,7 @@
         </button> -->
         <button
             type = "button"
-            class = "btn btn-sm btn-pager m-1"
+            class = "btn btn-sm btn-pager ml-1"
             (click) = "paginateProducts(currentPageNumber+1, currentPageNumber)">
             <i class = "fas fa-greater-than" style = "font-size: 60%;"></i>
         </button>
@@ -55,8 +55,6 @@
         </p>
     </div>
 
-    <app-footer></app-footer>
-
 </div>
 
 <!-- Spinner -->
@@ -65,4 +63,12 @@
     <div class = "spinner-border spinner-props" role = "status">
         <span class = "sr-only">Loading...</span>
     </div>
+</div>
+
+<!-- footer -->
+
+<div class = "footer-props">
+
+    <app-footer></app-footer>
+
 </div>

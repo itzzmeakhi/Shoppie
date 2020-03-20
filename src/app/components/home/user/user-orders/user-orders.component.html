@@ -10,7 +10,7 @@
 
             <div class = "col-md-3 p-4">
                 <p class = "text-primary">
-                    <span class = "text-dark">Order Id:</span> {{ order.ordId }}
+                    <span class = "text-dark">Order Id:</span> {{ order.ordId | MaxLength : 10}}
                 </p>
 
                 <p class = "text-dark">

@@ -13,7 +13,8 @@
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
-  
-
-    
+    .products-filter-container {
+        width: 200px;
+        margin-left: -80px;
+    }
 }

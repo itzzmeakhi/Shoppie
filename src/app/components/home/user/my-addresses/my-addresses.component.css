@@ -51,7 +51,8 @@ span p {
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
-  
-
-    
+    .my-addresses-container {
+        width: 200px;
+        margin-left: -70px;
+    }
 }

@@ -136,12 +136,6 @@ Improved styling and cleared some issues with mobile screens. Also added minor i
 
 Removed position caching while changing editMode in addresses/user component. Also solved route bug with user component to address component
 
-# Minor Improvements
-
-### Commit - 18
-
-Removed minor bugs with styling
-
 
 
 

@@ -21,5 +21,8 @@ button:focus {
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
-    
+    .orders-container {
+        width: 200px;
+        margin-left: -80px;
+    }
 }

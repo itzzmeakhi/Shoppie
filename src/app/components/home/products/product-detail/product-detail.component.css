@@ -64,7 +64,18 @@ button:focus {
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
-  
-
-    
+    .product-detail-container {
+        width: 200px;
+        margin-left: -70px;
+        font-size: 90%;
+    } 
+    .right-border {
+        border: none;
+    }
+    .footer-margin {
+        margin-left: -80px;
+    }
+    .spinner-props {
+        margin-left: -90px;
+    }
 }

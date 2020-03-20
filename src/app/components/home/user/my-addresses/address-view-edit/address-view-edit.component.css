@@ -53,7 +53,14 @@ span p {
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
-  
-
-    
+    .address-view-container {
+        width: 200px;
+        margin-left: -70px;
+    }
+    button {
+        margin-bottom: 15px;
+    }
+    .back-btn {
+        margin-left: 0;
+    }
 }

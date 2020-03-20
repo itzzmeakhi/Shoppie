@@ -32,11 +32,16 @@ button:focus {
     } 
     .add-product-form {
         width: 270px;
+        margin: 0 auto;
     }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
-  
-
-    
+    .add-product-container {
+        margin-left: -80px;
+        width: 230px;
+    } 
+    .add-product-form {
+        margin: 0 auto;
+    }
 }

@@ -40,5 +40,14 @@ button:focus {
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
-  
+    .products-specific-container {
+        width: 200px;
+        margin-left: -70px;
+    }
+    .spinner-props {
+        margin-left: -110px;
+    }
+    .footer-props {
+        margin-left: -80px;
+    }
 }
